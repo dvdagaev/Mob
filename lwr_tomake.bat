@@ -1,0 +1,9 @@
+cd System/Clwr
+call tomake
+cd ../..
+cd Host/Clwr
+call tomake
+cd ../..
+cd Omtest/Clwr
+call tomake
+cd ../..

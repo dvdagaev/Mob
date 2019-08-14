@@ -1,0 +1,9 @@
+cd System/Cfwr
+call toclean
+cd ../..
+cd Host/Cfwr
+call toclean
+cd ../..
+cd Omtest/Cfwr
+call toclean
+cd ../..

@@ -1,0 +1,9 @@
+cd System/Clwr
+call toclean
+cd ../..
+cd Host/Clwr
+call toclean
+cd ../..
+cd Omtest/Clwr
+call toclean
+cd ../..
