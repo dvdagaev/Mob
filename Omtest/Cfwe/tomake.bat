@@ -1,0 +1,10 @@
+gcc -m32 -c OmtestHelloWorld.c -I ../../C -I ../../System/Cfwe -I ../../Host/Cfwe 
+gcc -m32 -c OmtestFormats.c -I ../../C -I ../../System/Cfwe -I ../../Host/Cfwe 
+gcc -m32 -c OmtestDateTime.c -I ../../C -I ../../System/Cfwe -I ../../Host/Cfwe 
+gcc -m32 -c OmtestMkTraps.c -I ../../C -I ../../System/Cfwe -I ../../Host/Cfwe 
+gcc -m32 -c OmtestHeap.c -I ../../C -I ../../System/Cfwe -I ../../Host/Cfwe 
+gcc -m32 OmtestHelloWorld.o ../../C/SYSTEM.c -I ../../C ../../System/Cfwe/System.lib ../../Host/Cfwe/Host.lib -o OmtestHelloWorld.exe
+gcc -m32 OmtestFormats.o ../../C/SYSTEM.c -I ../../C ../../System/Cfwe/System.lib ../../Host/Cfwe/Host.lib -o OmtestFormats.exe
+gcc -m32 OmtestDateTime.o ../../C/SYSTEM.c -I ../../C ../../System/Cfwe/System.lib ../../Host/Cfwe/Host.lib -o OmtestDateTime.exe
+gcc -m32 OmtestMkTraps.o ../../C/SYSTEM.c -I ../../C ../../System/Cfwe/System.lib ../../Host/Cfwe/Host.lib -o OmtestMkTraps.exe
+gcc -m32 OmtestHeap.o ../../C/SYSTEM.c -I ../../C ../../System/Cfwe/System.lib ../../Host/Cfwe/Host.lib -o OmtestHeap.exe
