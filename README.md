@@ -1,7 +1,7 @@
 # MultiOberon Compiler
 
 MultiOberon is an Oberon Compiler with 3 different backends:
-* BlackBox Native x86 code Generator;
+* BlackBox Native x86 code Generator (now 1.6)
 * Ofront Generated C-Language Code Translator;
 * LLVM representation Generator.
 
@@ -23,7 +23,7 @@ MultiOberon can be called from BlackBox environment and from command line.
 # Компилятор МультиОберон
 
 МультиОберон это компилятор языка Оберон с 3 различными бэкендами:
-* Генератором нативного кода x86 для системы BlackBox;
+* Генератором нативного кода x86 для системы BlackBox (пока 1.6);
 * Транслятором Ofront в язык C;
 * Генератором кода LLVM.
 
