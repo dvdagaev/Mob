@@ -11,7 +11,7 @@ static void HostConLog_Init (void);
 static void HostConLog_SpecChar (_CHAR ch);
 
 #define HostConLog_CChar(ch)	putchar((int)ch)
-#define HostConLog_CConv(ca, ca__len, sca, sca__len)	CharToOemW(ca, sca)
+#define HostConLog_CConv(ich, sca, sca__len)	wctomb(sca, ich)
 export void HostConLog__reg();
 export void HostConLog__body();
 export struct SYSTEM_MODDESC HostConLog__desc;
@@ -19,13 +19,22 @@ export struct SYSTEM_MODDESC HostConLog__desc;
 
 static void HostConLog_SpecChar (_CHAR ch)
 {
+	INTEGER j, res, _for__5;
 	__ENTER("HostConLog.SpecChar");
-	HostConLog_cStr[0] = ch;
-	HostConLog_scStr[1] = 0;
-	HostConLog_CConv(HostConLog_cStr, 2, HostConLog_scStr, 16);
-	HostConLog_CChar(HostConLog_scStr[0]);
-	if (HostConLog_scStr[1] != 0) {
-		HostConLog_CChar(HostConLog_scStr[0]);
+	if (ch <= 127) {
+		HostConLog_CChar(ch);
+	} else {
+		res = HostConLog_CConv((INTEGER)ch, HostConLog_scStr, 16);
+		if (res > 0 && res < 16) {
+			_for__5 = res - 1;
+			j = 0;
+			while (j <= _for__5) {
+				HostConLog_CChar(HostConLog_scStr[__X(j, 16)]);
+				j += 1;
+			}
+		} else {
+			HostConLog_CChar((_CHAR)L'\?');
+		}
 	}
 	__EXIT;
 }
@@ -55,7 +64,7 @@ static ADDRESS HostConLog__ptrs[] = {
 };
 struct SYSTEM_MODDESC HostConLog__desc = {
 	0, 13, 0, /* next, opts, refcnt */ 
-	{2019, 10, 8, 16, 28, 22}, /* compTime */ 
+	{2019, 10, 8, 13, 56, 49}, /* compTime */ 
 	{0, 0, 0, 0, 0, 0}, /* loadTime */ 
 	HostConLog__body,
 	0,

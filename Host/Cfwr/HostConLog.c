@@ -55,7 +55,7 @@ static ADDRESS HostConLog__ptrs[] = {
 };
 struct SYSTEM_MODDESC HostConLog__desc = {
 	0, 13, 0, /* next, opts, refcnt */ 
-	{2019, 5, 28, 8, 42, 43}, /* compTime */ 
+	{2019, 10, 8, 13, 58, 14}, /* compTime */ 
 	{0, 0, 0, 0, 0, 0}, /* loadTime */ 
 	HostConLog__body,
 	0,

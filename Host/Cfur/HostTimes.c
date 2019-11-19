@@ -4,12 +4,6 @@
 #include "HostApi.h"
 
 typedef
-	union HostTimes_FTime {
-		HostApi_FILETIME ft;
-		Times_Time tv;
-	} HostTimes_FTime;
-
-typedef
 	struct HostTimes_Hook__rec *HostTimes_Hook;
 
 typedef
@@ -30,83 +24,76 @@ static void HostTimes_Hook_ToSystemTime (HostTimes_Hook h, Times_Time t, Times_S
 *st__typ, INTEGER *res);
 
 
-static HostApi_TIME_ZONE_INFORMATION HostTimes_tZone;
 
 export ADDRESS HostTimes_Hook__rec__desc[];
 export SYSTEM_TYPEDESC *HostTimes_Hook__rec__typ = (SYSTEM_TYPEDESC*)(HostTimes_Hook__rec__desc + 9);
-export ADDRESS HostTimes_FTime__desc[];
-export SYSTEM_TYPEDESC *HostTimes_FTime__typ = (SYSTEM_TYPEDESC*)(HostTimes_FTime__desc + 1);
 
 static void HostTimes_Init (void);
-static void HostTimes_TS2WS (Times_SystemTime *st, SYSTEM_TYPEDESC *st__typ, HostApi_SYSTEMTIME *ast);
-static void HostTimes_UInt_Long (INTEGER uiv, LONGINT *lv);
-static void HostTimes_WS2TS (HostApi_SYSTEMTIME *ast, Times_SystemTime *st, SYSTEM_TYPEDESC *st__typ);
+static void HostTimes_TM2TS (HostApi_tm *tm, Times_SystemTime *st, SYSTEM_TYPEDESC *st__typ);
+static void HostTimes_TS2TM (Times_SystemTime *st, SYSTEM_TYPEDESC *st__typ, HostApi_tm *tm);
 
 export void HostTimes__reg();
 export void HostTimes__body();
 export struct SYSTEM_MODDESC HostTimes__desc;
 
 
-static void HostTimes_WS2TS (HostApi_SYSTEMTIME *ast, Times_SystemTime *st, SYSTEM_TYPEDESC *st__typ)
+static void HostTimes_TM2TS (HostApi_tm *tm, Times_SystemTime *st, SYSTEM_TYPEDESC *st__typ)
 {
-	__ENTER("HostTimes.WS2TS");
-	(*st).year = (*ast).wYear;
-	(*st).month = (*ast).wMonth;
-	(*st).day = (*ast).wDay;
-	(*st).wday = (*ast).wDayOfWeek;
-	(*st).hour = (*ast).wHour;
-	(*st).minute = (*ast).wMinute;
-	(*st).second = (*ast).wSecond;
-	(*st).mcs = (INTEGER)(*ast).wMilliseconds * 1000;
+	__ENTER("HostTimes.TM2TS");
+	(*st).year = (*tm).tm_year + 1900;
+	(*st).month = (*tm).tm_mon + 1;
+	(*st).day = (*tm).tm_mday;
+	(*st).wday = (*tm).tm_wday + 1;
+	(*st).hour = (*tm).tm_hour;
+	(*st).minute = (*tm).tm_min;
+	(*st).second = (*tm).tm_sec;
 	__EXIT;
 }
 
-static void HostTimes_TS2WS (Times_SystemTime *st, SYSTEM_TYPEDESC *st__typ, HostApi_SYSTEMTIME *ast)
+static void HostTimes_TS2TM (Times_SystemTime *st, SYSTEM_TYPEDESC *st__typ, HostApi_tm *tm)
 {
-	__ENTER("HostTimes.TS2WS");
-	(*ast).wYear = (SHORTINT)(*st).year;
-	(*ast).wMonth = (SHORTINT)(*st).month;
-	(*ast).wDay = (SHORTINT)(*st).day;
-	(*ast).wDayOfWeek = (SHORTINT)(*st).wday;
-	(*ast).wHour = (SHORTINT)(*st).hour;
-	(*ast).wMinute = (SHORTINT)(*st).minute;
-	(*ast).wSecond = (SHORTINT)(*st).second;
-	(*ast).wMilliseconds = (SHORTINT)__DIV((*st).mcs, 1000);
-	__EXIT;
-}
-
-static void HostTimes_UInt_Long (INTEGER uiv, LONGINT *lv)
-{
-	__ENTER("HostTimes.UInt_Long");
-	*lv = uiv;
-	if (*lv < 0) {
-		*lv += 0x00000000ffffffff;
-	}
+	__ENTER("HostTimes.TS2TM");
+	(*tm).tm_year = (*st).year - 1900;
+	(*tm).tm_mon = (*st).month - 1;
+	(*tm).tm_mday = (*st).day;
+	(*tm).tm_wday = (*st).wday - 1;
+	(*tm).tm_hour = (*st).hour;
+	(*tm).tm_min = (*st).minute;
+	(*tm).tm_sec = (*st).second;
+	(*tm).tm_yday = 0;
+	(*tm).tm_isdst = 0;
 	__EXIT;
 }
 
 static Times_Time HostTimes_Hook_GetTime (HostTimes_Hook h)
 {
-	HostTimes_FTime ft;
+	HostApi_timeval tv;
+	HostApi_timezone tvz;
+	INTEGER rc;
 	__ENTER("HostTimes.Hook.GetTime");
-	HostApi_GetSystemTimeAsFileTime(&ft.ft);
+	rc = HostApi_gettimeofday(&tv, &tvz);
 	__EXIT;
-	return ft.tv;
+	return Times_FromSecMcs(tv.tv_sec, tv.tv_usec, 1);
 }
 
 static void HostTimes_Hook_ToSystemTime (HostTimes_Hook h, Times_Time t, Times_SystemTime *st, SYSTEM_TYPEDESC \
 *st__typ, INTEGER *res)
 {
-	HostTimes_FTime ft;
-	HostApi_SYSTEMTIME ast;
+	HostApi_tmptr tm = NIL;
+	Times_Sec sec;
+	HostApi_time_t sec_t;
+	Times_Mcs mcs;
 	__ENTER("HostTimes.Hook.ToSystemTime");
-	ft.tv = t;
-	if (HostApi_FileTimeToSystemTime(&ft.ft, &ast) == 0) {
+	sec = Times_ToSec(t);
+	sec_t = sec;
+	tm = HostApi_gmtime(&sec_t);
+	if (tm == NIL) {
 		*res = 1;
 		*st = Times_zeroSysTime;
 	} else {
+		HostTimes_TM2TS(tm, st, st__typ);
+		(*st).mcs = Times_ToMcs(t);
 		*res = 0;
-		HostTimes_WS2TS(&ast, st, st__typ);
 	}
 	__EXIT;
 }
@@ -114,19 +101,21 @@ static void HostTimes_Hook_ToSystemTime (HostTimes_Hook h, Times_Time t, Times_S
 static void HostTimes_Hook_ToLocalTime (HostTimes_Hook h, Times_Time t, Times_SystemTime *lt, SYSTEM_TYPEDESC \
 *lt__typ, INTEGER *res)
 {
-	HostTimes_FTime ft;
-	HostApi_SYSTEMTIME ast, alt;
+	HostApi_tmptr tm = NIL;
+	Times_Sec sec;
+	HostApi_time_t sec_t;
+	Times_Mcs mcs;
 	__ENTER("HostTimes.Hook.ToLocalTime");
-	ft.tv = t;
-	if (HostApi_FileTimeToSystemTime(&ft.ft, &ast) == 0) {
+	sec = Times_ToSec(t);
+	sec_t = sec;
+	tm = HostApi_localtime(&sec_t);
+	if (tm == NIL) {
 		*res = 1;
 		*lt = Times_zeroSysTime;
-	} else if (HostApi_SystemTimeToTzSpecificLocalTime(&HostTimes_tZone, &ast, &alt) == 0) {
-		*res = 3;
-		*lt = Times_zeroSysTime;
 	} else {
+		HostTimes_TM2TS(tm, lt, lt__typ);
+		(*lt).mcs = Times_ToMcs(t);
 		*res = 0;
-		HostTimes_WS2TS(&alt, lt, lt__typ);
 	}
 	__EXIT;
 }
@@ -134,16 +123,17 @@ static void HostTimes_Hook_ToLocalTime (HostTimes_Hook h, Times_Time t, Times_Sy
 static void HostTimes_Hook_FromSystemTime (HostTimes_Hook h, Times_SystemTime *st, SYSTEM_TYPEDESC *st__typ, \
 Times_Time *t, INTEGER *res)
 {
-	HostApi_SYSTEMTIME ast;
-	HostTimes_FTime lft;
+	HostApi_tm tm;
+	HostApi_time_t sec_t;
 	__ENTER("HostTimes.Hook.FromSystemTime");
-	HostTimes_TS2WS(st, st__typ, &ast);
-	if (HostApi_SystemTimeToFileTime(&ast, &lft.ft) == 0) {
+	HostTimes_TS2TM(st, st__typ, &tm);
+	sec_t = HostApi_mktime(&tm);
+	if (sec_t != -1) {
+		*t = Times_FromSecMcs(sec_t, (*st).mcs, 1) + __MOD(tm.tm_gmtoff, 86400) * 10000000;
+		*res = 0;
+	} else {
 		*res = 1;
 		*t = 0;
-	} else {
-		*t = lft.tv;
-		*res = 0;
 	}
 	__EXIT;
 }
@@ -151,53 +141,43 @@ Times_Time *t, INTEGER *res)
 static void HostTimes_Hook_FromLocalTime (HostTimes_Hook h, Times_SystemTime *lt, SYSTEM_TYPEDESC *lt__typ, \
 Times_Time *t, INTEGER *res)
 {
-	HostApi_SYSTEMTIME ast;
-	HostTimes_FTime lft, ft;
+	HostApi_tm tm;
+	HostApi_time_t sec_t;
 	__ENTER("HostTimes.Hook.FromLocalTime");
-	HostTimes_TS2WS(lt, lt__typ, &ast);
-	if (HostApi_SystemTimeToFileTime(&ast, &lft.ft) == 0) {
+	HostTimes_TS2TM(lt, lt__typ, &tm);
+	sec_t = HostApi_mktime(&tm);
+	if (sec_t != -1) {
+		*t = Times_FromSecMcs(sec_t, (*lt).mcs, 1);
+		*res = 0;
+	} else {
 		*res = 1;
 		*t = 0;
-	} else if (HostApi_LocalFileTimeToFileTime(&lft.ft, &ft.ft) == 0) {
-		*res = 3;
-		*t = 0;
-	} else {
-		*t = ft.tv;
-		*res = 0;
 	}
 	__EXIT;
 }
 
 static void HostTimes_Hook_GetUTCBias (HostTimes_Hook h, INTEGER *bias)
 {
-	INTEGER res;
 	__ENTER("HostTimes.Hook.GetUTCBias");
-	res = HostApi_GetTimeZoneInformation(&HostTimes_tZone);
-	if (res != -1) {
-		if ((SET)res == 0x02) {
-			*bias = HostTimes_tZone.Bias + HostTimes_tZone.DaylightBias;
-		} else {
-			*bias = HostTimes_tZone.Bias + HostTimes_tZone.StandardBias;
-		}
-	}
 	__EXIT;
 }
 
 static void HostTimes_Hook_Sleep (HostTimes_Hook h, Times_Time tp)
 {
-	LONGINT ms;
-	HostTimes_FTime fp;
-	INTEGER sl;
+	Times_Sec sec;
+	Times_Mcs mcs;
+	HostApi_useconds_t sl;
+	INTEGER rc;
 	__ENTER("HostTimes.Hook.Sleep");
-	fp.tv = tp;
-	while (fp.ft.dwHighDateTime >= 1000) {
-		HostApi_Sleep(429496729);
-		fp.ft.dwHighDateTime -= 1000;
+	sec = Times_ToSec(tp);
+	while (sec >= 1000) {
+		rc = HostApi_usleep(1000000000L);
+		sec = sec - 1000;
 	}
-	HostTimes_UInt_Long(fp.ft.dwLowDateTime, &ms);
-	sl = (INTEGER)(__DIV(ms, 10000) + (LONGINT)(fp.ft.dwHighDateTime * 429496));
+	mcs = Times_ToMcs(tp);
+	sl = sec * 1000000 + (LONGINT)mcs;
 	if (sl > 0) {
-		HostApi_Sleep(sl);
+		rc = HostApi_usleep(sl);
 	}
 	__EXIT;
 }
@@ -207,7 +187,6 @@ static void HostTimes_Init (void)
 	HostTimes_Hook hook = NIL;
 	INTEGER res;
 	__ENTER("HostTimes.Init");
-	res = HostApi_GetTimeZoneInformation(&HostTimes_tZone);
 	hook = __NEW(HostTimes_Hook__rec__typ);
 	Times_SetHook((void*)hook);
 	__EXIT;
@@ -226,52 +205,33 @@ export ADDRESS HostTimes_Hook__rec__desc[] = {
 	(ADDRESS)HostTimes_Hook_FromSystemTime, 
 	(ADDRESS)HostTimes_Hook_FromLocalTime, 
 	0, 
-	1,
+	4,
 	(ADDRESS)&HostTimes__desc,
 	1<<8 | 0x11,
 	(ADDRESS)(Times_Hook__rec__desc + 9),
 	(ADDRESS)(HostTimes_Hook__rec__desc + 9),
 	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
 	(ADDRESS)HostTimes_Hook__rec__flds, 
-	-4
-};
-static ADDRESS HostTimes_FTime__flds[] = {
-	2, 
-	0, 0, 7<<8 | 0x15, 0,
-	0, 0, 10<<8 | 0x15, 10,
-};
-export ADDRESS HostTimes_FTime__desc[] = {
-	-1, 
-	8,
-	(ADDRESS)&HostTimes__desc,
-	13<<8 | 0x01,
-	0,
-	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
-	(ADDRESS)HostTimes_FTime__flds, 
-	-4
+	-8
 };
 static SYSTEM_MODDESC *HostTimes__imp[] = {
 	&HostApi__desc,
 	&Times__desc,
 };
 static ADDRESS HostTimes__exp[] = {
-	2, 
-	0x9bbdaee4, 0xcb71f028, 13<<8 | 0x12, 0,
-	0x61127b98, 0xd83728c0, 1<<8 | 0x12, (ADDRESS)(HostTimes_Hook__rec__desc + 9),
+	1, 
+	0x61127b98, 0x1adca7e1, 1<<8 | 0x12, (ADDRESS)(HostTimes_Hook__rec__desc + 9),
 };
 static char HostTimes__names[] = {
 	0,
 	'H','o','o','k','^',0,
-	'f','t',0,
-	't','v',0,
-	'F','T','i','m','e',0,
 };
 static ADDRESS HostTimes__ptrs[] = {
 	0
 };
 struct SYSTEM_MODDESC HostTimes__desc = {
 	0, 13, 0, /* next, opts, refcnt */ 
-	{2019, 10, 8, 16, 28, 22}, /* compTime */ 
+	{2019, 10, 9, 15, 21, 21}, /* compTime */ 
 	{0, 0, 0, 0, 0, 0}, /* loadTime */ 
 	HostTimes__body,
 	0,
