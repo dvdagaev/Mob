@@ -1,38 +1,56 @@
 ; ModuleID = 'Times'
 source_filename = "Times"
 
-%SYSTEM_MODDESC = type { %SYSTEM_MODDESC*, i32, i32, [6 x i16], [6 x i16], void ()*, void ()*, i32, i32, i32, i32, i32, i32, i32, i32, i32, i32, [498 x i8]*, [1 x i32]*, [2 x %SYSTEM_MODDESC*]*, %SYSTEM_DIRECTORY*, [256 x i8] }
-%SYSTEM_DIRECTORY = type { i32, [40 x %SYSTEM_OBJDESC] }
+%SYSTEM_MODDESC = type { %SYSTEM_MODDESC*, i32, i32, [6 x i16], [6 x i16], void ()*, void ()*, i32, i32, i32, i32, i32, i32, i32, i32, i32, i32, [514 x i8]*, [1 x i32]*, [2 x %SYSTEM_MODDESC*]*, %SYSTEM_DIRECTORY*, [256 x i8] }
+%SYSTEM_DIRECTORY = type { i32, [41 x %SYSTEM_OBJDESC] }
 %SYSTEM_OBJDESC = type { i32, i32, i32, i32 }
 %"Times_Hook^" = type {}
 %Times_SystemTime = type { i32, i32, i32, i32, i32, i32, i32, i32 }
-%SYSTEM_DLINK = type { %SYSTEM_DLINK*, %SYSTEM_MODDESC*, i32 }
+%SYSTEM_DLINK = type { %SYSTEM_DLINK*, %SYSTEM_MODDESC*, [0 x i8]* }
 %SYSTEM_TYPEDESC = type { i32, %SYSTEM_MODDESC*, i32, [16 x i32], %SYSTEM_DIRECTORY*, [1 x i32] }
 
-@Times__names = private global [498 x i8] c"\00EPOCH_DIFF\00FromLocalTime\00FromSecMcs\00FromSystemTime\00GetTime\00day\00hour\00mcs\00minute\00month\00second\00wday\00year\00h\00lt\00res\00t\00st\00tp\00Hook\00Hook^\00Init\00Mcs\00MonName\00MonNames\00OStrings\00Sec\00SetDelimeters\00SetHook\00SetMonNames\00Sleep\00SystemTime\00SystemTimeToString\00Time\00ToLocalTime\00ToMcs\00ToSec\00ToString\00ToSystemTime\00delimDaT\00delimDate\00delimMcs\00delimTime\00monNames\00pHook\00tDA\00tDATE\00tDATETIME\00tHO\00tMCS\00tMI\00tMO\00tMON\00tMS\00tSE\00tTIME\00tTIMEX\00tUTC\00tWD\00tYEAR\00tYR\00zeroSysTime\00from1970\00sec\00d_dat\00d_date\00d_mcs\00d_time\00j\00mn\00s\00s0\00si\00tfmt\00li\00"
+@Times__names = private global [514 x i8] c"\00EPOCH_DIFF\00FromLocalTime\00FromSecMcs\00FromSystemTime\00GetTime\00GetUTCBias\00day\00hour\00mcs\00minute\00month\00second\00wday\00year\00h\00lt\00res\00t\00st\00bias\00tp\00Hook\00Hook^\00Init\00Mcs\00MonName\00MonNames\00OStrings\00Sec\00SetDelimeters\00SetHook\00SetMonNames\00Sleep\00SystemTime\00SystemTimeToString\00Time\00ToLocalTime\00ToMcs\00ToSec\00ToString\00ToSystemTime\00delimDaT\00delimDate\00delimMcs\00delimTime\00monNames\00pHook\00tDA\00tDATE\00tDATETIME\00tHO\00tMCS\00tMI\00tMO\00tMON\00tMS\00tSE\00tTIME\00tTIMEX\00tUTC\00tWD\00tYEAR\00tYR\00zeroSysTime\00from1970\00sec\00d_dat\00d_date\00d_mcs\00d_time\00j\00mn\00s\00s0\00si\00tfmt\00li\00"
 @Times__imp = private global [2 x %SYSTEM_MODDESC*] [%SYSTEM_MODDESC* @OStrings__desc, %SYSTEM_MODDESC* null]
 @OStrings__desc = external global %SYSTEM_MODDESC
 @Times__inames = global [16 x i8] c"Times\00OStrings\00\00"
 @Times__ptrs = private global [1 x i32] zeroinitializer
-@Times__exp = private global %SYSTEM_DIRECTORY { i32 40, [40 x %SYSTEM_OBJDESC] [%SYSTEM_OBJDESC { i32 -150324488, i32 ptrtoint (void (%Times_SystemTime*, %SYSTEM_TYPEDESC*, i64*, i32*)* @Times_FromLocalTime to i32), i32 3140, i32 0 }, %SYSTEM_OBJDESC { i32 -1794665586, i32 ptrtoint (i64 (i64, i32, i1)* @Times_FromSecMcs to i32), i32 6724, i32 0 }, %SYSTEM_OBJDESC { i32 -150324488, i32 ptrtoint (void (%Times_SystemTime*, %SYSTEM_TYPEDESC*, i64*, i32*)* @Times_FromSystemTime to i32), i32 9540, i32 0 }, %SYSTEM_OBJDESC { i32 680234924, i32 ptrtoint (i64 ()* @Times_GetTime to i32), i32 13380, i32 0 }, %SYSTEM_OBJDESC { i32 -238214799, i32 -238214799, i32 30786, i32 ptrtoint ([21 x i32]* @Times_Hook__desc to i32) }, %SYSTEM_OBJDESC { i32 1306174823, i32 -84539413, i32 32018, i32 ptrtoint (i32* getelementptr inbounds ([29 x i32], [29 x i32]* @Times_Hook__redesc, i32 0, i32 8) to i32) }, %SYSTEM_OBJDESC { i32 6, i32 6, i32 34882, i32 6 }, %SYSTEM_OBJDESC { i32 -2124147430, i32 -2124147430, i32 35906, i32 ptrtoint ([21 x i32]* @Times_MonName__desc to i32) }, %SYSTEM_OBJDESC { i32 -1547970722, i32 -1547970722, i32 37954, i32 ptrtoint ([21 x i32]* @Times_MonNames__desc to i32) }, %SYSTEM_OBJDESC { i32 18, i32 18, i32 42562, i32 10 }, %SYSTEM_OBJDESC { i32 270122651, i32 ptrtoint (void (i16, i16, i16, i16)* @Times_SetDelimeters to i32), i32 43588, i32 0 }, %SYSTEM_OBJDESC { i32 143334495, i32 ptrtoint (void (%"Times_Hook^"*)* @Times_SetHook to i32), i32 47172, i32 0 }, %SYSTEM_OBJDESC { i32 -33703709, i32 ptrtoint (void ([12 x [32 x i16]]*)* @Times_SetMonNames to i32), i32 49220, i32 0 }, %SYSTEM_OBJDESC { i32 2142261157, i32 ptrtoint (void (i64)* @Times_Sleep to i32), i32 52292, i32 0 }, %SYSTEM_OBJDESC { i32 -1425334587, i32 -547093846, i32 53826, i32 ptrtoint (i32* getelementptr inbounds ([23 x i32], [23 x i32]* @Times_SystemTime__recdesc, i32 0, i32 2) to i32) }, %SYSTEM_OBJDESC { i32 -380572987, i32 ptrtoint (void (%Times_SystemTime*, %SYSTEM_TYPEDESC*, i32, [0 x i16]*, i32)* @Times_SystemTimeToString to i32), i32 56644, i32 0 }, %SYSTEM_OBJDESC { i32 18, i32 18, i32 61506, i32 10 }, %SYSTEM_OBJDESC { i32 -1009249442, i32 ptrtoint (void (i64, %Times_SystemTime*, %SYSTEM_TYPEDESC*, i32*)* @Times_ToLocalTime to i32), i32 62788, i32 0 }, %SYSTEM_OBJDESC { i32 288490987, i32 ptrtoint (i32 (i64)* @Times_ToMcs to i32), i32 65860, i32 0 }, %SYSTEM_OBJDESC { i32 -868839049, i32 ptrtoint (i64 (i64)* @Times_ToSec to i32), i32 67396, i32 0 }, %SYSTEM_OBJDESC { i32 -344523750, i32 ptrtoint (void (i64, i32, [0 x i16]*, i32)* @Times_ToString to i32), i32 68932, i32 0 }, %SYSTEM_OBJDESC { i32 -1009249442, i32 ptrtoint (void (i64, %Times_SystemTime*, %SYSTEM_TYPEDESC*, i32*)* @Times_ToSystemTime to i32), i32 71236, i32 0 }, %SYSTEM_OBJDESC { i32 -601237711, i32 ptrtoint ([12 x [32 x i16]]* @Times_monNames to i32), i32 84259, i32 ptrtoint ([21 x i32]* @Times_MonNames__desc to i32) }, %SYSTEM_OBJDESC { i32 1162441350, i32 0, i32 88129, i32 0 }, %SYSTEM_OBJDESC { i32 -1160724854, i32 0, i32 89153, i32 0 }, %SYSTEM_OBJDESC { i32 -1783533120, i32 0, i32 90689, i32 0 }, %SYSTEM_OBJDESC { i32 1288391144, i32 0, i32 93249, i32 0 }, %SYSTEM_OBJDESC { i32 2043138700, i32 0, i32 94273, i32 0 }, %SYSTEM_OBJDESC { i32 1208636511, i32 0, i32 95553, i32 0 }, %SYSTEM_OBJDESC { i32 1607417652, i32 0, i32 96577, i32 0 }, %SYSTEM_OBJDESC { i32 1527652995, i32 0, i32 97601, i32 0 }, %SYSTEM_OBJDESC { i32 1954870357, i32 0, i32 98881, i32 0 }, %SYSTEM_OBJDESC { i32 1883630050, i32 0, i32 99905, i32 0 }, %SYSTEM_OBJDESC { i32 -1020860670, i32 0, i32 100929, i32 0 }, %SYSTEM_OBJDESC { i32 653285540, i32 0, i32 102465, i32 0 }, %SYSTEM_OBJDESC { i32 2097598267, i32 0, i32 104257, i32 0 }, %SYSTEM_OBJDESC { i32 1099460401, i32 0, i32 105537, i32 0 }, %SYSTEM_OBJDESC { i32 1384913389, i32 0, i32 106561, i32 0 }, %SYSTEM_OBJDESC { i32 1447887962, i32 0, i32 108097, i32 0 }, %SYSTEM_OBJDESC { i32 2059899534, i32 ptrtoint (%Times_SystemTime* @Times_zeroSysTime to i32), i32 109091, i32 ptrtoint (i32* getelementptr inbounds ([23 x i32], [23 x i32]* @Times_SystemTime__recdesc, i32 0, i32 2) to i32) }] }
-@Times__desc = global %SYSTEM_MODDESC { %SYSTEM_MODDESC* null, i32 3, i32 0, [6 x i16] [i16 2019, i16 7, i16 17, i16 16, i16 46, i16 10], [6 x i16] zeroinitializer, void ()* @Times__body, void ()* null, i32 1, i32 1, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, [498 x i8]* @Times__names, [1 x i32]* @Times__ptrs, [2 x %SYSTEM_MODDESC*]* @Times__imp, %SYSTEM_DIRECTORY* @Times__exp, [256 x i8] c"Times\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00" }
-@Times_SystemTime__recdesc = global [23 x i32] [i32 -1, i32 0, i32 32, i32 ptrtoint (%SYSTEM_MODDESC* @Times__desc to i32), i32 53761, i32 ptrtoint (i32* getelementptr inbounds ([23 x i32], [23 x i32]* @Times_SystemTime__recdesc, i32 0, i32 2) to i32), i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 ptrtoint ({ i32, [8 x %SYSTEM_OBJDESC] }* @Times_SystemTime__recdesc__flds to i32), i32 -4]
-@Times_SystemTime__recdesc__flds = private global { i32, [8 x %SYSTEM_OBJDESC] } { i32 8, [8 x %SYSTEM_OBJDESC] [%SYSTEM_OBJDESC { i32 0, i32 0, i32 25157, i32 6 }, %SYSTEM_OBJDESC { i32 0, i32 4, i32 20549, i32 6 }, %SYSTEM_OBJDESC { i32 0, i32 8, i32 15429, i32 6 }, %SYSTEM_OBJDESC { i32 0, i32 12, i32 23877, i32 6 }, %SYSTEM_OBJDESC { i32 0, i32 16, i32 16453, i32 6 }, %SYSTEM_OBJDESC { i32 0, i32 20, i32 18757, i32 6 }, %SYSTEM_OBJDESC { i32 0, i32 24, i32 22085, i32 6 }, %SYSTEM_OBJDESC { i32 0, i32 28, i32 17733, i32 6 }] }
-@Times_Hook__redesc = global [29 x i32] [i32 -1, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 1, i32 ptrtoint (%SYSTEM_MODDESC* @Times__desc to i32), i32 32013, i32 ptrtoint (i32* getelementptr inbounds ([29 x i32], [29 x i32]* @Times_Hook__redesc, i32 0, i32 8) to i32), i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 ptrtoint ({ i32, [0 x %SYSTEM_OBJDESC] }* @Times_Hook__redesc__flds to i32), i32 -4]
+@Times__exp = private global %SYSTEM_DIRECTORY { i32 41, [41 x %SYSTEM_OBJDESC] [%SYSTEM_OBJDESC { i32 -150324488, i32 ptrtoint (void (%Times_SystemTime*, %SYSTEM_TYPEDESC*, i64*, i32*)* @Times_FromLocalTime to i32), i32 3140, i32 0 }, %SYSTEM_OBJDESC { i32 -1794665586, i32 ptrtoint (i64 (i64, i32, i1)* @Times_FromSecMcs to i32), i32 6724, i32 0 }, %SYSTEM_OBJDESC { i32 -150324488, i32 ptrtoint (void (%Times_SystemTime*, %SYSTEM_TYPEDESC*, i64*, i32*)* @Times_FromSystemTime to i32), i32 9540, i32 0 }, %SYSTEM_OBJDESC { i32 680234924, i32 ptrtoint (i64 ()* @Times_GetTime to i32), i32 13380, i32 0 }, %SYSTEM_OBJDESC { i32 1669189821, i32 ptrtoint (void (i32*)* @Times_GetUTCBias to i32), i32 15428, i32 0 }, %SYSTEM_OBJDESC { i32 -238214799, i32 -238214799, i32 34882, i32 ptrtoint ([21 x i32]* @Times_Hook__desc to i32) }, %SYSTEM_OBJDESC { i32 -1996284719, i32 -1363269927, i32 36114, i32 ptrtoint (i32* getelementptr inbounds ([30 x i32], [30 x i32]* @Times_Hook__redesc, i32 0, i32 9) to i32) }, %SYSTEM_OBJDESC { i32 6, i32 6, i32 38978, i32 6 }, %SYSTEM_OBJDESC { i32 -2124147430, i32 -2124147430, i32 40002, i32 ptrtoint ([21 x i32]* @Times_MonName__desc to i32) }, %SYSTEM_OBJDESC { i32 -1547970722, i32 -1547970722, i32 42050, i32 ptrtoint ([21 x i32]* @Times_MonNames__desc to i32) }, %SYSTEM_OBJDESC { i32 18, i32 18, i32 46658, i32 10 }, %SYSTEM_OBJDESC { i32 270122651, i32 ptrtoint (void (i16, i16, i16, i16)* @Times_SetDelimeters to i32), i32 47684, i32 0 }, %SYSTEM_OBJDESC { i32 143334495, i32 ptrtoint (void (%"Times_Hook^"*)* @Times_SetHook to i32), i32 51268, i32 0 }, %SYSTEM_OBJDESC { i32 -33703709, i32 ptrtoint (void ([12 x [32 x i16]]*)* @Times_SetMonNames to i32), i32 53316, i32 0 }, %SYSTEM_OBJDESC { i32 2142261157, i32 ptrtoint (void (i64)* @Times_Sleep to i32), i32 56388, i32 0 }, %SYSTEM_OBJDESC { i32 -1425334587, i32 -547093846, i32 57922, i32 ptrtoint (i32* getelementptr inbounds ([23 x i32], [23 x i32]* @Times_SystemTime__recdesc, i32 0, i32 2) to i32) }, %SYSTEM_OBJDESC { i32 -380572987, i32 ptrtoint (void (%Times_SystemTime*, %SYSTEM_TYPEDESC*, i32, [0 x i16]*, i32)* @Times_SystemTimeToString to i32), i32 60740, i32 0 }, %SYSTEM_OBJDESC { i32 18, i32 18, i32 65602, i32 10 }, %SYSTEM_OBJDESC { i32 -1009249442, i32 ptrtoint (void (i64, %Times_SystemTime*, %SYSTEM_TYPEDESC*, i32*)* @Times_ToLocalTime to i32), i32 66884, i32 0 }, %SYSTEM_OBJDESC { i32 288490987, i32 ptrtoint (i32 (i64)* @Times_ToMcs to i32), i32 69956, i32 0 }, %SYSTEM_OBJDESC { i32 -868839049, i32 ptrtoint (i64 (i64)* @Times_ToSec to i32), i32 71492, i32 0 }, %SYSTEM_OBJDESC { i32 -344523750, i32 ptrtoint (void (i64, i32, [0 x i16]*, i32)* @Times_ToString to i32), i32 73028, i32 0 }, %SYSTEM_OBJDESC { i32 -1009249442, i32 ptrtoint (void (i64, %Times_SystemTime*, %SYSTEM_TYPEDESC*, i32*)* @Times_ToSystemTime to i32), i32 75332, i32 0 }, %SYSTEM_OBJDESC { i32 -601237711, i32 ptrtoint ([12 x [32 x i16]]* @Times_monNames to i32), i32 88355, i32 ptrtoint ([21 x i32]* @Times_MonNames__desc to i32) }, %SYSTEM_OBJDESC { i32 1162441350, i32 0, i32 92225, i32 0 }, %SYSTEM_OBJDESC { i32 -1160724854, i32 0, i32 93249, i32 0 }, %SYSTEM_OBJDESC { i32 -1783533120, i32 0, i32 94785, i32 0 }, %SYSTEM_OBJDESC { i32 1288391144, i32 0, i32 97345, i32 0 }, %SYSTEM_OBJDESC { i32 2043138700, i32 0, i32 98369, i32 0 }, %SYSTEM_OBJDESC { i32 1208636511, i32 0, i32 99649, i32 0 }, %SYSTEM_OBJDESC { i32 1607417652, i32 0, i32 100673, i32 0 }, %SYSTEM_OBJDESC { i32 1527652995, i32 0, i32 101697, i32 0 }, %SYSTEM_OBJDESC { i32 1954870357, i32 0, i32 102977, i32 0 }, %SYSTEM_OBJDESC { i32 1883630050, i32 0, i32 104001, i32 0 }, %SYSTEM_OBJDESC { i32 -1020860670, i32 0, i32 105025, i32 0 }, %SYSTEM_OBJDESC { i32 653285540, i32 0, i32 106561, i32 0 }, %SYSTEM_OBJDESC { i32 2097598267, i32 0, i32 108353, i32 0 }, %SYSTEM_OBJDESC { i32 1099460401, i32 0, i32 109633, i32 0 }, %SYSTEM_OBJDESC { i32 1384913389, i32 0, i32 110657, i32 0 }, %SYSTEM_OBJDESC { i32 1447887962, i32 0, i32 112193, i32 0 }, %SYSTEM_OBJDESC { i32 2059899534, i32 ptrtoint (%Times_SystemTime* @Times_zeroSysTime to i32), i32 113187, i32 ptrtoint (i32* getelementptr inbounds ([23 x i32], [23 x i32]* @Times_SystemTime__recdesc, i32 0, i32 2) to i32) }] }
+@Times__desc = global %SYSTEM_MODDESC { %SYSTEM_MODDESC* null, i32 3, i32 0, [6 x i16] [i16 2019, i16 11, i16 14, i16 16, i16 2, i16 41], [6 x i16] zeroinitializer, void ()* @Times__body, void ()* null, i32 1, i32 1, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, [514 x i8]* @Times__names, [1 x i32]* @Times__ptrs, [2 x %SYSTEM_MODDESC*]* @Times__imp, %SYSTEM_DIRECTORY* @Times__exp, [256 x i8] c"Times\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00" }
+@Times_SystemTime__recdesc = global [23 x i32] [i32 -1, i32 0, i32 32, i32 ptrtoint (%SYSTEM_MODDESC* @Times__desc to i32), i32 57857, i32 ptrtoint (i32* getelementptr inbounds ([23 x i32], [23 x i32]* @Times_SystemTime__recdesc, i32 0, i32 2) to i32), i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 ptrtoint ({ i32, [8 x %SYSTEM_OBJDESC] }* @Times_SystemTime__recdesc__flds to i32), i32 -4]
+@Times_SystemTime__recdesc__flds = private global { i32, [8 x %SYSTEM_OBJDESC] } { i32 8, [8 x %SYSTEM_OBJDESC] [%SYSTEM_OBJDESC { i32 0, i32 0, i32 27973, i32 6 }, %SYSTEM_OBJDESC { i32 0, i32 4, i32 23365, i32 6 }, %SYSTEM_OBJDESC { i32 0, i32 8, i32 18245, i32 6 }, %SYSTEM_OBJDESC { i32 0, i32 12, i32 26693, i32 6 }, %SYSTEM_OBJDESC { i32 0, i32 16, i32 19269, i32 6 }, %SYSTEM_OBJDESC { i32 0, i32 20, i32 21573, i32 6 }, %SYSTEM_OBJDESC { i32 0, i32 24, i32 24901, i32 6 }, %SYSTEM_OBJDESC { i32 0, i32 28, i32 20549, i32 6 }] }
+@Times_Hook__redesc = global [30 x i32] [i32 -1, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 1, i32 ptrtoint (%SYSTEM_MODDESC* @Times__desc to i32), i32 36109, i32 ptrtoint (i32* getelementptr inbounds ([30 x i32], [30 x i32]* @Times_Hook__redesc, i32 0, i32 9) to i32), i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 ptrtoint ({ i32, [0 x %SYSTEM_OBJDESC] }* @Times_Hook__redesc__flds to i32), i32 -4]
 @Times_Hook__redesc__flds = private global { i32, [0 x %SYSTEM_OBJDESC] } zeroinitializer
-@Times_Hook__desc = global [21 x i32] [i32 0, i32 ptrtoint (%SYSTEM_MODDESC* @Times__desc to i32), i32 30723, i32 ptrtoint (i32* getelementptr inbounds ([29 x i32], [29 x i32]* @Times_Hook__redesc, i32 0, i32 8) to i32), i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0]
+@Times_Hook__desc = global [21 x i32] [i32 0, i32 ptrtoint (%SYSTEM_MODDESC* @Times__desc to i32), i32 34819, i32 ptrtoint (i32* getelementptr inbounds ([30 x i32], [30 x i32]* @Times_Hook__redesc, i32 0, i32 9) to i32), i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0]
 @Times_pHook = private global %"Times_Hook^"* null
 @Times_delimDate = private global [2 x i16] zeroinitializer
 @Times_delimTime = private global [2 x i16] zeroinitializer
 @Times_delimDaT = private global [2 x i16] zeroinitializer
 @Times_delimMcs = private global [2 x i16] zeroinitializer
-@Times_MonName__desc = global [21 x i32] [i32 32, i32 ptrtoint (%SYSTEM_MODDESC* @Times__desc to i32), i32 35842, i32 3, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0]
-@Times_MonNames__desc = global [21 x i32] [i32 12, i32 ptrtoint (%SYSTEM_MODDESC* @Times__desc to i32), i32 37890, i32 ptrtoint ([21 x i32]* @Times_MonName__desc to i32), i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0]
+@Times_MonName__desc = global [21 x i32] [i32 32, i32 ptrtoint (%SYSTEM_MODDESC* @Times__desc to i32), i32 39938, i32 3, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0]
+@Times_MonNames__desc = global [21 x i32] [i32 12, i32 ptrtoint (%SYSTEM_MODDESC* @Times__desc to i32), i32 41986, i32 ptrtoint ([21 x i32]* @Times_MonName__desc to i32), i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0]
 @Times_monNames = global [12 x [32 x i16]] zeroinitializer
 @Times_zeroSysTime = global %Times_SystemTime zeroinitializer
 @Kernel_dLink = external global %SYSTEM_DLINK*
+@n_Times_GetTime = private global [8 x i8] c"GetTime\00"
+@n_Times_ToSystemTime = private global [13 x i8] c"ToSystemTime\00"
+@n_Times_ToLocalTime = private global [12 x i8] c"ToLocalTime\00"
+@n_Times_FromSystemTime = private global [15 x i8] c"FromSystemTime\00"
+@n_Times_FromLocalTime = private global [14 x i8] c"FromLocalTime\00"
+@n_Times_GetUTCBias = private global [11 x i8] c"GetUTCBias\00"
+@n_Times_Sleep = private global [6 x i8] c"Sleep\00"
+@n_Times_ToSec = private global [6 x i8] c"ToSec\00"
+@n_Times_ToMcs = private global [6 x i8] c"ToMcs\00"
+@n_Times_FromSecMcs = private global [11 x i8] c"FromSecMcs\00"
+@n_Times_SystemTimeToString = private global [19 x i8] c"SystemTimeToString\00"
 @OStrings_IntToStringFormProc__desc = external global [21 x i32]
 @OStrings_IntToStringForm = external global void (i64, i32, i32, i16, i1, [0 x i16]*, i32)*
+@n_Times_ToString = private global [9 x i8] c"ToString\00"
+@n_Times_SetDelimeters = private global [14 x i8] c"SetDelimeters\00"
+@n_Times_SetMonNames = private global [12 x i8] c"SetMonNames\00"
+@n_Times_SetHook = private global [8 x i8] c"SetHook\00"
+@n_Times_Init = private global [5 x i8] c"Init\00"
+@n_Times__reg = private global [5 x i8] c"_reg\00"
+@n_Times__body = private global [6 x i8] c"_body\00"
 
 define void @Times__reg() {
 entry:
@@ -42,8 +60,8 @@ entry:
   store %SYSTEM_DLINK* %lda, %SYSTEM_DLINK** %next
   %mod = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 1
   store %SYSTEM_MODDESC* @Times__desc, %SYSTEM_MODDESC** %mod
-  %nidx = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 2
-  store i32 -1, i32* %nidx
+  %procname = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 2
+  store [0 x i8]* bitcast ([5 x i8]* @n_Times__reg to [0 x i8]*), [0 x i8]** %procname
   store %SYSTEM_DLINK* %dlink, %SYSTEM_DLINK** @Kernel_dLink
   %lda1 = load i32, i32* getelementptr inbounds (%SYSTEM_MODDESC, %SYSTEM_MODDESC* @Times__desc, i32 0, i32 1)
   %AND = and i32 %lda1, 262144
@@ -79,8 +97,8 @@ entry:
   store %SYSTEM_DLINK* %lda, %SYSTEM_DLINK** %next
   %mod = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 1
   store %SYSTEM_MODDESC* @Times__desc, %SYSTEM_MODDESC** %mod
-  %nidx = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 2
-  store i32 -2, i32* %nidx
+  %procname = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 2
+  store [0 x i8]* bitcast ([6 x i8]* @n_Times__body to [0 x i8]*), [0 x i8]** %procname
   store %SYSTEM_DLINK* %dlink, %SYSTEM_DLINK** @Kernel_dLink
   %lda1 = load i32, i32* getelementptr inbounds (%SYSTEM_MODDESC, %SYSTEM_MODDESC* @Times__desc, i32 0, i32 1)
   %AND = and i32 %lda1, 65536
@@ -115,8 +133,8 @@ entry:
   store %SYSTEM_DLINK* %lda, %SYSTEM_DLINK** %next
   %mod = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 1
   store %SYSTEM_MODDESC* @Times__desc, %SYSTEM_MODDESC** %mod
-  %nidx = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 2
-  store i32 52, i32* %nidx
+  %procname = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 2
+  store [0 x i8]* bitcast ([8 x i8]* @n_Times_GetTime to [0 x i8]*), [0 x i8]** %procname
   store %SYSTEM_DLINK* %dlink, %SYSTEM_DLINK** @Kernel_dLink
   %lda1 = load %"Times_Hook^"*, %"Times_Hook^"** @Times_pHook
   %PCAST = bitcast %"Times_Hook^"* %lda1 to [0 x i8]*
@@ -163,8 +181,59 @@ entry:
   store %SYSTEM_DLINK* %lda, %SYSTEM_DLINK** %next
   %mod = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 1
   store %SYSTEM_MODDESC* @Times__desc, %SYSTEM_MODDESC** %mod
-  %nidx = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 2
-  store i32 278, i32* %nidx
+  %procname = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 2
+  store [0 x i8]* bitcast ([13 x i8]* @n_Times_ToSystemTime to [0 x i8]*), [0 x i8]** %procname
+  store %SYSTEM_DLINK* %dlink, %SYSTEM_DLINK** @Kernel_dLink
+  %t1 = alloca i64
+  store i64 %t, i64* %t1
+  %PCAST = bitcast i32* %res to i8*
+  call void @llvm.memset.p0i8.i32(i8* %PCAST, i8 0, i32 4, i32 0, i1 false)
+  %lda2 = load %"Times_Hook^"*, %"Times_Hook^"** @Times_pHook
+  %PCAST3 = bitcast %"Times_Hook^"* %lda2 to [0 x i8]*
+  %ICMP = icmp ne [0 x i8]* %PCAST3, null
+  %Kernel_HaltHandler = call i1 @Kernel_HaltHandler(i32 100, i1 %ICMP, %SYSTEM_MODDESC* @Times__desc, i32 0)
+  br i1 %Kernel_HaltHandler, label %phi.then, label %phi.else
+
+phi.then:                                         ; preds = %entry
+  br label %phi.merge
+
+phi.else:                                         ; preds = %entry
+  call void @llvm.trap()
+  br label %phi.merge
+
+phi.merge:                                        ; preds = %phi.else, %phi.then
+  %INL = phi i1 [ %Kernel_HaltHandler, %phi.then ], [ %Kernel_HaltHandler, %phi.else ]
+  %lda4 = load %"Times_Hook^"*, %"Times_Hook^"** @Times_pHook
+  %lda5 = load i64, i64* %t1
+  %PICAST = ptrtoint %"Times_Hook^"* %lda4 to i32
+  %MINUS = sub i32 %PICAST, 4
+  %IPCAST = inttoptr i32 %MINUS to %SYSTEM_TYPEDESC**
+  %lda6 = load %SYSTEM_TYPEDESC*, %SYSTEM_TYPEDESC** %IPCAST
+  %PICAST7 = ptrtoint %SYSTEM_TYPEDESC* %lda6 to i32
+  %MINUS8 = sub i32 %PICAST7, 32
+  %IPCAST9 = inttoptr i32 %MINUS8 to void (%"Times_Hook^"*, i64, %Times_SystemTime*, %SYSTEM_TYPEDESC*, i32*)**
+  %lda10 = load void (%"Times_Hook^"*, i64, %Times_SystemTime*, %SYSTEM_TYPEDESC*, i32*)*, void (%"Times_Hook^"*, i64, %Times_SystemTime*, %SYSTEM_TYPEDESC*, i32*)** %IPCAST9
+  call void %lda10(%"Times_Hook^"* %lda4, i64 %lda5, %Times_SystemTime* %st, %SYSTEM_TYPEDESC* bitcast (i32* getelementptr inbounds ([23 x i32], [23 x i32]* @Times_SystemTime__recdesc, i32 0, i32 2) to %SYSTEM_TYPEDESC*), i32* %res)
+  %lda11 = load %SYSTEM_DLINK*, %SYSTEM_DLINK** @Kernel_dLink
+  %next12 = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %lda11, i32 0, i32 0
+  %lda13 = load %SYSTEM_DLINK*, %SYSTEM_DLINK** %next12
+  store %SYSTEM_DLINK* %lda13, %SYSTEM_DLINK** @Kernel_dLink
+  ret void
+}
+
+; Function Attrs: argmemonly nounwind
+declare void @llvm.memset.p0i8.i32(i8* nocapture writeonly, i8, i32, i32, i1) #1
+
+define void @Times_ToLocalTime(i64 %t, %Times_SystemTime* %lt, %SYSTEM_TYPEDESC* %lt__typ, i32* %res) {
+entry:
+  %dlink = alloca %SYSTEM_DLINK
+  %next = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 0
+  %lda = load %SYSTEM_DLINK*, %SYSTEM_DLINK** @Kernel_dLink
+  store %SYSTEM_DLINK* %lda, %SYSTEM_DLINK** %next
+  %mod = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 1
+  store %SYSTEM_MODDESC* @Times__desc, %SYSTEM_MODDESC** %mod
+  %procname = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 2
+  store [0 x i8]* bitcast ([12 x i8]* @n_Times_ToLocalTime to [0 x i8]*), [0 x i8]** %procname
   store %SYSTEM_DLINK* %dlink, %SYSTEM_DLINK** @Kernel_dLink
   %t1 = alloca i64
   store i64 %t, i64* %t1
@@ -195,57 +264,6 @@ phi.merge:                                        ; preds = %phi.else, %phi.then
   %MINUS8 = sub i32 %PICAST7, 28
   %IPCAST9 = inttoptr i32 %MINUS8 to void (%"Times_Hook^"*, i64, %Times_SystemTime*, %SYSTEM_TYPEDESC*, i32*)**
   %lda10 = load void (%"Times_Hook^"*, i64, %Times_SystemTime*, %SYSTEM_TYPEDESC*, i32*)*, void (%"Times_Hook^"*, i64, %Times_SystemTime*, %SYSTEM_TYPEDESC*, i32*)** %IPCAST9
-  call void %lda10(%"Times_Hook^"* %lda4, i64 %lda5, %Times_SystemTime* %st, %SYSTEM_TYPEDESC* bitcast (i32* getelementptr inbounds ([23 x i32], [23 x i32]* @Times_SystemTime__recdesc, i32 0, i32 2) to %SYSTEM_TYPEDESC*), i32* %res)
-  %lda11 = load %SYSTEM_DLINK*, %SYSTEM_DLINK** @Kernel_dLink
-  %next12 = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %lda11, i32 0, i32 0
-  %lda13 = load %SYSTEM_DLINK*, %SYSTEM_DLINK** %next12
-  store %SYSTEM_DLINK* %lda13, %SYSTEM_DLINK** @Kernel_dLink
-  ret void
-}
-
-; Function Attrs: argmemonly nounwind
-declare void @llvm.memset.p0i8.i32(i8* nocapture writeonly, i8, i32, i32, i1) #1
-
-define void @Times_ToLocalTime(i64 %t, %Times_SystemTime* %lt, %SYSTEM_TYPEDESC* %lt__typ, i32* %res) {
-entry:
-  %dlink = alloca %SYSTEM_DLINK
-  %next = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 0
-  %lda = load %SYSTEM_DLINK*, %SYSTEM_DLINK** @Kernel_dLink
-  store %SYSTEM_DLINK* %lda, %SYSTEM_DLINK** %next
-  %mod = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 1
-  store %SYSTEM_MODDESC* @Times__desc, %SYSTEM_MODDESC** %mod
-  %nidx = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 2
-  store i32 245, i32* %nidx
-  store %SYSTEM_DLINK* %dlink, %SYSTEM_DLINK** @Kernel_dLink
-  %t1 = alloca i64
-  store i64 %t, i64* %t1
-  %PCAST = bitcast i32* %res to i8*
-  call void @llvm.memset.p0i8.i32(i8* %PCAST, i8 0, i32 4, i32 0, i1 false)
-  %lda2 = load %"Times_Hook^"*, %"Times_Hook^"** @Times_pHook
-  %PCAST3 = bitcast %"Times_Hook^"* %lda2 to [0 x i8]*
-  %ICMP = icmp ne [0 x i8]* %PCAST3, null
-  %Kernel_HaltHandler = call i1 @Kernel_HaltHandler(i32 100, i1 %ICMP, %SYSTEM_MODDESC* @Times__desc, i32 0)
-  br i1 %Kernel_HaltHandler, label %phi.then, label %phi.else
-
-phi.then:                                         ; preds = %entry
-  br label %phi.merge
-
-phi.else:                                         ; preds = %entry
-  call void @llvm.trap()
-  br label %phi.merge
-
-phi.merge:                                        ; preds = %phi.else, %phi.then
-  %INL = phi i1 [ %Kernel_HaltHandler, %phi.then ], [ %Kernel_HaltHandler, %phi.else ]
-  %lda4 = load %"Times_Hook^"*, %"Times_Hook^"** @Times_pHook
-  %lda5 = load i64, i64* %t1
-  %PICAST = ptrtoint %"Times_Hook^"* %lda4 to i32
-  %MINUS = sub i32 %PICAST, 4
-  %IPCAST = inttoptr i32 %MINUS to %SYSTEM_TYPEDESC**
-  %lda6 = load %SYSTEM_TYPEDESC*, %SYSTEM_TYPEDESC** %IPCAST
-  %PICAST7 = ptrtoint %SYSTEM_TYPEDESC* %lda6 to i32
-  %MINUS8 = sub i32 %PICAST7, 24
-  %IPCAST9 = inttoptr i32 %MINUS8 to void (%"Times_Hook^"*, i64, %Times_SystemTime*, %SYSTEM_TYPEDESC*, i32*)**
-  %lda10 = load void (%"Times_Hook^"*, i64, %Times_SystemTime*, %SYSTEM_TYPEDESC*, i32*)*, void (%"Times_Hook^"*, i64, %Times_SystemTime*, %SYSTEM_TYPEDESC*, i32*)** %IPCAST9
   call void %lda10(%"Times_Hook^"* %lda4, i64 %lda5, %Times_SystemTime* %lt, %SYSTEM_TYPEDESC* bitcast (i32* getelementptr inbounds ([23 x i32], [23 x i32]* @Times_SystemTime__recdesc, i32 0, i32 2) to %SYSTEM_TYPEDESC*), i32* %res)
   %lda11 = load %SYSTEM_DLINK*, %SYSTEM_DLINK** @Kernel_dLink
   %next12 = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %lda11, i32 0, i32 0
@@ -262,8 +280,8 @@ entry:
   store %SYSTEM_DLINK* %lda, %SYSTEM_DLINK** %next
   %mod = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 1
   store %SYSTEM_MODDESC* @Times__desc, %SYSTEM_MODDESC** %mod
-  %nidx = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 2
-  store i32 37, i32* %nidx
+  %procname = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 2
+  store [0 x i8]* bitcast ([15 x i8]* @n_Times_FromSystemTime to [0 x i8]*), [0 x i8]** %procname
   store %SYSTEM_DLINK* %dlink, %SYSTEM_DLINK** @Kernel_dLink
   %PCAST = bitcast i64* %t to i8*
   call void @llvm.memset.p0i8.i32(i8* %PCAST, i8 0, i32 8, i32 0, i1 false)
@@ -309,8 +327,8 @@ entry:
   store %SYSTEM_DLINK* %lda, %SYSTEM_DLINK** %next
   %mod = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 1
   store %SYSTEM_MODDESC* @Times__desc, %SYSTEM_MODDESC** %mod
-  %nidx = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 2
-  store i32 12, i32* %nidx
+  %procname = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 2
+  store [0 x i8]* bitcast ([14 x i8]* @n_Times_FromLocalTime to [0 x i8]*), [0 x i8]** %procname
   store %SYSTEM_DLINK* %dlink, %SYSTEM_DLINK** @Kernel_dLink
   %PCAST = bitcast i64* %t to i8*
   call void @llvm.memset.p0i8.i32(i8* %PCAST, i8 0, i32 8, i32 0, i1 false)
@@ -348,6 +366,51 @@ phi.merge:                                        ; preds = %phi.else, %phi.then
   ret void
 }
 
+define void @Times_GetUTCBias(i32* %bias) {
+entry:
+  %dlink = alloca %SYSTEM_DLINK
+  %next = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 0
+  %lda = load %SYSTEM_DLINK*, %SYSTEM_DLINK** @Kernel_dLink
+  store %SYSTEM_DLINK* %lda, %SYSTEM_DLINK** %next
+  %mod = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 1
+  store %SYSTEM_MODDESC* @Times__desc, %SYSTEM_MODDESC** %mod
+  %procname = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 2
+  store [0 x i8]* bitcast ([11 x i8]* @n_Times_GetUTCBias to [0 x i8]*), [0 x i8]** %procname
+  store %SYSTEM_DLINK* %dlink, %SYSTEM_DLINK** @Kernel_dLink
+  %PCAST = bitcast i32* %bias to i8*
+  call void @llvm.memset.p0i8.i32(i8* %PCAST, i8 0, i32 4, i32 0, i1 false)
+  %lda1 = load %"Times_Hook^"*, %"Times_Hook^"** @Times_pHook
+  %PCAST2 = bitcast %"Times_Hook^"* %lda1 to [0 x i8]*
+  %ICMP = icmp ne [0 x i8]* %PCAST2, null
+  %Kernel_HaltHandler = call i1 @Kernel_HaltHandler(i32 100, i1 %ICMP, %SYSTEM_MODDESC* @Times__desc, i32 0)
+  br i1 %Kernel_HaltHandler, label %phi.then, label %phi.else
+
+phi.then:                                         ; preds = %entry
+  br label %phi.merge
+
+phi.else:                                         ; preds = %entry
+  call void @llvm.trap()
+  br label %phi.merge
+
+phi.merge:                                        ; preds = %phi.else, %phi.then
+  %INL = phi i1 [ %Kernel_HaltHandler, %phi.then ], [ %Kernel_HaltHandler, %phi.else ]
+  %lda3 = load %"Times_Hook^"*, %"Times_Hook^"** @Times_pHook
+  %PICAST = ptrtoint %"Times_Hook^"* %lda3 to i32
+  %MINUS = sub i32 %PICAST, 4
+  %IPCAST = inttoptr i32 %MINUS to %SYSTEM_TYPEDESC**
+  %lda4 = load %SYSTEM_TYPEDESC*, %SYSTEM_TYPEDESC** %IPCAST
+  %PICAST5 = ptrtoint %SYSTEM_TYPEDESC* %lda4 to i32
+  %MINUS6 = sub i32 %PICAST5, 20
+  %IPCAST7 = inttoptr i32 %MINUS6 to void (%"Times_Hook^"*, i32*)**
+  %lda8 = load void (%"Times_Hook^"*, i32*)*, void (%"Times_Hook^"*, i32*)** %IPCAST7
+  call void %lda8(%"Times_Hook^"* %lda3, i32* %bias)
+  %lda9 = load %SYSTEM_DLINK*, %SYSTEM_DLINK** @Kernel_dLink
+  %next10 = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %lda9, i32 0, i32 0
+  %lda11 = load %SYSTEM_DLINK*, %SYSTEM_DLINK** %next10
+  store %SYSTEM_DLINK* %lda11, %SYSTEM_DLINK** @Kernel_dLink
+  ret void
+}
+
 define void @Times_Sleep(i64 %tp) {
 entry:
   %dlink = alloca %SYSTEM_DLINK
@@ -356,8 +419,8 @@ entry:
   store %SYSTEM_DLINK* %lda, %SYSTEM_DLINK** %next
   %mod = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 1
   store %SYSTEM_MODDESC* @Times__desc, %SYSTEM_MODDESC** %mod
-  %nidx = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 2
-  store i32 204, i32* %nidx
+  %procname = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 2
+  store [0 x i8]* bitcast ([6 x i8]* @n_Times_Sleep to [0 x i8]*), [0 x i8]** %procname
   store %SYSTEM_DLINK* %dlink, %SYSTEM_DLINK** @Kernel_dLink
   %tp1 = alloca i64
   store i64 %tp, i64* %tp1
@@ -383,7 +446,7 @@ phi.merge:                                        ; preds = %phi.else, %phi.then
   %IPCAST = inttoptr i32 %MINUS to %SYSTEM_TYPEDESC**
   %lda5 = load %SYSTEM_TYPEDESC*, %SYSTEM_TYPEDESC** %IPCAST
   %PICAST6 = ptrtoint %SYSTEM_TYPEDESC* %lda5 to i32
-  %MINUS7 = sub i32 %PICAST6, 20
+  %MINUS7 = sub i32 %PICAST6, 24
   %IPCAST8 = inttoptr i32 %MINUS7 to void (%"Times_Hook^"*, i64)**
   %lda9 = load void (%"Times_Hook^"*, i64)*, void (%"Times_Hook^"*, i64)** %IPCAST8
   call void %lda9(%"Times_Hook^"* %lda3, i64 %lda4)
@@ -402,8 +465,8 @@ entry:
   store %SYSTEM_DLINK* %lda, %SYSTEM_DLINK** %next
   %mod = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 1
   store %SYSTEM_MODDESC* @Times__desc, %SYSTEM_MODDESC** %mod
-  %nidx = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 2
-  store i32 263, i32* %nidx
+  %procname = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 2
+  store [0 x i8]* bitcast ([6 x i8]* @n_Times_ToSec to [0 x i8]*), [0 x i8]** %procname
   store %SYSTEM_DLINK* %dlink, %SYSTEM_DLINK** @Kernel_dLink
   %t1 = alloca i64
   store i64 %t, i64* %t1
@@ -455,8 +518,8 @@ entry:
   store %SYSTEM_DLINK* %lda, %SYSTEM_DLINK** %next
   %mod = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 1
   store %SYSTEM_MODDESC* @Times__desc, %SYSTEM_MODDESC** %mod
-  %nidx = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 2
-  store i32 257, i32* %nidx
+  %procname = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 2
+  store [0 x i8]* bitcast ([6 x i8]* @n_Times_ToMcs to [0 x i8]*), [0 x i8]** %procname
   store %SYSTEM_DLINK* %dlink, %SYSTEM_DLINK** @Kernel_dLink
   %t1 = alloca i64
   store i64 %t, i64* %t1
@@ -510,8 +573,8 @@ entry:
   store %SYSTEM_DLINK* %lda, %SYSTEM_DLINK** %next
   %mod = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 1
   store %SYSTEM_MODDESC* @Times__desc, %SYSTEM_MODDESC** %mod
-  %nidx = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 2
-  store i32 26, i32* %nidx
+  %procname = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 2
+  store [0 x i8]* bitcast ([11 x i8]* @n_Times_FromSecMcs to [0 x i8]*), [0 x i8]** %procname
   store %SYSTEM_DLINK* %dlink, %SYSTEM_DLINK** @Kernel_dLink
   %sec1 = alloca i64
   store i64 %sec, i64* %sec1
@@ -565,8 +628,8 @@ entry:
   store %SYSTEM_DLINK* %lda, %SYSTEM_DLINK** %next
   %mod = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 1
   store %SYSTEM_MODDESC* @Times__desc, %SYSTEM_MODDESC** %mod
-  %nidx = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 2
-  store i32 221, i32* %nidx
+  %procname = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 2
+  store [0 x i8]* bitcast ([19 x i8]* @n_Times_SystemTimeToString to [0 x i8]*), [0 x i8]** %procname
   store %SYSTEM_DLINK* %dlink, %SYSTEM_DLINK** @Kernel_dLink
   %tfmt1 = alloca i32
   store i32 %tfmt, i32* %tfmt1
@@ -880,8 +943,8 @@ entry:
   store %SYSTEM_DLINK* %lda, %SYSTEM_DLINK** %next
   %mod = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 1
   store %SYSTEM_MODDESC* @Times__desc, %SYSTEM_MODDESC** %mod
-  %nidx = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 2
-  store i32 269, i32* %nidx
+  %procname = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 2
+  store [0 x i8]* bitcast ([9 x i8]* @n_Times_ToString to [0 x i8]*), [0 x i8]** %procname
   store %SYSTEM_DLINK* %dlink, %SYSTEM_DLINK** @Kernel_dLink
   %t1 = alloca i64
   store i64 %t, i64* %t1
@@ -944,8 +1007,8 @@ entry:
   store %SYSTEM_DLINK* %lda, %SYSTEM_DLINK** %next
   %mod = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 1
   store %SYSTEM_MODDESC* @Times__desc, %SYSTEM_MODDESC** %mod
-  %nidx = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 2
-  store i32 170, i32* %nidx
+  %procname = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 2
+  store [0 x i8]* bitcast ([14 x i8]* @n_Times_SetDelimeters to [0 x i8]*), [0 x i8]** %procname
   store %SYSTEM_DLINK* %dlink, %SYSTEM_DLINK** @Kernel_dLink
   %d_date1 = alloca i16
   store i16 %d_date, i16* %d_date1
@@ -1001,8 +1064,8 @@ entry:
   store %SYSTEM_DLINK* %lda, %SYSTEM_DLINK** %next
   %mod = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 1
   store %SYSTEM_MODDESC* @Times__desc, %SYSTEM_MODDESC** %mod
-  %nidx = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 2
-  store i32 192, i32* %nidx
+  %procname = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 2
+  store [0 x i8]* bitcast ([12 x i8]* @n_Times_SetMonNames to [0 x i8]*), [0 x i8]** %procname
   store %SYSTEM_DLINK* %dlink, %SYSTEM_DLINK** @Kernel_dLink
   %j = alloca i32
   %PCAST = bitcast i32* %j to i8*
@@ -1049,8 +1112,8 @@ entry:
   store %SYSTEM_DLINK* %lda, %SYSTEM_DLINK** %next
   %mod = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 1
   store %SYSTEM_MODDESC* @Times__desc, %SYSTEM_MODDESC** %mod
-  %nidx = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 2
-  store i32 184, i32* %nidx
+  %procname = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 2
+  store [0 x i8]* bitcast ([8 x i8]* @n_Times_SetHook to [0 x i8]*), [0 x i8]** %procname
   store %SYSTEM_DLINK* %dlink, %SYSTEM_DLINK** @Kernel_dLink
   %h1 = alloca %"Times_Hook^"*
   store %"Times_Hook^"* %h, %"Times_Hook^"** %h1
@@ -1086,8 +1149,8 @@ entry:
   store %SYSTEM_DLINK* %lda, %SYSTEM_DLINK** %next
   %mod = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 1
   store %SYSTEM_MODDESC* @Times__desc, %SYSTEM_MODDESC** %mod
-  %nidx = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 2
-  store i32 131, i32* %nidx
+  %procname = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 2
+  store [0 x i8]* bitcast ([5 x i8]* @n_Times_Init to [0 x i8]*), [0 x i8]** %procname
   store %SYSTEM_DLINK* %dlink, %SYSTEM_DLINK** @Kernel_dLink
   %atmp = alloca [9 x i8]
   store [9 x i8] c"J\00A\00N\00\00\00\00", [9 x i8]* %atmp

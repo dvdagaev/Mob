@@ -1,4 +1,4 @@
-/*  Omf-1.0 ki -System Sysfwe -Host Hostfwe -directories C /sys386 /all_sys_val */
+/*  Omf-1.0 k -System Sysfwe -Host Hostfwe -directories C /sys386 /all_sys_val */
 
 #ifndef OStrings__h
 #define OStrings__h

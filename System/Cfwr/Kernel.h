@@ -67,12 +67,12 @@ typedef
 typedef
 	struct Kernel_Module__rec *Kernel_Module;
 
-import Kernel_Module Kernel_LoaderHook_ThisMod (Kernel_LoaderHook h, SHORTCHAR *name, INTEGER name__len);
+import Kernel_Module Kernel_LoaderHook_ThisMod (Kernel_LoaderHook h, _CHAR *name, INTEGER name__len);
 #define __Kernel_LoaderHook_ThisMod(h, name, name__len) __SEND(__TYPEOF(h), 1, Kernel_Module(*)(Kernel_LoaderHook, \
-SHORTCHAR*, INTEGER ), (h, name, name__len))
+_CHAR*, INTEGER ), (h, name, name__len))
 
 typedef
-	SHORTCHAR Kernel_Name[256];
+	SHORTCHAR Kernel_Utf8Name[256];
 
 typedef
 	struct Kernel_Module__rec {
@@ -87,8 +87,11 @@ typedef
 		LONGINT *ptrs;
 		Kernel_Module *imports;
 		Kernel_Directory export_;
-		Kernel_Name name;
+		Kernel_Utf8Name name;
 	} Kernel_Module__rec;
+
+typedef
+	_CHAR Kernel_Name[256];
 
 typedef
 	struct Kernel_Reducer__rec *Kernel_Reducer;
@@ -144,8 +147,8 @@ import ADDRESS Kernel_Directory__desc[];
 import SYSTEM_TYPEDESC *Kernel_Directory__typ;
 import ADDRESS Kernel_Directory__rec__desc[];
 import SYSTEM_TYPEDESC *Kernel_Directory__rec__typ;
-import ADDRESS Kernel_Name__desc[];
-import SYSTEM_TYPEDESC *Kernel_Name__typ;
+import ADDRESS Kernel_Utf8Name__desc[];
+import SYSTEM_TYPEDESC *Kernel_Utf8Name__typ;
 import ADDRESS Kernel_Type__rec__desc[];
 import SYSTEM_TYPEDESC *Kernel_Type__rec__typ;
 import ADDRESS Kernel__9__desc[];
@@ -224,6 +227,8 @@ import ADDRESS Kernel_Hook__desc[];
 import SYSTEM_TYPEDESC *Kernel_Hook__typ;
 import ADDRESS Kernel_LoaderHook__desc[];
 import SYSTEM_TYPEDESC *Kernel_LoaderHook__typ;
+import ADDRESS Kernel_Name__desc[];
+import SYSTEM_TYPEDESC *Kernel_Name__typ;
 import ADDRESS Kernel_PString__desc[];
 import SYSTEM_TYPEDESC *Kernel_PString__typ;
 import ADDRESS Kernel__16__desc[];
@@ -242,7 +247,7 @@ import LONGINT Kernel_Root (void);
 import void Kernel_SetLoaderHook (Kernel_LoaderHook h);
 import LONGINT Kernel_SetModList (LONGINT ml);
 import ANYPTR Kernel_ThisFinObj (Kernel_Identifier *id, SYSTEM_TYPEDESC *id__typ);
-import Kernel_Module Kernel_ThisLoadedMod (SHORTCHAR *name, INTEGER name__len);
+import Kernel_Module Kernel_ThisLoadedMod (_CHAR *name, INTEGER name__len);
 import Kernel_Module Kernel_ThisMod (_CHAR *name, INTEGER name__len);
 import LONGINT Kernel_Total (void);
 import LONGINT Kernel_Used (void);

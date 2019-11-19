@@ -4,7 +4,7 @@ source_filename = "OStrings"
 %SYSTEM_MODDESC = type { %SYSTEM_MODDESC*, i32, i32, [6 x i16], [6 x i16], void ()*, void ()*, i32, i32, i64, i64, i64, i64, i64, i64, i64, i64, [832 x i8]*, [1 x i64]*, [2 x %SYSTEM_MODDESC*]*, %SYSTEM_DIRECTORY*, [256 x i8] }
 %SYSTEM_DIRECTORY = type { i64, [33 x %SYSTEM_OBJDESC] }
 %SYSTEM_OBJDESC = type { i32, i64, i32, i64 }
-%SYSTEM_DLINK = type { %SYSTEM_DLINK*, %SYSTEM_MODDESC*, i32 }
+%SYSTEM_DLINK = type { %SYSTEM_DLINK*, %SYSTEM_MODDESC*, [0 x i8]* }
 %OStrings_StdSetToString__7 = type { [0 x i8]*, [0 x i8]*, i32, i32*, [0 x i8]*, %OStrings_StdSetToString__7* }
 %OStrings_StdStringToSet__15 = type { [0 x i8]*, i32, [0 x i8]*, [0 x i8]*, i32*, [0 x i8]*, i16*, %OStrings_StdStringToSet__15* }
 
@@ -13,7 +13,7 @@ source_filename = "OStrings"
 @OStrings__inames = global [10 x i8] c"OStrings\00\00"
 @OStrings__ptrs = private global [1 x i64] zeroinitializer
 @OStrings__exp = private global %SYSTEM_DIRECTORY { i64 33, [33 x %SYSTEM_OBJDESC] [%SYSTEM_OBJDESC { i32 1861729543, i64 0, i32 1345, i64 0 }, %SYSTEM_OBJDESC { i32 -1619837674, i64 ptrtoint (void (i64, [0 x i16]*, i32)** @OStrings_IntToString to i64), i32 5667, i64 ptrtoint ([21 x i64]* @OStrings_IntToStringProc__desc to i64) }, %SYSTEM_OBJDESC { i32 1101136676, i64 ptrtoint (void (i64, i32, i32, i16, i1, [0 x i16]*, i32)** @OStrings_IntToStringForm to i64), i32 8739, i64 ptrtoint ([21 x i64]* @OStrings_IntToStringFormProc__desc to i64) }, %SYSTEM_OBJDESC { i32 -1882238994, i64 -1882238994, i32 12866, i64 ptrtoint ([21 x i64]* @OStrings_IntToStringFormProc__desc to i64) }, %SYSTEM_OBJDESC { i32 1543908299, i64 1543908299, i32 17986, i64 ptrtoint ([21 x i64]* @OStrings_IntToStringProc__desc to i64) }, %SYSTEM_OBJDESC { i32 -2080836485, i64 ptrtoint (void (double, [0 x i16]*, i32)** @OStrings_RealToString to i64), i32 26403, i64 ptrtoint ([21 x i64]* @OStrings_RealToStringProc__desc to i64) }, %SYSTEM_OBJDESC { i32 569934937, i64 ptrtoint (void (double, i32, i32, i32, i16, [0 x i16]*, i32)** @OStrings_RealToStringForm to i64), i32 29731, i64 ptrtoint ([21 x i64]* @OStrings_RealToStringFormProc__desc to i64) }, %SYSTEM_OBJDESC { i32 -812036757, i64 -812036757, i32 34114, i64 ptrtoint ([21 x i64]* @OStrings_RealToStringFormProc__desc to i64) }, %SYSTEM_OBJDESC { i32 1309360307, i64 1309360307, i32 39490, i64 ptrtoint ([21 x i64]* @OStrings_RealToStringProc__desc to i64) }, %SYSTEM_OBJDESC { i32 2041835325, i64 ptrtoint (void (void (i64, [0 x i16]*, i32)*, void (i64, i32, i32, i16, i1, [0 x i16]*, i32)*, void ([0 x i16]*, i32, i32*, i32*)*, void ([0 x i16]*, i32, i64*, i32*)*, void (double, [0 x i16]*, i32)*, void (double, i32, i32, i32, i16, [0 x i16]*, i32)*, void ([0 x i16]*, i32, double*, i32*)*, void (i32, [0 x i16]*, i32)*, void ([0 x i16]*, i32, i32*, i32*)*)* @OStrings_SetProcs to i64), i32 45636, i64 0 }, %SYSTEM_OBJDESC { i32 -1026747311, i64 ptrtoint (void (i32, [0 x i16]*, i32)** @OStrings_SetToString to i64), i32 47907, i64 ptrtoint ([21 x i64]* @OStrings_SetToStringProc__desc to i64) }, %SYSTEM_OBJDESC { i32 115796109, i64 115796109, i32 51010, i64 ptrtoint ([21 x i64]* @OStrings_SetToStringProc__desc to i64) }, %SYSTEM_OBJDESC { i32 -1902453238, i64 ptrtoint (void (i64, [0 x i16]*, i32)* @OStrings_StdIntToString to i64), i32 55108, i64 0 }, %SYSTEM_OBJDESC { i32 -117538857, i64 ptrtoint (void (i64, i32, i32, i16, i1, [0 x i16]*, i32)* @OStrings_StdIntToStringForm to i64), i32 58948, i64 0 }, %SYSTEM_OBJDESC { i32 -1229107264, i64 ptrtoint (void (double, [0 x i16]*, i32)* @OStrings_StdRealToString to i64), i32 63812, i64 0 }, %SYSTEM_OBJDESC { i32 -356201199, i64 ptrtoint (void (double, i32, i32, i32, i16, [0 x i16]*, i32)* @OStrings_StdRealToStringForm to i64), i32 67908, i64 0 }, %SYSTEM_OBJDESC { i32 1578703301, i64 ptrtoint (void (i32, [0 x i16]*, i32)* @OStrings_StdSetToString to i64), i32 73028, i64 0 }, %SYSTEM_OBJDESC { i32 1067246927, i64 ptrtoint (void ([0 x i16]*, i32, i32*, i32*)* @OStrings_StdStringToInt to i64), i32 76868, i64 0 }, %SYSTEM_OBJDESC { i32 421668956, i64 ptrtoint (void ([0 x i16]*, i32, i64*, i32*)* @OStrings_StdStringToLInt to i64), i32 80708, i64 0 }, %SYSTEM_OBJDESC { i32 -235943831, i64 ptrtoint (void ([0 x i16]*, i32, double*, i32*)* @OStrings_StdStringToReal to i64), i32 84804, i64 0 }, %SYSTEM_OBJDESC { i32 -432211660, i64 ptrtoint (void ([0 x i16]*, i32, i32*, i32*)* @OStrings_StdStringToSet to i64), i32 88900, i64 0 }, %SYSTEM_OBJDESC { i32 -1658430128, i64 ptrtoint (void ([0 x i16]*, i32, i32*, i32*)** @OStrings_StringToInt to i64), i32 92707, i64 ptrtoint ([21 x i64]* @OStrings_StringToIntProc__desc to i64) }, %SYSTEM_OBJDESC { i32 212727017, i64 212727017, i32 95810, i64 ptrtoint ([21 x i64]* @OStrings_StringToIntProc__desc to i64) }, %SYSTEM_OBJDESC { i32 2127383023, i64 ptrtoint (void ([0 x i16]*, i32, i64*, i32*)** @OStrings_StringToLInt to i64), i32 99875, i64 ptrtoint ([21 x i64]* @OStrings_StringToLIntProc__desc to i64) }, %SYSTEM_OBJDESC { i32 563052100, i64 563052100, i32 103234, i64 ptrtoint ([21 x i64]* @OStrings_StringToLIntProc__desc to i64) }, %SYSTEM_OBJDESC { i32 1951246807, i64 ptrtoint (void ([0 x i16]*, i32, double*, i32*)** @OStrings_StringToReal to i64), i32 107555, i64 ptrtoint ([21 x i64]* @OStrings_StringToRealProc__desc to i64) }, %SYSTEM_OBJDESC { i32 -846441049, i64 -846441049, i32 110914, i64 ptrtoint ([21 x i64]* @OStrings_StringToRealProc__desc to i64) }, %SYSTEM_OBJDESC { i32 693178870, i64 ptrtoint (void ([0 x i16]*, i32, i32*, i32*)** @OStrings_StringToSet to i64), i32 115235, i64 ptrtoint ([21 x i64]* @OStrings_StringToSetProc__desc to i64) }, %SYSTEM_OBJDESC { i32 2050103104, i64 2050103104, i32 118338, i64 ptrtoint ([21 x i64]* @OStrings_StringToSetProc__desc to i64) }, %SYSTEM_OBJDESC { i32 -1857431263, i64 0, i32 124481, i64 0 }, %SYSTEM_OBJDESC { i32 2043138700, i64 0, i32 127297, i64 0 }, %SYSTEM_OBJDESC { i32 -1786198890, i64 0, i32 129601, i64 0 }, %SYSTEM_OBJDESC { i32 -1731468721, i64 0, i32 132929, i64 0 }] }
-@OStrings__desc = global %SYSTEM_MODDESC { %SYSTEM_MODDESC* null, i32 3, i32 0, [6 x i16] [i16 2019, i16 7, i16 17, i16 16, i16 46, i16 14], [6 x i16] zeroinitializer, void ()* @OStrings__body, void ()* null, i32 1, i32 0, i64 0, i64 0, i64 0, i64 0, i64 0, i64 0, i64 0, i64 0, [832 x i8]* @OStrings__names, [1 x i64]* @OStrings__ptrs, [2 x %SYSTEM_MODDESC*]* @OStrings__imp, %SYSTEM_DIRECTORY* @OStrings__exp, [256 x i8] c"OStrings\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00" }
+@OStrings__desc = global %SYSTEM_MODDESC { %SYSTEM_MODDESC* null, i32 3, i32 0, [6 x i16] [i16 2019, i16 11, i16 14, i16 16, i16 2, i16 59], [6 x i16] zeroinitializer, void ()* @OStrings__body, void ()* null, i32 1, i32 0, i64 0, i64 0, i64 0, i64 0, i64 0, i64 0, i64 0, i64 0, [832 x i8]* @OStrings__names, [1 x i64]* @OStrings__ptrs, [2 x %SYSTEM_MODDESC*]* @OStrings__imp, %SYSTEM_DIRECTORY* @OStrings__exp, [256 x i8] c"OStrings\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00" }
 @OStrings_IntToStringProc__desc = global [21 x i64] [i64 0, i64 ptrtoint (%SYSTEM_MODDESC* @OStrings__desc to i64), i64 17920, i64 0, i64 0, i64 0, i64 0, i64 0, i64 0, i64 0, i64 0, i64 0, i64 0, i64 0, i64 0, i64 0, i64 0, i64 0, i64 0, i64 0, i64 0]
 @OStrings_IntToString = global void (i64, [0 x i16]*, i32)* null
 @OStrings_IntToStringFormProc__desc = global [21 x i64] [i64 0, i64 ptrtoint (%SYSTEM_MODDESC* @OStrings__desc to i64), i64 12800, i64 0, i64 0, i64 0, i64 0, i64 0, i64 0, i64 0, i64 0, i64 0, i64 0, i64 0, i64 0, i64 0, i64 0, i64 0, i64 0, i64 0, i64 0]
@@ -37,8 +37,26 @@ source_filename = "OStrings"
 @OStrings_maxDig = private global i32 0
 @OStrings_rFactor = private global double 0.000000e+00
 @Kernel_dLink = external global %SYSTEM_DLINK*
+@n_OStrings_SetProcs = private global [9 x i8] c"SetProcs\00"
+@n_OStrings_StdIntToString = private global [15 x i8] c"StdIntToString\00"
+@n_OStrings_StdIntToStringForm = private global [19 x i8] c"StdIntToStringForm\00"
+@n_OStrings_StdStringToInt = private global [15 x i8] c"StdStringToInt\00"
+@n_OStrings_StdStringToLInt = private global [16 x i8] c"StdStringToLInt\00"
+@n_OStrings_StdRealToStringForm = private global [20 x i8] c"StdRealToStringForm\00"
+@n_OStrings_StdRealToString = private global [16 x i8] c"StdRealToString\00"
+@n_OStrings_StdStringToReal = private global [16 x i8] c"StdStringToReal\00"
 @OStrings_StdSetToString__7_s = private global %OStrings_StdSetToString__7* null
+@n_OStrings___8 = private global [4 x i8] c"__8\00"
+@n_OStrings___10 = private global [5 x i8] c"__10\00"
+@n_OStrings_StdSetToString = private global [15 x i8] c"StdSetToString\00"
 @OStrings_StdStringToSet__15_s = private global %OStrings_StdStringToSet__15* null
+@n_OStrings___16 = private global [5 x i8] c"__16\00"
+@n_OStrings___18 = private global [5 x i8] c"__18\00"
+@n_OStrings___20 = private global [5 x i8] c"__20\00"
+@n_OStrings_StdStringToSet = private global [15 x i8] c"StdStringToSet\00"
+@n_OStrings_Init = private global [5 x i8] c"Init\00"
+@n_OStrings__reg = private global [5 x i8] c"_reg\00"
+@n_OStrings__body = private global [6 x i8] c"_body\00"
 
 define void @OStrings__reg() {
 entry:
@@ -48,8 +66,8 @@ entry:
   store %SYSTEM_DLINK* %lda, %SYSTEM_DLINK** %next
   %mod = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 1
   store %SYSTEM_MODDESC* @OStrings__desc, %SYSTEM_MODDESC** %mod
-  %nidx = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 2
-  store i32 -1, i32* %nidx
+  %procname = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 2
+  store [0 x i8]* bitcast ([5 x i8]* @n_OStrings__reg to [0 x i8]*), [0 x i8]** %procname
   store %SYSTEM_DLINK* %dlink, %SYSTEM_DLINK** @Kernel_dLink
   %lda1 = load i32, i32* getelementptr inbounds (%SYSTEM_MODDESC, %SYSTEM_MODDESC* @OStrings__desc, i32 0, i32 1)
   %AND = and i32 %lda1, 262144
@@ -83,8 +101,8 @@ entry:
   store %SYSTEM_DLINK* %lda, %SYSTEM_DLINK** %next
   %mod = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 1
   store %SYSTEM_MODDESC* @OStrings__desc, %SYSTEM_MODDESC** %mod
-  %nidx = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 2
-  store i32 -2, i32* %nidx
+  %procname = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 2
+  store [0 x i8]* bitcast ([6 x i8]* @n_OStrings__body to [0 x i8]*), [0 x i8]** %procname
   store %SYSTEM_DLINK* %dlink, %SYSTEM_DLINK** @Kernel_dLink
   %lda1 = load i32, i32* getelementptr inbounds (%SYSTEM_MODDESC, %SYSTEM_MODDESC* @OStrings__desc, i32 0, i32 1)
   %AND = and i32 %lda1, 65536
@@ -118,8 +136,8 @@ entry:
   store %SYSTEM_DLINK* %lda, %SYSTEM_DLINK** %next
   %mod = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 1
   store %SYSTEM_MODDESC* @OStrings__desc, %SYSTEM_MODDESC** %mod
-  %nidx = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 2
-  store i32 178, i32* %nidx
+  %procname = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 2
+  store [0 x i8]* bitcast ([9 x i8]* @n_OStrings_SetProcs to [0 x i8]*), [0 x i8]** %procname
   store %SYSTEM_DLINK* %dlink, %SYSTEM_DLINK** @Kernel_dLink
   %i2s1 = alloca void (i64, [0 x i16]*, i32)*
   store void (i64, [0 x i16]*, i32)* %i2s, void (i64, [0 x i16]*, i32)** %i2s1
@@ -312,8 +330,8 @@ entry:
   store %SYSTEM_DLINK* %lda, %SYSTEM_DLINK** %next
   %mod = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 1
   store %SYSTEM_MODDESC* @OStrings__desc, %SYSTEM_MODDESC** %mod
-  %nidx = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 2
-  store i32 215, i32* %nidx
+  %procname = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 2
+  store [0 x i8]* bitcast ([15 x i8]* @n_OStrings_StdIntToString to [0 x i8]*), [0 x i8]** %procname
   store %SYSTEM_DLINK* %dlink, %SYSTEM_DLINK** @Kernel_dLink
   %x1 = alloca i64
   store i64 %x, i64* %x1
@@ -497,8 +515,8 @@ entry:
   store %SYSTEM_DLINK* %lda, %SYSTEM_DLINK** %next
   %mod = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 1
   store %SYSTEM_MODDESC* @OStrings__desc, %SYSTEM_MODDESC** %mod
-  %nidx = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 2
-  store i32 230, i32* %nidx
+  %procname = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 2
+  store [0 x i8]* bitcast ([19 x i8]* @n_OStrings_StdIntToStringForm to [0 x i8]*), [0 x i8]** %procname
   store %SYSTEM_DLINK* %dlink, %SYSTEM_DLINK** @Kernel_dLink
   %x1 = alloca i64
   store i64 %x, i64* %x1
@@ -1465,8 +1483,8 @@ entry:
   store %SYSTEM_DLINK* %lda, %SYSTEM_DLINK** %next
   %mod = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 1
   store %SYSTEM_MODDESC* @OStrings__desc, %SYSTEM_MODDESC** %mod
-  %nidx = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 2
-  store i32 300, i32* %nidx
+  %procname = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 2
+  store [0 x i8]* bitcast ([15 x i8]* @n_OStrings_StdStringToInt to [0 x i8]*), [0 x i8]** %procname
   store %SYSTEM_DLINK* %dlink, %SYSTEM_DLINK** @Kernel_dLink
   %PCAST = bitcast i32* %x to i8*
   call void @llvm.memset.p0i8.i64(i8* %PCAST, i8 0, i64 4, i32 0, i1 false)
@@ -2120,8 +2138,8 @@ entry:
   store %SYSTEM_DLINK* %lda, %SYSTEM_DLINK** %next
   %mod = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 1
   store %SYSTEM_MODDESC* @OStrings__desc, %SYSTEM_MODDESC** %mod
-  %nidx = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 2
-  store i32 315, i32* %nidx
+  %procname = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 2
+  store [0 x i8]* bitcast ([16 x i8]* @n_OStrings_StdStringToLInt to [0 x i8]*), [0 x i8]** %procname
   store %SYSTEM_DLINK* %dlink, %SYSTEM_DLINK** @Kernel_dLink
   %PCAST = bitcast i64* %x to i8*
   call void @llvm.memset.p0i8.i64(i8* %PCAST, i8 0, i64 8, i32 0, i1 false)
@@ -2795,8 +2813,8 @@ entry:
   store %SYSTEM_DLINK* %lda, %SYSTEM_DLINK** %next
   %mod = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 1
   store %SYSTEM_MODDESC* @OStrings__desc, %SYSTEM_MODDESC** %mod
-  %nidx = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 2
-  store i32 265, i32* %nidx
+  %procname = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 2
+  store [0 x i8]* bitcast ([20 x i8]* @n_OStrings_StdRealToStringForm to [0 x i8]*), [0 x i8]** %procname
   store %SYSTEM_DLINK* %dlink, %SYSTEM_DLINK** @Kernel_dLink
   %x1 = alloca double
   store double %x, double* %x1
@@ -3990,8 +4008,8 @@ entry:
   store %SYSTEM_DLINK* %lda, %SYSTEM_DLINK** %next
   %mod = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 1
   store %SYSTEM_MODDESC* @OStrings__desc, %SYSTEM_MODDESC** %mod
-  %nidx = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 2
-  store i32 249, i32* %nidx
+  %procname = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 2
+  store [0 x i8]* bitcast ([16 x i8]* @n_OStrings_StdRealToString to [0 x i8]*), [0 x i8]** %procname
   store %SYSTEM_DLINK* %dlink, %SYSTEM_DLINK** @Kernel_dLink
   %x1 = alloca double
   store double %x, double* %x1
@@ -4012,8 +4030,8 @@ entry:
   store %SYSTEM_DLINK* %lda, %SYSTEM_DLINK** %next
   %mod = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 1
   store %SYSTEM_MODDESC* @OStrings__desc, %SYSTEM_MODDESC** %mod
-  %nidx = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 2
-  store i32 331, i32* %nidx
+  %procname = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 2
+  store [0 x i8]* bitcast ([16 x i8]* @n_OStrings_StdStringToReal to [0 x i8]*), [0 x i8]** %procname
   store %SYSTEM_DLINK* %dlink, %SYSTEM_DLINK** @Kernel_dLink
   %PCAST = bitcast double* %x to i8*
   call void @llvm.memset.p0i8.i64(i8* %PCAST, i8 0, i64 8, i32 0, i1 false)
@@ -4578,8 +4596,8 @@ entry:
   store %SYSTEM_DLINK* %lda, %SYSTEM_DLINK** %next
   %mod = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 1
   store %SYSTEM_MODDESC* @OStrings__desc, %SYSTEM_MODDESC** %mod
-  %nidx = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 2
-  store i32 285, i32* %nidx
+  %procname = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 2
+  store [0 x i8]* bitcast ([15 x i8]* @n_OStrings_StdSetToString to [0 x i8]*), [0 x i8]** %procname
   store %SYSTEM_DLINK* %dlink, %SYSTEM_DLINK** @Kernel_dLink
   %x1 = alloca i32
   store i32 %x, i32* %x1
@@ -4730,8 +4748,8 @@ entry:
   store %SYSTEM_DLINK* %lda, %SYSTEM_DLINK** %next
   %mod = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 1
   store %SYSTEM_MODDESC* @OStrings__desc, %SYSTEM_MODDESC** %mod
-  %nidx = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 2
-  store i32 722, i32* %nidx
+  %procname = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 2
+  store [0 x i8]* bitcast ([4 x i8]* @n_OStrings___8 to [0 x i8]*), [0 x i8]** %procname
   store %SYSTEM_DLINK* %dlink, %SYSTEM_DLINK** @Kernel_dLink
   %ch1 = alloca i16
   store i16 %ch, i16* %ch1
@@ -4771,8 +4789,8 @@ entry:
   store %SYSTEM_DLINK* %lda, %SYSTEM_DLINK** %next
   %mod = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 1
   store %SYSTEM_MODDESC* @OStrings__desc, %SYSTEM_MODDESC** %mod
-  %nidx = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 2
-  store i32 730, i32* %nidx
+  %procname = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 2
+  store [0 x i8]* bitcast ([5 x i8]* @n_OStrings___10 to [0 x i8]*), [0 x i8]** %procname
   store %SYSTEM_DLINK* %dlink, %SYSTEM_DLINK** @Kernel_dLink
   %x1 = alloca i32
   store i32 %x, i32* %x1
@@ -4827,8 +4845,8 @@ entry:
   store %SYSTEM_DLINK* %lda, %SYSTEM_DLINK** %next
   %mod = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 1
   store %SYSTEM_MODDESC* @OStrings__desc, %SYSTEM_MODDESC** %mod
-  %nidx = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 2
-  store i32 347, i32* %nidx
+  %procname = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 2
+  store [0 x i8]* bitcast ([15 x i8]* @n_OStrings_StdStringToSet to [0 x i8]*), [0 x i8]** %procname
   store %SYSTEM_DLINK* %dlink, %SYSTEM_DLINK** @Kernel_dLink
   %PCAST = bitcast i32* %x to i8*
   call void @llvm.memset.p0i8.i64(i8* %PCAST, i8 0, i64 4, i32 0, i1 false)
@@ -4960,8 +4978,8 @@ entry:
   store %SYSTEM_DLINK* %lda, %SYSTEM_DLINK** %next1
   %mod = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 1
   store %SYSTEM_MODDESC* @OStrings__desc, %SYSTEM_MODDESC** %mod
-  %nidx = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 2
-  store i32 795, i32* %nidx
+  %procname = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 2
+  store [0 x i8]* bitcast ([5 x i8]* @n_OStrings___16 to [0 x i8]*), [0 x i8]** %procname
   store %SYSTEM_DLINK* %dlink, %SYSTEM_DLINK** @Kernel_dLink
   %lda2 = load i32, i32* %next
   %INDX = getelementptr inbounds [0 x i16], [0 x i16]* %s, i32 0, i32 %lda2
@@ -5014,8 +5032,8 @@ entry:
   store %SYSTEM_DLINK* %lda, %SYSTEM_DLINK** %next1
   %mod = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 1
   store %SYSTEM_MODDESC* @OStrings__desc, %SYSTEM_MODDESC** %mod
-  %nidx = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 2
-  store i32 807, i32* %nidx
+  %procname = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 2
+  store [0 x i8]* bitcast ([5 x i8]* @n_OStrings___18 to [0 x i8]*), [0 x i8]** %procname
   store %SYSTEM_DLINK* %dlink, %SYSTEM_DLINK** @Kernel_dLink
   %intval = alloca i32
   %PCAST = bitcast i32* %intval to i8*
@@ -5083,8 +5101,8 @@ entry:
   store %SYSTEM_DLINK* %lda, %SYSTEM_DLINK** %next1
   %mod = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 1
   store %SYSTEM_MODDESC* @OStrings__desc, %SYSTEM_MODDESC** %mod
-  %nidx = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 2
-  store i32 827, i32* %nidx
+  %procname = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 2
+  store [0 x i8]* bitcast ([5 x i8]* @n_OStrings___20 to [0 x i8]*), [0 x i8]** %procname
   store %SYSTEM_DLINK* %dlink, %SYSTEM_DLINK** @Kernel_dLink
   %x12 = alloca i32
   store i32 %x1, i32* %x12
@@ -5194,8 +5212,8 @@ entry:
   store %SYSTEM_DLINK* %lda, %SYSTEM_DLINK** %next
   %mod = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 1
   store %SYSTEM_MODDESC* @OStrings__desc, %SYSTEM_MODDESC** %mod
-  %nidx = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 2
-  store i32 17, i32* %nidx
+  %procname = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 2
+  store [0 x i8]* bitcast ([5 x i8]* @n_OStrings_Init to [0 x i8]*), [0 x i8]** %procname
   store %SYSTEM_DLINK* %dlink, %SYSTEM_DLINK** @Kernel_dLink
   %eps = alloca double
   %PCAST = bitcast double* %eps to i8*

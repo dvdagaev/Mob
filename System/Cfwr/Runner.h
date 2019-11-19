@@ -18,7 +18,7 @@ typedef
 typedef
 	struct Runner_OpVal {
 		Runner_Name name;
-		Kernel_Name sname;
+		Kernel_Utf8Name sname;
 		Runner_ArgvString val;
 	} Runner_OpVal;
 
@@ -64,6 +64,8 @@ import SYSTEM_TYPEDESC *Runner__1__typ;
 
 import INTEGER Runner_EntryPoint (LONGINT *argv, INTEGER argv__len, LONGINT pargc, LONGINT p_reg, LONGINT \
 p_body);
+import void Runner_Execute (SHORTCHAR *command, INTEGER command__len, SHORTCHAR *out, INTEGER out__len, \
+INTEGER *result);
 import _BOOLEAN Runner_GetIntOpt (_CHAR *name, INTEGER name__len, INTEGER *ival);
 import _BOOLEAN Runner_GetStringOpt (_CHAR *name, INTEGER name__len, _CHAR *val, INTEGER val__len);
 import void Runner_PrintVars (void);

@@ -30,6 +30,7 @@ import void Times_Hook_FromLocalTime (Times_Hook h, Times_SystemTime *lt, SYSTEM
 import void Times_Hook_FromSystemTime (Times_Hook h, Times_SystemTime *st, SYSTEM_TYPEDESC *st__typ, Times_Time \
 *t, INTEGER *res);
 import Times_Time Times_Hook_GetTime (Times_Hook h);
+import void Times_Hook_GetUTCBias (Times_Hook h, INTEGER *bias);
 import void Times_Hook_Sleep (Times_Hook h, Times_Time tp);
 import void Times_Hook_ToLocalTime (Times_Hook h, Times_Time t, Times_SystemTime *lt, SYSTEM_TYPEDESC \
 *lt__typ, INTEGER *res);
@@ -40,10 +41,11 @@ Times_SystemTime*, SYSTEM_TYPEDESC *, Times_Time*, INTEGER*), (h, lt, lt__typ, t
 #define __Times_Hook_FromSystemTime(h, st, st__typ, t, res) __SEND(__TYPEOF(h), 2, void(*)(Times_Hook, \
 Times_SystemTime*, SYSTEM_TYPEDESC *, Times_Time*, INTEGER*), (h, st, st__typ, t, res))
 #define __Times_Hook_GetTime(h) __SEND(__TYPEOF(h), 3, Times_Time(*)(Times_Hook), (h))
-#define __Times_Hook_Sleep(h, tp) __SEND(__TYPEOF(h), 4, void(*)(Times_Hook, Times_Time), (h, tp))
-#define __Times_Hook_ToLocalTime(h, t, lt, lt__typ, res) __SEND(__TYPEOF(h), 5, void(*)(Times_Hook, Times_Time, \
+#define __Times_Hook_GetUTCBias(h, bias) __SEND(__TYPEOF(h), 4, void(*)(Times_Hook, INTEGER*), (h, bias))
+#define __Times_Hook_Sleep(h, tp) __SEND(__TYPEOF(h), 5, void(*)(Times_Hook, Times_Time), (h, tp))
+#define __Times_Hook_ToLocalTime(h, t, lt, lt__typ, res) __SEND(__TYPEOF(h), 6, void(*)(Times_Hook, Times_Time, \
 Times_SystemTime*, SYSTEM_TYPEDESC *, INTEGER*), (h, t, lt, lt__typ, res))
-#define __Times_Hook_ToSystemTime(h, t, st, st__typ, res) __SEND(__TYPEOF(h), 6, void(*)(Times_Hook, Times_Time, \
+#define __Times_Hook_ToSystemTime(h, t, st, st__typ, res) __SEND(__TYPEOF(h), 7, void(*)(Times_Hook, Times_Time, \
 Times_SystemTime*, SYSTEM_TYPEDESC *, INTEGER*), (h, t, st, st__typ, res))
 
 typedef
@@ -76,6 +78,7 @@ import Times_Time Times_FromSecMcs (Times_Sec sec, Times_Mcs mcs, _BOOLEAN from1
 import void Times_FromSystemTime (Times_SystemTime *st, SYSTEM_TYPEDESC *st__typ, Times_Time *t, INTEGER \
 *res);
 import Times_Time Times_GetTime (void);
+import void Times_GetUTCBias (INTEGER *bias);
 import void Times_SetDelimeters (_CHAR d_date, _CHAR d_time, _CHAR d_dat, _CHAR d_mcs);
 import void Times_SetHook (Times_Hook h);
 import void Times_SetMonNames (Times_MonNames mn);

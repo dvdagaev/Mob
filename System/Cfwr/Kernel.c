@@ -144,12 +144,12 @@ typedef
 typedef
 	struct Kernel_Module__rec *Kernel_Module;
 
-export Kernel_Module Kernel_LoaderHook_ThisMod (Kernel_LoaderHook h, SHORTCHAR *name, INTEGER name__len);
+export Kernel_Module Kernel_LoaderHook_ThisMod (Kernel_LoaderHook h, _CHAR *name, INTEGER name__len);
 #define __Kernel_LoaderHook_ThisMod(h, name, name__len) __SEND(__TYPEOF(h), 1, Kernel_Module(*)(Kernel_LoaderHook, \
-SHORTCHAR*, INTEGER ), (h, name, name__len))
+_CHAR*, INTEGER ), (h, name, name__len))
 
 typedef
-	SHORTCHAR Kernel_Name[256];
+	SHORTCHAR Kernel_Utf8Name[256];
 
 typedef
 	struct Kernel_Module__rec {
@@ -164,8 +164,11 @@ typedef
 		LONGINT *ptrs;
 		Kernel_Module *imports;
 		Kernel_Directory export_;
-		Kernel_Name name;
+		Kernel_Utf8Name name;
 	} Kernel_Module__rec;
+
+typedef
+	_CHAR Kernel_Name[256];
 
 typedef
 	struct Kernel_ProcType {
@@ -268,8 +271,8 @@ export SYSTEM_TYPEDESC *Kernel_Directory__typ = (SYSTEM_TYPEDESC*)Kernel_Directo
 export ADDRESS Kernel_Directory__rec__desc[];
 export SYSTEM_TYPEDESC *Kernel_Directory__rec__typ = (SYSTEM_TYPEDESC*)(Kernel_Directory__rec__desc + \
 1);
-export ADDRESS Kernel_Name__desc[];
-export SYSTEM_TYPEDESC *Kernel_Name__typ = (SYSTEM_TYPEDESC*)Kernel_Name__desc;
+export ADDRESS Kernel_Utf8Name__desc[];
+export SYSTEM_TYPEDESC *Kernel_Utf8Name__typ = (SYSTEM_TYPEDESC*)Kernel_Utf8Name__desc;
 export ADDRESS Kernel_Type__rec__desc[];
 export SYSTEM_TYPEDESC *Kernel_Type__rec__typ = (SYSTEM_TYPEDESC*)(Kernel_Type__rec__desc + 1);
 export ADDRESS Kernel__9__desc[];
@@ -349,6 +352,8 @@ export ADDRESS Kernel_Hook__desc[];
 export SYSTEM_TYPEDESC *Kernel_Hook__typ = (SYSTEM_TYPEDESC*)Kernel_Hook__desc;
 export ADDRESS Kernel_LoaderHook__desc[];
 export SYSTEM_TYPEDESC *Kernel_LoaderHook__typ = (SYSTEM_TYPEDESC*)Kernel_LoaderHook__desc;
+export ADDRESS Kernel_Name__desc[];
+export SYSTEM_TYPEDESC *Kernel_Name__typ = (SYSTEM_TYPEDESC*)Kernel_Name__desc;
 export ADDRESS Kernel_PString__desc[];
 export SYSTEM_TYPEDESC *Kernel_PString__typ = (SYSTEM_TYPEDESC*)Kernel_PString__desc;
 export ADDRESS Kernel__16__desc[];
@@ -387,7 +392,7 @@ export void Kernel_SetLoaderHook (Kernel_LoaderHook h);
 export LONGINT Kernel_SetModList (LONGINT ml);
 static void Kernel_Sweep (_BOOLEAN dealloc);
 export ANYPTR Kernel_ThisFinObj (Kernel_Identifier *id, SYSTEM_TYPEDESC *id__typ);
-export Kernel_Module Kernel_ThisLoadedMod (SHORTCHAR *name, INTEGER name__len);
+export Kernel_Module Kernel_ThisLoadedMod (_CHAR *name, INTEGER name__len);
 export Kernel_Module Kernel_ThisMod (_CHAR *name, INTEGER name__len);
 export LONGINT Kernel_Total (void);
 export LONGINT Kernel_Used (void);
@@ -418,12 +423,14 @@ static void Kernel_InitModule (Kernel_Module mod)
 	__EXIT;
 }
 
-Kernel_Module Kernel_ThisLoadedMod (SHORTCHAR *name, INTEGER name__len)
+Kernel_Module Kernel_ThisLoadedMod (_CHAR *name, INTEGER name__len)
 {
 	Kernel_Module m = NIL;
+	Kernel_Utf8Name n;
 	__ENTER("Kernel.ThisLoadedMod");
+	__STRCOPYTS(name, n, 256);
 	m = Kernel_modList;
-	while (m != NIL && (__STRCMPSS(m->name, name) != 0 || m->refcnt < 0)) {
+	while (m != NIL && (__STRCMPSS(m->name, n) != 0 || m->refcnt < 0)) {
 		m = m->next;
 	}
 	if (m != NIL && !__IN(16, m->opts)) {
@@ -435,16 +442,14 @@ Kernel_Module Kernel_ThisLoadedMod (SHORTCHAR *name, INTEGER name__len)
 
 Kernel_Module Kernel_ThisMod (_CHAR *name, INTEGER name__len)
 {
-	Kernel_Name n;
 	__ENTER("Kernel.ThisMod");
-	__STRCOPYTS(name, n, 256);
 	if (Kernel_loaderHook != NIL) {
 		Kernel_loaderHook->res = 0;
 		__EXIT;
-		return __Kernel_LoaderHook_ThisMod(Kernel_loaderHook, (void*)n, 256);
+		return __Kernel_LoaderHook_ThisMod(Kernel_loaderHook, (void*)name, name__len);
 	} else {
 		__EXIT;
-		return Kernel_ThisLoadedMod((void*)n, 256);
+		return Kernel_ThisLoadedMod((void*)name, name__len);
 	}
 	__RETCHK;
 }
@@ -1437,7 +1442,7 @@ static ADDRESS Kernel_Module__rec__flds[] = {
 	0, 136, 118<<8 | 0x25, 13,
 	0, 144, 123<<8 | 0x25, 13,
 	0, 152, 131<<8 | 0x25, 13,
-	0, 160, 138<<8 | 0x25, (ADDRESS)Kernel_Name__desc,
+	0, 160, 138<<8 | 0x25, (ADDRESS)Kernel_Utf8Name__desc,
 };
 export ADDRESS Kernel_Module__rec__desc[] = {
 	-1, 
@@ -1523,7 +1528,7 @@ export ADDRESS Kernel_Directory__desc[] = {
 	185<<8 | 0x03,
 	0
 };
-export ADDRESS Kernel_Name__desc[] = {
+export ADDRESS Kernel_Utf8Name__desc[] = {
 	256,
 	(ADDRESS)&Kernel__desc,
 	195<<8 | 0x02,
@@ -1531,18 +1536,18 @@ export ADDRESS Kernel_Name__desc[] = {
 };
 static ADDRESS Kernel_Type__rec__flds[] = {
 	6, 
-	0, 0, 200<<8 | 0x25, 10,
-	0, 8, 205<<8 | 0x25, 13,
-	0, 16, 209<<8 | 0x25, 10,
-	0, 24, 212<<8 | 0x25, (ADDRESS)Kernel__9__desc,
-	0, 152, 217<<8 | 0x25, 13,
-	0, 160, 224<<8 | 0x25, (ADDRESS)Kernel__10__desc,
+	0, 0, 204<<8 | 0x25, 10,
+	0, 8, 209<<8 | 0x25, 13,
+	0, 16, 213<<8 | 0x25, 10,
+	0, 24, 216<<8 | 0x25, (ADDRESS)Kernel__9__desc,
+	0, 152, 221<<8 | 0x25, 13,
+	0, 160, 228<<8 | 0x25, (ADDRESS)Kernel__10__desc,
 };
 export ADDRESS Kernel_Type__rec__desc[] = {
 	-1, 
 	8160,
 	(ADDRESS)&Kernel__desc,
-	232<<8 | 0x01,
+	236<<8 | 0x01,
 	0,
 	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
 	(ADDRESS)Kernel_Type__rec__flds, 
@@ -1551,7 +1556,7 @@ export ADDRESS Kernel_Type__rec__desc[] = {
 export ADDRESS Kernel_Type__desc[] = {
 	0,
 	(ADDRESS)&Kernel__desc,
-	238<<8 | 0x03,
+	242<<8 | 0x03,
 	0
 };
 export ADDRESS Kernel__9__desc[] = {
@@ -1568,16 +1573,16 @@ export ADDRESS Kernel__10__desc[] = {
 };
 static ADDRESS Kernel_ObjDesc__flds[] = {
 	4, 
-	0, 0, 243<<8 | 0x25, 6,
-	0, 8, 250<<8 | 0x25, 10,
-	0, 16, 209<<8 | 0x25, 6,
-	0, 24, 255<<8 | 0x25, 13,
+	0, 0, 247<<8 | 0x25, 6,
+	0, 8, 254<<8 | 0x25, 10,
+	0, 16, 213<<8 | 0x25, 6,
+	0, 24, 259<<8 | 0x25, 13,
 };
 export ADDRESS Kernel_ObjDesc__desc[] = {
 	-1, 
 	32,
 	(ADDRESS)&Kernel__desc,
-	262<<8 | 0x01,
+	266<<8 | 0x01,
 	0,
 	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
 	(ADDRESS)Kernel_ObjDesc__flds, 
@@ -1597,7 +1602,7 @@ export ADDRESS Kernel_Hook__rec__desc[] = {
 	0, 
 	1,
 	(ADDRESS)&Kernel__desc,
-	270<<8 | 0x0d,
+	274<<8 | 0x0d,
 	(ADDRESS)(Kernel_Hook__rec__desc + 2),
 	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
 	(ADDRESS)Kernel_Hook__rec__flds, 
@@ -1605,10 +1610,10 @@ export ADDRESS Kernel_Hook__rec__desc[] = {
 };
 static ADDRESS Kernel_LoaderHook__rec__flds[] = {
 	4, 
-	0, 0, 276<<8 | 0x45, 6,
-	0, 4, 280<<8 | 0x45, (ADDRESS)Kernel__12__desc,
-	0, 516, 290<<8 | 0x45, (ADDRESS)Kernel__12__desc,
-	0, 1028, 299<<8 | 0x45, (ADDRESS)Kernel__12__desc,
+	0, 0, 280<<8 | 0x45, 6,
+	0, 4, 284<<8 | 0x45, (ADDRESS)Kernel__12__desc,
+	0, 516, 294<<8 | 0x45, (ADDRESS)Kernel__12__desc,
+	0, 1028, 303<<8 | 0x45, (ADDRESS)Kernel__12__desc,
 };
 export ADDRESS Kernel_LoaderHook__rec__desc[] = {
 	-1, 
@@ -1616,7 +1621,7 @@ export ADDRESS Kernel_LoaderHook__rec__desc[] = {
 	0, 
 	1540,
 	(ADDRESS)&Kernel__desc,
-	306<<8 | 0x1d,
+	310<<8 | 0x1d,
 	(ADDRESS)(Kernel_Hook__rec__desc + 2),
 	(ADDRESS)(Kernel_LoaderHook__rec__desc + 3),
 	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
@@ -1639,7 +1644,7 @@ export ADDRESS Kernel_Reducer__rec__desc[] = {
 	0, 
 	8,
 	(ADDRESS)&Kernel__desc,
-	318<<8 | 0x0d,
+	322<<8 | 0x0d,
 	(ADDRESS)(Kernel_Reducer__rec__desc + 3),
 	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
 	(ADDRESS)Kernel_Reducer__rec__flds, 
@@ -1648,12 +1653,12 @@ export ADDRESS Kernel_Reducer__rec__desc[] = {
 export ADDRESS Kernel_Reducer__desc[] = {
 	0,
 	(ADDRESS)&Kernel__desc,
-	327<<8 | 0x03,
+	331<<8 | 0x03,
 	(ADDRESS)(Kernel_Reducer__rec__desc + 3)
 };
 static ADDRESS Kernel_Identifier__flds[] = {
 	2, 
-	0, 0, 335<<8 | 0x45, 10,
+	0, 0, 339<<8 | 0x45, 10,
 	0, 8, 170<<8 | 0x25, 12,
 };
 export ADDRESS Kernel_Identifier__desc[] = {
@@ -1662,7 +1667,7 @@ export ADDRESS Kernel_Identifier__desc[] = {
 	0, 
 	16,
 	(ADDRESS)&Kernel__desc,
-	339<<8 | 0x0d,
+	343<<8 | 0x0d,
 	(ADDRESS)(Kernel_Identifier__desc + 3),
 	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
 	(ADDRESS)Kernel_Identifier__flds, 
@@ -1670,16 +1675,16 @@ export ADDRESS Kernel_Identifier__desc[] = {
 };
 static ADDRESS Kernel_Block__rec__flds[] = {
 	4, 
-	0, 0, 350<<8 | 0x15, 13,
-	0, 8, 354<<8 | 0x15, 10,
-	0, 16, 359<<8 | 0x15, 10,
-	0, 24, 366<<8 | 0x15, 10,
+	0, 0, 354<<8 | 0x15, 13,
+	0, 8, 358<<8 | 0x15, 10,
+	0, 16, 363<<8 | 0x15, 10,
+	0, 24, 370<<8 | 0x15, 10,
 };
 export ADDRESS Kernel_Block__rec__desc[] = {
 	-1, 
 	32,
 	(ADDRESS)&Kernel__desc,
-	372<<8 | 0x01,
+	376<<8 | 0x01,
 	0,
 	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
 	(ADDRESS)Kernel_Block__rec__flds, 
@@ -1687,15 +1692,15 @@ export ADDRESS Kernel_Block__rec__desc[] = {
 };
 static ADDRESS Kernel_FreeDesc__flds[] = {
 	3, 
-	0, 0, 350<<8 | 0x15, 13,
-	0, 8, 200<<8 | 0x15, 10,
+	0, 0, 354<<8 | 0x15, 13,
+	0, 8, 204<<8 | 0x15, 10,
 	0, 16, 1<<8 | 0x15, 13,
 };
 export ADDRESS Kernel_FreeDesc__desc[] = {
 	-1, 
 	24,
 	(ADDRESS)&Kernel__desc,
-	379<<8 | 0x01,
+	383<<8 | 0x01,
 	0,
 	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
 	(ADDRESS)Kernel_FreeDesc__flds, 
@@ -1704,20 +1709,20 @@ export ADDRESS Kernel_FreeDesc__desc[] = {
 export ADDRESS Kernel_FreeBlock__desc[] = {
 	0,
 	(ADDRESS)&Kernel__desc,
-	388<<8 | 0x03,
+	392<<8 | 0x03,
 	0
 };
 static ADDRESS Kernel_Cluster__rec__flds[] = {
 	3, 
-	0, 0, 200<<8 | 0x15, 10,
+	0, 0, 204<<8 | 0x15, 10,
 	0, 8, 1<<8 | 0x15, 13,
-	0, 16, 398<<8 | 0x15, 10,
+	0, 16, 402<<8 | 0x15, 10,
 };
 export ADDRESS Kernel_Cluster__rec__desc[] = {
 	-1, 
 	24,
 	(ADDRESS)&Kernel__desc,
-	402<<8 | 0x01,
+	406<<8 | 0x01,
 	0,
 	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
 	(ADDRESS)Kernel_Cluster__rec__flds, 
@@ -1726,22 +1731,22 @@ export ADDRESS Kernel_Cluster__rec__desc[] = {
 export ADDRESS Kernel_Cluster__desc[] = {
 	0,
 	(ADDRESS)&Kernel__desc,
-	411<<8 | 0x03,
+	415<<8 | 0x03,
 	0
 };
 static ADDRESS Kernel_FList__rec__flds[] = {
 	4, 
 	0, 0, 1<<8 | 0x15, (ADDRESS)Kernel_FList__desc,
-	0, 8, 419<<8 | 0x15, 13,
-	0, 16, 423<<8 | 0x15, 1,
-	0, 17, 428<<8 | 0x15, 1,
+	0, 8, 423<<8 | 0x15, 13,
+	0, 16, 427<<8 | 0x15, 1,
+	0, 17, 432<<8 | 0x15, 1,
 };
 export ADDRESS Kernel_FList__rec__desc[] = {
 	-1, 
 	0, 
 	24,
 	(ADDRESS)&Kernel__desc,
-	434<<8 | 0x01,
+	438<<8 | 0x01,
 	(ADDRESS)(Kernel_FList__rec__desc + 2),
 	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
 	(ADDRESS)Kernel_FList__rec__flds, 
@@ -1750,25 +1755,25 @@ export ADDRESS Kernel_FList__rec__desc[] = {
 export ADDRESS Kernel_FList__desc[] = {
 	0,
 	(ADDRESS)&Kernel__desc,
-	441<<8 | 0x03,
+	445<<8 | 0x03,
 	(ADDRESS)(Kernel_FList__rec__desc + 2)
 };
 export ADDRESS Kernel_Block__desc[] = {
 	0,
 	(ADDRESS)&Kernel__desc,
-	447<<8 | 0x03,
+	451<<8 | 0x03,
 	0
 };
 static ADDRESS Kernel_PtrType__flds[] = {
 	1, 
-	0, 0, 453<<8 | 0x15, 13,
+	0, 0, 457<<8 | 0x15, 13,
 };
 export ADDRESS Kernel_PtrType__desc[] = {
 	-1, 
 	0, 
 	4,
 	(ADDRESS)&Kernel__desc,
-	455<<8 | 0x01,
+	459<<8 | 0x01,
 	(ADDRESS)(Kernel_PtrType__desc + 2),
 	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
 	(ADDRESS)Kernel_PtrType__flds, 
@@ -1776,14 +1781,14 @@ export ADDRESS Kernel_PtrType__desc[] = {
 };
 static ADDRESS Kernel_Char8Type__flds[] = {
 	1, 
-	0, 0, 453<<8 | 0x15, 2,
+	0, 0, 457<<8 | 0x15, 2,
 };
 export ADDRESS Kernel_Char8Type__desc[] = {
 	-1, 
 	0, 
 	1,
 	(ADDRESS)&Kernel__desc,
-	463<<8 | 0x01,
+	467<<8 | 0x01,
 	(ADDRESS)(Kernel_Char8Type__desc + 2),
 	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
 	(ADDRESS)Kernel_Char8Type__flds, 
@@ -1791,14 +1796,14 @@ export ADDRESS Kernel_Char8Type__desc[] = {
 };
 static ADDRESS Kernel_Char16Type__flds[] = {
 	1, 
-	0, 0, 453<<8 | 0x15, 3,
+	0, 0, 457<<8 | 0x15, 3,
 };
 export ADDRESS Kernel_Char16Type__desc[] = {
 	-1, 
 	0, 
 	2,
 	(ADDRESS)&Kernel__desc,
-	473<<8 | 0x01,
+	477<<8 | 0x01,
 	(ADDRESS)(Kernel_Char16Type__desc + 2),
 	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
 	(ADDRESS)Kernel_Char16Type__flds, 
@@ -1806,14 +1811,14 @@ export ADDRESS Kernel_Char16Type__desc[] = {
 };
 static ADDRESS Kernel_Int8Type__flds[] = {
 	1, 
-	0, 0, 453<<8 | 0x15, 4,
+	0, 0, 457<<8 | 0x15, 4,
 };
 export ADDRESS Kernel_Int8Type__desc[] = {
 	-1, 
 	0, 
 	1,
 	(ADDRESS)&Kernel__desc,
-	484<<8 | 0x01,
+	488<<8 | 0x01,
 	(ADDRESS)(Kernel_Int8Type__desc + 2),
 	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
 	(ADDRESS)Kernel_Int8Type__flds, 
@@ -1821,14 +1826,14 @@ export ADDRESS Kernel_Int8Type__desc[] = {
 };
 static ADDRESS Kernel_Int16Type__flds[] = {
 	1, 
-	0, 0, 453<<8 | 0x15, 5,
+	0, 0, 457<<8 | 0x15, 5,
 };
 export ADDRESS Kernel_Int16Type__desc[] = {
 	-1, 
 	0, 
 	2,
 	(ADDRESS)&Kernel__desc,
-	493<<8 | 0x01,
+	497<<8 | 0x01,
 	(ADDRESS)(Kernel_Int16Type__desc + 2),
 	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
 	(ADDRESS)Kernel_Int16Type__flds, 
@@ -1836,14 +1841,14 @@ export ADDRESS Kernel_Int16Type__desc[] = {
 };
 static ADDRESS Kernel_Int32Type__flds[] = {
 	1, 
-	0, 0, 453<<8 | 0x15, 6,
+	0, 0, 457<<8 | 0x15, 6,
 };
 export ADDRESS Kernel_Int32Type__desc[] = {
 	-1, 
 	0, 
 	4,
 	(ADDRESS)&Kernel__desc,
-	503<<8 | 0x01,
+	507<<8 | 0x01,
 	(ADDRESS)(Kernel_Int32Type__desc + 2),
 	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
 	(ADDRESS)Kernel_Int32Type__flds, 
@@ -1851,14 +1856,14 @@ export ADDRESS Kernel_Int32Type__desc[] = {
 };
 static ADDRESS Kernel_Int64Type__flds[] = {
 	1, 
-	0, 0, 453<<8 | 0x15, 10,
+	0, 0, 457<<8 | 0x15, 10,
 };
 export ADDRESS Kernel_Int64Type__desc[] = {
 	-1, 
 	0, 
 	8,
 	(ADDRESS)&Kernel__desc,
-	513<<8 | 0x01,
+	517<<8 | 0x01,
 	(ADDRESS)(Kernel_Int64Type__desc + 2),
 	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
 	(ADDRESS)Kernel_Int64Type__flds, 
@@ -1866,14 +1871,14 @@ export ADDRESS Kernel_Int64Type__desc[] = {
 };
 static ADDRESS Kernel_BoolType__flds[] = {
 	1, 
-	0, 0, 453<<8 | 0x15, 1,
+	0, 0, 457<<8 | 0x15, 1,
 };
 export ADDRESS Kernel_BoolType__desc[] = {
 	-1, 
 	0, 
 	1,
 	(ADDRESS)&Kernel__desc,
-	523<<8 | 0x01,
+	527<<8 | 0x01,
 	(ADDRESS)(Kernel_BoolType__desc + 2),
 	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
 	(ADDRESS)Kernel_BoolType__flds, 
@@ -1881,14 +1886,14 @@ export ADDRESS Kernel_BoolType__desc[] = {
 };
 static ADDRESS Kernel_SetType__flds[] = {
 	1, 
-	0, 0, 453<<8 | 0x15, 9,
+	0, 0, 457<<8 | 0x15, 9,
 };
 export ADDRESS Kernel_SetType__desc[] = {
 	-1, 
 	0, 
 	4,
 	(ADDRESS)&Kernel__desc,
-	532<<8 | 0x01,
+	536<<8 | 0x01,
 	(ADDRESS)(Kernel_SetType__desc + 2),
 	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
 	(ADDRESS)Kernel_SetType__flds, 
@@ -1896,14 +1901,14 @@ export ADDRESS Kernel_SetType__desc[] = {
 };
 static ADDRESS Kernel_Real32Type__flds[] = {
 	1, 
-	0, 0, 453<<8 | 0x15, 7,
+	0, 0, 457<<8 | 0x15, 7,
 };
 export ADDRESS Kernel_Real32Type__desc[] = {
 	-1, 
 	0, 
 	4,
 	(ADDRESS)&Kernel__desc,
-	540<<8 | 0x01,
+	544<<8 | 0x01,
 	(ADDRESS)(Kernel_Real32Type__desc + 2),
 	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
 	(ADDRESS)Kernel_Real32Type__flds, 
@@ -1911,14 +1916,14 @@ export ADDRESS Kernel_Real32Type__desc[] = {
 };
 static ADDRESS Kernel_Real64Type__flds[] = {
 	1, 
-	0, 0, 453<<8 | 0x15, 8,
+	0, 0, 457<<8 | 0x15, 8,
 };
 export ADDRESS Kernel_Real64Type__desc[] = {
 	-1, 
 	0, 
 	8,
 	(ADDRESS)&Kernel__desc,
-	551<<8 | 0x01,
+	555<<8 | 0x01,
 	(ADDRESS)(Kernel_Real64Type__desc + 2),
 	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
 	(ADDRESS)Kernel_Real64Type__flds, 
@@ -1926,14 +1931,14 @@ export ADDRESS Kernel_Real64Type__desc[] = {
 };
 static ADDRESS Kernel_ProcType__flds[] = {
 	1, 
-	0, 0, 453<<8 | 0x15, (ADDRESS)Kernel__20__desc,
+	0, 0, 457<<8 | 0x15, (ADDRESS)Kernel__20__desc,
 };
 export ADDRESS Kernel_ProcType__desc[] = {
 	-1, 
 	0, 
 	8,
 	(ADDRESS)&Kernel__desc,
-	562<<8 | 0x01,
+	566<<8 | 0x01,
 	(ADDRESS)(Kernel_ProcType__desc + 2),
 	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
 	(ADDRESS)Kernel_ProcType__flds, 
@@ -1946,14 +1951,14 @@ export ADDRESS Kernel__20__desc[] = {
 0};
 static ADDRESS Kernel_UPtrType__flds[] = {
 	1, 
-	0, 0, 453<<8 | 0x15, 6,
+	0, 0, 457<<8 | 0x15, 6,
 };
 export ADDRESS Kernel_UPtrType__desc[] = {
 	-1, 
 	0, 
 	4,
 	(ADDRESS)&Kernel__desc,
-	571<<8 | 0x01,
+	575<<8 | 0x01,
 	(ADDRESS)(Kernel_UPtrType__desc + 2),
 	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
 	(ADDRESS)Kernel_UPtrType__flds, 
@@ -1961,15 +1966,15 @@ export ADDRESS Kernel_UPtrType__desc[] = {
 };
 static ADDRESS Kernel_AddrRange__flds[] = {
 	2, 
-	0, 0, 580<<8 | 0x15, 10,
-	0, 8, 587<<8 | 0x15, 10,
+	0, 0, 584<<8 | 0x15, 10,
+	0, 8, 591<<8 | 0x15, 10,
 };
 export ADDRESS Kernel_AddrRange__desc[] = {
 	-1, 
 	0, 
 	16,
 	(ADDRESS)&Kernel__desc,
-	593<<8 | 0x01,
+	597<<8 | 0x01,
 	(ADDRESS)(Kernel_AddrRange__desc + 2),
 	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
 	(ADDRESS)Kernel_AddrRange__flds, 
@@ -1984,31 +1989,37 @@ export ADDRESS Kernel__1__desc[] = {
 export ADDRESS Kernel_PString__desc[] = {
 	0,
 	(ADDRESS)&Kernel__desc,
-	603<<8 | 0x03,
+	607<<8 | 0x03,
 	0
 };
 export ADDRESS Kernel_Argv__desc[] = {
 	256,
 	(ADDRESS)&Kernel__desc,
-	611<<8 | 0x02,
+	615<<8 | 0x02,
 	13
 };
 export ADDRESS Kernel_Handler__desc[] = {
 	1477768406,
 	(ADDRESS)&Kernel__desc,
-	616<<8 | 0x00,
+	620<<8 | 0x00,
 0};
 export ADDRESS Kernel_Hook__desc[] = {
 	0,
 	(ADDRESS)&Kernel__desc,
-	624<<8 | 0x03,
+	628<<8 | 0x03,
 	(ADDRESS)(Kernel_Hook__rec__desc + 2)
 };
 export ADDRESS Kernel_LoaderHook__desc[] = {
 	0,
 	(ADDRESS)&Kernel__desc,
-	629<<8 | 0x03,
+	633<<8 | 0x03,
 	(ADDRESS)(Kernel_LoaderHook__rec__desc + 3)
+};
+export ADDRESS Kernel_Name__desc[] = {
+	256,
+	(ADDRESS)&Kernel__desc,
+	644<<8 | 0x02,
+	3
 };
 export ADDRESS Kernel__16__desc[] = {
 	547742217,
@@ -2020,76 +2031,78 @@ static SYSTEM_MODDESC *Kernel__imp[] = {
 	&OLog__desc,
 };
 static ADDRESS Kernel__exp[] = {
-	69, 
-	0x7e3f9b47, 0x5e5bcc2d, 593<<8 | 0x12, (ADDRESS)(Kernel_AddrRange__desc + 2),
-	0x288b8fac, (ADDRESS)Kernel_Allocated, 640<<8 | 0x44, 0,
-	0x7e2b5e91, 0x7e2b5e91, 611<<8 | 0x42, (ADDRESS)Kernel_Argv__desc,
-	0x12ac22be, 0x49eaf49e, 372<<8 | 0x12, 0,
-	0x53241eea, 0xa60ba57c, 523<<8 | 0x12, (ADDRESS)(Kernel_BoolType__desc + 2),
-	0x7f872f78, 0x36577564, 473<<8 | 0x12, (ADDRESS)(Kernel_Char16Type__desc + 2),
-	0x3f73eff6, 0x27113341, 463<<8 | 0x12, (ADDRESS)(Kernel_Char8Type__desc + 2),
-	0x5814f4d6, (ADDRESS)Kernel_Cleanup, 650<<8 | 0x44, 0,
-	0xb3c62b2c, 0x4d0fd881, 402<<8 | 0x12, 0,
-	0x5814f4d6, (ADDRESS)Kernel_Collect, 658<<8 | 0x44, 0,
+	71, 
+	0x7e3f9b47, 0x5e5bcc2d, 597<<8 | 0x12, (ADDRESS)(Kernel_AddrRange__desc + 2),
+	0x288b8fac, (ADDRESS)Kernel_Allocated, 649<<8 | 0x44, 0,
+	0x7e2b5e91, 0x7e2b5e91, 615<<8 | 0x42, (ADDRESS)Kernel_Argv__desc,
+	0x12ac22be, 0x49eaf49e, 376<<8 | 0x12, 0,
+	0x53241eea, 0xa60ba57c, 527<<8 | 0x12, (ADDRESS)(Kernel_BoolType__desc + 2),
+	0x7f872f78, 0x36577564, 477<<8 | 0x12, (ADDRESS)(Kernel_Char16Type__desc + 2),
+	0x3f73eff6, 0x27113341, 467<<8 | 0x12, (ADDRESS)(Kernel_Char8Type__desc + 2),
+	0x5814f4d6, (ADDRESS)Kernel_Cleanup, 659<<8 | 0x44, 0,
+	0xb3c62b2c, 0x4d0fd881, 406<<8 | 0x12, 0,
+	0x5814f4d6, (ADDRESS)Kernel_Collect, 667<<8 | 0x44, 0,
 	0x8a1a3627, 0x8a1a3627, 158<<8 | 0x42, (ADDRESS)Kernel_Command__desc,
 	0x66ab5d9c, 0x66ab5d9c, 185<<8 | 0x42, 13,
 	0xf495f38a, 0x090b4ccd, 174<<8 | 0x12, 0,
-	0xa905014a, 0x91645021, 434<<8 | 0x12, (ADDRESS)(Kernel_FList__rec__desc + 2),
-	0x5814f4d6, (ADDRESS)Kernel_FastCollect, 666<<8 | 0x44, 0,
-	0x286ce031, 0x068331ee, 379<<8 | 0x12, 0,
-	0xaa011608, 0xaa011608, 616<<8 | 0x42, (ADDRESS)Kernel_Handler__desc,
-	0x8e696a26, 0x8e696a26, 624<<8 | 0x42, (ADDRESS)Kernel_Hook__desc,
-	0xac8caf49, 0x0eb0c70a, 270<<8 | 0x12, (ADDRESS)(Kernel_Hook__rec__desc + 2),
-	0x77a1059d, 0xa6932794, 339<<8 | 0x42, (ADDRESS)(Kernel_Identifier__desc + 3),
-	0xe18b010e, (ADDRESS)Kernel_InstallTrapViewer, 678<<8 | 0x44, 0,
-	0xb28850ce, 0xb33b2df0, 493<<8 | 0x12, (ADDRESS)(Kernel_Int16Type__desc + 2),
-	0x6734fff0, 0xacd2b103, 503<<8 | 0x12, (ADDRESS)(Kernel_Int32Type__desc + 2),
-	0xe9f541f6, 0x1744a582, 513<<8 | 0x12, (ADDRESS)(Kernel_Int64Type__desc + 2),
-	0xdd10e2de, 0x37158f0f, 484<<8 | 0x12, (ADDRESS)(Kernel_Int8Type__desc + 2),
-	0x143ec369, (ADDRESS)Kernel_LoadMod, 696<<8 | 0x44, 0,
-	0xc4a3a4bd, 0xc4a3a4bd, 629<<8 | 0x42, (ADDRESS)Kernel_LoaderHook__desc,
-	0x9078d221, 0xa9382da4, 306<<8 | 0x12, (ADDRESS)(Kernel_LoaderHook__rec__desc + 3),
-	0x573dc0f2, (ADDRESS)Kernel_Main, 704<<8 | 0x44, 0,
+	0xa905014a, 0x91645021, 438<<8 | 0x12, (ADDRESS)(Kernel_FList__rec__desc + 2),
+	0x5814f4d6, (ADDRESS)Kernel_FastCollect, 675<<8 | 0x44, 0,
+	0x286ce031, 0x068331ee, 383<<8 | 0x12, 0,
+	0xaa011608, 0xaa011608, 620<<8 | 0x42, (ADDRESS)Kernel_Handler__desc,
+	0x8e696a26, 0x8e696a26, 628<<8 | 0x42, (ADDRESS)Kernel_Hook__desc,
+	0xac8caf49, 0x0eb0c70a, 274<<8 | 0x12, (ADDRESS)(Kernel_Hook__rec__desc + 2),
+	0x77a1059d, 0xa6932794, 343<<8 | 0x42, (ADDRESS)(Kernel_Identifier__desc + 3),
+	0xe18b010e, (ADDRESS)Kernel_InstallTrapViewer, 687<<8 | 0x44, 0,
+	0xb28850ce, 0xb33b2df0, 497<<8 | 0x12, (ADDRESS)(Kernel_Int16Type__desc + 2),
+	0x6734fff0, 0xacd2b103, 507<<8 | 0x12, (ADDRESS)(Kernel_Int32Type__desc + 2),
+	0xe9f541f6, 0x1744a582, 517<<8 | 0x12, (ADDRESS)(Kernel_Int64Type__desc + 2),
+	0xdd10e2de, 0x37158f0f, 488<<8 | 0x12, (ADDRESS)(Kernel_Int8Type__desc + 2),
+	0x143ec369, (ADDRESS)Kernel_LoadMod, 705<<8 | 0x44, 0,
+	0xc4a3a4bd, 0xc4a3a4bd, 633<<8 | 0x42, (ADDRESS)Kernel_LoaderHook__desc,
+	0xe57bd156, 0xdc3b2ed3, 310<<8 | 0x12, (ADDRESS)(Kernel_LoaderHook__rec__desc + 3),
+	0x573dc0f2, (ADDRESS)Kernel_Main, 713<<8 | 0x44, 0,
 	0xd95d10d4, 0xd95d10d4, 151<<8 | 0x42, 13,
-	0x633dbedd, 0xb93a216c, 143<<8 | 0x12, 0,
-	0x615636df, 0x615636df, 195<<8 | 0x42, (ADDRESS)Kernel_Name__desc,
-	0x8603e552, (ADDRESS)Kernel_NewArr, 709<<8 | 0x44, 0,
-	0xcc369177, (ADDRESS)Kernel_NewRec, 716<<8 | 0x44, 0,
-	0xdafcf6b5, 0x1189d84e, 262<<8 | 0x42, 0,
-	0x9fc66595, 0x9fc66595, 603<<8 | 0x42, 13,
-	0xa5e8a12e, 0x905a4bb6, 562<<8 | 0x12, (ADDRESS)(Kernel_ProcType__desc + 2),
-	0xde12be39, 0xca5da1fa, 455<<8 | 0x12, (ADDRESS)(Kernel_PtrType__desc + 2),
-	0xeae177c7, 0xd9df2f97, 540<<8 | 0x12, (ADDRESS)(Kernel_Real32Type__desc + 2),
-	0x6420c9c1, 0x62493b16, 551<<8 | 0x12, (ADDRESS)(Kernel_Real64Type__desc + 2),
-	0x93949e0f, 0x93949e0f, 327<<8 | 0x42, (ADDRESS)Kernel_Reducer__desc,
-	0x1eeb84c7, 0xc7c681b6, 318<<8 | 0x12, (ADDRESS)(Kernel_Reducer__rec__desc + 3),
-	0x288b8fac, (ADDRESS)Kernel_Root, 723<<8 | 0x44, 0,
-	0x8ff1aca5, (ADDRESS)Kernel_SetLoaderHook, 728<<8 | 0x44, 0,
-	0xcc369177, (ADDRESS)Kernel_SetModList, 742<<8 | 0x44, 0,
-	0x58d91840, 0xff4ed3cb, 532<<8 | 0x12, (ADDRESS)(Kernel_SetType__desc + 2),
-	0x3985febe, (ADDRESS)Kernel_ThisFinObj, 753<<8 | 0x44, 0,
-	0xa723dd68, (ADDRESS)Kernel_ThisLoadedMod, 764<<8 | 0x44, 0,
-	0xada625a8, (ADDRESS)Kernel_ThisMod, 778<<8 | 0x44, 0,
-	0x288b8fac, (ADDRESS)Kernel_Total, 786<<8 | 0x44, 0,
-	0x4bf97443, 0x4bf97443, 238<<8 | 0x42, 13,
-	0xa866953e, 0x68328f8b, 232<<8 | 0x12, 0,
-	0x68a9b79a, 0x7031ab41, 571<<8 | 0x12, (ADDRESS)(Kernel_UPtrType__desc + 2),
-	0x288b8fac, (ADDRESS)Kernel_Used, 792<<8 | 0x44, 0,
-	0x8cff8310, (ADDRESS)&Kernel_argC, 797<<8 | 0x23, 6,
-	0x4b7ee5a0, (ADDRESS)&Kernel_argV, 802<<8 | 0x23, (ADDRESS)Kernel_Argv__desc,
-	0x3c543292, 0, 807<<8 | 0x41, 0,
-	0x1e9dc29d, 0, 812<<8 | 0x41, 0,
-	0x1a5cdf2a, 0, 817<<8 | 0x41, 0,
-	0x26d27f20, 0, 823<<8 | 0x41, 0,
-	0x13dee444, 0, 830<<8 | 0x41, 0,
-	0x171ff9f3, 0, 835<<8 | 0x41, 0,
-	0xe7618240, 0, 843<<8 | 0x41, 0,
-	0x57e82b87, (ADDRESS)&Kernel_err, 851<<8 | 0x43, 6,
-	0x9ffbf5cc, (ADDRESS)&Kernel_inDll, 855<<8 | 0x23, 1,
-	0x420f79c1, (ADDRESS)&Kernel_modList, 861<<8 | 0x23, 13,
-	0x59190a12, 0, 869<<8 | 0x41, 0,
-	0x71123d22, (ADDRESS)&Kernel_pWatcher, 877<<8 | 0x43, (ADDRESS)Kernel__16__desc,
-	0x415c11cf, 0, 886<<8 | 0x41, 0,
+	0x97b08761, 0x4db718d0, 143<<8 | 0x12, 0,
+	0x2a8133b6, 0x2a8133b6, 644<<8 | 0x42, (ADDRESS)Kernel_Name__desc,
+	0x8603e552, (ADDRESS)Kernel_NewArr, 718<<8 | 0x44, 0,
+	0xcc369177, (ADDRESS)Kernel_NewRec, 725<<8 | 0x44, 0,
+	0xdafcf6b5, 0x1189d84e, 266<<8 | 0x42, 0,
+	0x9fc66595, 0x9fc66595, 607<<8 | 0x42, 13,
+	0xa5e8a12e, 0x905a4bb6, 566<<8 | 0x12, (ADDRESS)(Kernel_ProcType__desc + 2),
+	0xde12be39, 0xca5da1fa, 459<<8 | 0x12, (ADDRESS)(Kernel_PtrType__desc + 2),
+	0xeae177c7, 0xd9df2f97, 544<<8 | 0x12, (ADDRESS)(Kernel_Real32Type__desc + 2),
+	0x6420c9c1, 0x62493b16, 555<<8 | 0x12, (ADDRESS)(Kernel_Real64Type__desc + 2),
+	0x93949e0f, 0x93949e0f, 331<<8 | 0x42, (ADDRESS)Kernel_Reducer__desc,
+	0x1eeb84c7, 0xc7c681b6, 322<<8 | 0x12, (ADDRESS)(Kernel_Reducer__rec__desc + 3),
+	0x288b8fac, (ADDRESS)Kernel_Root, 732<<8 | 0x44, 0,
+	0x8ff1aca5, (ADDRESS)Kernel_SetLoaderHook, 737<<8 | 0x44, 0,
+	0xcc369177, (ADDRESS)Kernel_SetModList, 751<<8 | 0x44, 0,
+	0x58d91840, 0xff4ed3cb, 536<<8 | 0x12, (ADDRESS)(Kernel_SetType__desc + 2),
+	0x3985febe, (ADDRESS)Kernel_ThisFinObj, 762<<8 | 0x44, 0,
+	0xada625a8, (ADDRESS)Kernel_ThisLoadedMod, 773<<8 | 0x44, 0,
+	0xada625a8, (ADDRESS)Kernel_ThisMod, 787<<8 | 0x44, 0,
+	0x288b8fac, (ADDRESS)Kernel_Total, 795<<8 | 0x44, 0,
+	0x4bf97443, 0x4bf97443, 242<<8 | 0x42, 13,
+	0xa866953e, 0x68328f8b, 236<<8 | 0x12, 0,
+	0x68a9b79a, 0x7031ab41, 575<<8 | 0x12, (ADDRESS)(Kernel_UPtrType__desc + 2),
+	0x288b8fac, (ADDRESS)Kernel_Used, 801<<8 | 0x44, 0,
+	0x4e58a11d, 0x4e58a11d, 195<<8 | 0x42, (ADDRESS)Kernel_Utf8Name__desc,
+	0x8cff8310, (ADDRESS)&Kernel_argC, 806<<8 | 0x23, 6,
+	0x4b7ee5a0, (ADDRESS)&Kernel_argV, 811<<8 | 0x23, (ADDRESS)Kernel_Argv__desc,
+	0x3c543292, 0, 816<<8 | 0x41, 0,
+	0x1e9dc29d, 0, 821<<8 | 0x41, 0,
+	0x1a5cdf2a, 0, 826<<8 | 0x41, 0,
+	0x26d27f20, 0, 832<<8 | 0x41, 0,
+	0x13dee444, 0, 839<<8 | 0x41, 0,
+	0x171ff9f3, 0, 844<<8 | 0x41, 0,
+	0xe7618240, 0, 852<<8 | 0x41, 0,
+	0x57e82b87, (ADDRESS)&Kernel_err, 860<<8 | 0x43, 6,
+	0x9ffbf5cc, (ADDRESS)&Kernel_inDll, 864<<8 | 0x23, 1,
+	0x420f79c1, (ADDRESS)&Kernel_modList, 870<<8 | 0x23, 13,
+	0x8454c586, 0, 878<<8 | 0x41, 0,
+	0x59190a12, 0, 886<<8 | 0x41, 0,
+	0x71123d22, (ADDRESS)&Kernel_pWatcher, 894<<8 | 0x43, (ADDRESS)Kernel__16__desc,
+	0x415c11cf, 0, 903<<8 | 0x41, 0,
 };
 static char Kernel__names[] = {
 	0,
@@ -2122,7 +2135,7 @@ static char Kernel__names[] = {
 	'o','b','j',0,
 	'D','i','r','e','c','t','o','r','y','^',0,
 	'D','i','r','e','c','t','o','r','y',0,
-	'N','a','m','e',0,
+	'U','t','f','8','N','a','m','e',0,
 	's','i','z','e',0,
 	'm','o','d',0,
 	'i','d',0,
@@ -2183,6 +2196,7 @@ static char Kernel__names[] = {
 	'H','a','n','d','l','e','r',0,
 	'H','o','o','k',0,
 	'L','o','a','d','e','r','H','o','o','k',0,
+	'N','a','m','e',0,
 	'A','l','l','o','c','a','t','e','d',0,
 	'C','l','e','a','n','u','p',0,
 	'C','o','l','l','e','c','t',0,
@@ -2212,6 +2226,7 @@ static char Kernel__names[] = {
 	'e','r','r',0,
 	'i','n','D','l','l',0,
 	'm','o','d','L','i','s','t',0,
+	'n','a','m','e','L','e','n',0,
 	'o','b','j','T','y','p','e',0,
 	'p','W','a','t','c','h','e','r',0,
 	's','y','m','T','y','p','e',0,
@@ -2224,7 +2239,7 @@ static ADDRESS Kernel__ptrs[] = {
 };
 struct SYSTEM_MODDESC Kernel__desc = {
 	0, 13, 0, /* next, opts, refcnt */ 
-	{2019, 7, 17, 16, 46, 1}, /* compTime */ 
+	{2019, 10, 8, 13, 48, 11}, /* compTime */ 
 	{0, 0, 0, 0, 0, 0}, /* loadTime */ 
 	Kernel__body,
 	0,

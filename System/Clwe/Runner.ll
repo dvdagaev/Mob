@@ -1,40 +1,50 @@
 ; ModuleID = 'Runner'
 source_filename = "Runner"
 
-%SYSTEM_MODDESC = type { %SYSTEM_MODDESC*, i32, i32, [6 x i16], [6 x i16], void ()*, void ()*, i32, i32, i32, i32, i32, i32, i32, i32, i32, i32, [713 x i8]*, [1 x i32]*, [5 x %SYSTEM_MODDESC*]*, %SYSTEM_DIRECTORY*, [256 x i8] }
-%SYSTEM_DIRECTORY = type { i32, [41 x %SYSTEM_OBJDESC] }
+%SYSTEM_MODDESC = type { %SYSTEM_MODDESC*, i32, i32, [6 x i16], [6 x i16], void ()*, void ()*, i32, i32, i32, i32, i32, i32, i32, i32, i32, i32, [908 x i8]*, [1 x i32]*, [5 x %SYSTEM_MODDESC*]*, %SYSTEM_DIRECTORY*, [256 x i8] }
+%SYSTEM_DIRECTORY = type { i32, [50 x %SYSTEM_OBJDESC] }
 %SYSTEM_OBJDESC = type { i32, i32, i32, i32 }
 %Runner_OpVal = type { [64 x i16], [256 x i8], [256 x i16] }
-%SYSTEM_DLINK = type { %SYSTEM_DLINK*, %SYSTEM_MODDESC*, i32 }
-%Runner_ParseArgs__7 = type { [0 x i8]*, [0 x i8]*, [0 x i8]*, [0 x i8]*, i1*, %Runner_ParseArgs__7* }
-%"Runner_DLink^" = type { %"Runner_DLink^"*, %"Kernel_Module^"*, i32 }
+%"Runner_LoaderHookProxy^" = type { i32, [256 x i16], [256 x i16], [256 x i16] }
+%SYSTEM_DLINK = type { %SYSTEM_DLINK*, %SYSTEM_MODDESC*, [0 x i8]* }
+%Runner_ParseArgs__9 = type { [0 x i8]*, [0 x i8]*, [0 x i8]*, [0 x i8]*, i1*, %Runner_ParseArgs__9* }
 %"Kernel_Module^" = type { %"Kernel_Module^"*, i32, i32, [6 x i16], [6 x i16], void ()*, void ()*, i32, i32, i32, i32, i32, i32, i32, i32, i32, i32, [0 x i8]*, [0 x i32]*, [0 x %"Kernel_Module^"*]*, %"Kernel_Directory^"*, [256 x i8] }
 %"Kernel_Directory^" = type { i32, [1000 x %Kernel_ObjDesc] }
 %Kernel_ObjDesc = type { i32, i32, i32, %"Kernel_Type^"* }
 %"Kernel_Type^" = type { i32, %"Kernel_Module^"*, i32, [16 x %"Kernel_Type^"*], %"Kernel_Directory^"*, [1000 x i32] }
+%"Runner_StdLoaderHook^" = type { i32, [256 x i16], [256 x i16], [256 x i16] }
+%SYSTEM_TYPEDESC = type { i32, %SYSTEM_MODDESC*, i32, [16 x i32], %SYSTEM_DIRECTORY*, [1 x i32] }
+%"Kernel_LoaderHook^" = type { i32, [256 x i16], [256 x i16], [256 x i16] }
+%"Runner_DLink^" = type { %"Runner_DLink^"*, %"Kernel_Module^"*, [0 x i8]* }
 
-@Runner__names = private global [713 x i8] c"\00ARGV_LEN\00AS_CONSOLE_APP\00AS_GUI_APP\00AS_INPROC_LIB\00AS_RUN_LIB\00AS_SERVICE\00Api\00Argv\00ArgvString\00DLink\00DLink^\00EntryPoint\00GetIntOpt\00GetStringOpt\00HasSpaces\00Initialize\00Kernel\00MAX_ARGV\00NAME_LEN\00Name\00OLog\00OS_NAME\00OStrings\00name\00sname\00val\00OpVal\00OpVals\00PATH_LEN\00ParseArgs\00PathSString\00PathString\00PrintStack\00PrintVars\00RUN_TIME\00RunModule\00RunProc\00SYSTEM\00SetResult\00SetRun\00TrapSignalHandler\00TrapViewer\00argC\00argC0\00argV\00commandLine\00currentDir\00exeLocation\00exeName\00exePathName\00loadedAs\00loadedNames\00nOpVals\00opVals\00printVars\00runProc\00runResult\00textTrapHandler\00mod\00next\00nidx\00argv\00p_body\00p_reg\00pargc\00ival\00res\00sval\00j\00found\00s\00_for__6\00h\00k\00str\00tmp\00was_op\00__8\00__10\00bdquote\00bquote\00dl\00first\00n\00_for__14\00_for__15\00dummy\00from_lsd\00imd\00result\00rc\00rp\00isig\00"
+@Runner__names = private global [908 x i8] c"\00ARGV_LEN\00AS_CONSOLE_APP\00AS_GUI_APP\00AS_INPROC_LIB\00AS_RUN_LIB\00AS_SERVICE\00Api\00Argv\00ArgvString\00BIN_BITS\00DLink\00DLink^\00EntryPoint\00Execute\00GetIntOpt\00GetStringOpt\00HasSpaces\00Initialize\00KERNEL_VERSION\00Kernel\00hp\00name\00imported\00importing\00object\00res\00LoaderHookProxy\00LoaderHookProxy^\00MAX_ARGV\00NAME_LEN\00Name\00OLog\00OS_NAME\00OStrings\00sname\00val\00OpVal\00OpVals\00PATH_LEN\00ParseArgs\00PathSString\00PathString\00PrintStack\00PrintVars\00RUN_TIME\00RunModule\00RunProc\00SName\00SYSTEM\00SetLoaderHookProxy\00SetResult\00SetRun\00StdLoaderHook\00StdLoaderHook^\00ThisLoadedMod\00TrapSignalHandler\00TrapViewer\00argC\00argC0\00argV\00commandLine\00currentDir\00exeLocation\00exeName\00exePathName\00hookProxy\00loadedAs\00loadedNames\00nOpVals\00opVals\00printVars\00runProc\00runResult\00textTrapHandler\00mod\00next\00procname\00argv\00p_body\00p_reg\00pargc\00command\00f\00out\00result\00ival\00sval\00j\00found\00s\00_for__8\00h\00k\00str\00tmp\00was_op\00__10\00__12\00bdquote\00bquote\00dl\00first\00n\00_for__16\00_for__17\00dummy\00from_lsd\00imd\00slh\00rc\00rp\00isig\00"
 @Runner__imp = private global [5 x %SYSTEM_MODDESC*] [%SYSTEM_MODDESC* @Kernel__desc, %SYSTEM_MODDESC* @OStrings__desc, %SYSTEM_MODDESC* @OLog__desc, %SYSTEM_MODDESC* null, %SYSTEM_MODDESC* null]
 @Kernel__desc = external global %SYSTEM_MODDESC
 @OStrings__desc = external global %SYSTEM_MODDESC
 @OLog__desc = external global %SYSTEM_MODDESC
 @Runner__inames = global [29 x i8] c"Runner\00Kernel\00OStrings\00OLog\00\00"
 @Runner__ptrs = private global [1 x i32] zeroinitializer
-@Runner__exp = private global %SYSTEM_DIRECTORY { i32 41, [41 x %SYSTEM_OBJDESC] [%SYSTEM_OBJDESC { i32 -2074819194, i32 0, i32 321, i32 0 }, %SYSTEM_OBJDESC { i32 1527652995, i32 0, i32 2625, i32 0 }, %SYSTEM_OBJDESC { i32 1162441350, i32 0, i32 6465, i32 0 }, %SYSTEM_OBJDESC { i32 1384913389, i32 0, i32 9281, i32 0 }, %SYSTEM_OBJDESC { i32 1607417652, i32 0, i32 12865, i32 0 }, %SYSTEM_OBJDESC { i32 1099460401, i32 0, i32 15681, i32 0 }, %SYSTEM_OBJDESC { i32 -1225827516, i32 -1225827516, i32 19522, i32 ptrtoint ([21 x i32]* @Runner_Argv__desc to i32) }, %SYSTEM_OBJDESC { i32 -1884472531, i32 -1884472531, i32 20802, i32 ptrtoint ([21 x i32]* @Runner_ArgvString__desc to i32) }, %SYSTEM_OBJDESC { i32 -1765898804, i32 1097084011, i32 25106, i32 0 }, %SYSTEM_OBJDESC { i32 2022971128, i32 ptrtoint (i32 ([0 x i32]*, i32, i32, i32, i32)* @Runner_EntryPoint to i32), i32 26948, i32 0 }, %SYSTEM_OBJDESC { i32 -712510711, i32 ptrtoint (i1 ([0 x i16]*, i32, i32*)* @Runner_GetIntOpt to i32), i32 29764, i32 0 }, %SYSTEM_OBJDESC { i32 94426433, i32 ptrtoint (i1 ([0 x i16]*, i32, [0 x i16]*, i32)* @Runner_GetStringOpt to i32), i32 32324, i32 0 }, %SYSTEM_OBJDESC { i32 -2074819194, i32 0, i32 42817, i32 0 }, %SYSTEM_OBJDESC { i32 1657500717, i32 0, i32 45121, i32 0 }, %SYSTEM_OBJDESC { i32 440658467, i32 440658467, i32 47426, i32 ptrtoint ([21 x i32]* @Runner_Name__desc to i32) }, %SYSTEM_OBJDESC { i32 1599926668, i32 0, i32 49985, i32 0 }, %SYSTEM_OBJDESC { i32 1786856182, i32 1249205518, i32 58178, i32 ptrtoint (i32* getelementptr inbounds ([23 x i32], [23 x i32]* @Runner_OpVal__recdesc, i32 0, i32 2) to i32) }, %SYSTEM_OBJDESC { i32 202363595, i32 202363595, i32 59714, i32 ptrtoint ([21 x i32]* @Runner_OpVals__desc to i32) }, %SYSTEM_OBJDESC { i32 -1756318886, i32 0, i32 61505, i32 0 }, %SYSTEM_OBJDESC { i32 1588855546, i32 1588855546, i32 66322, i32 ptrtoint ([21 x i32]* @Runner_PathSString__desc to i32) }, %SYSTEM_OBJDESC { i32 -1377856509, i32 -1377856509, i32 69442, i32 ptrtoint ([21 x i32]* @Runner_PathString__desc to i32) }, %SYSTEM_OBJDESC { i32 1477768406, i32 ptrtoint (void ()* @Runner_PrintVars to i32), i32 75076, i32 0 }, %SYSTEM_OBJDESC { i32 2073078807, i32 0, i32 77633, i32 0 }, %SYSTEM_OBJDESC { i32 503335404, i32 503335404, i32 82498, i32 ptrtoint ([21 x i32]* @Runner_RunProc__desc to i32) }, %SYSTEM_OBJDESC { i32 547742217, i32 ptrtoint (void (i32)* @Runner_SetResult to i32), i32 86340, i32 0 }, %SYSTEM_OBJDESC { i32 494939409, i32 ptrtoint (void (void ()*)* @Runner_SetRun to i32), i32 88900, i32 0 }, %SYSTEM_OBJDESC { i32 -1929411824, i32 ptrtoint (i32* @Runner_argC to i32), i32 98083, i32 6 }, %SYSTEM_OBJDESC { i32 -1929411824, i32 ptrtoint (i32* @Runner_argC0 to i32), i32 99363, i32 6 }, %SYSTEM_OBJDESC { i32 -920797111, i32 ptrtoint ([256 x [256 x i16]]* @Runner_argV to i32), i32 100899, i32 ptrtoint ([21 x i32]* @Runner_Argv__desc to i32) }, %SYSTEM_OBJDESC { i32 -712558960, i32 ptrtoint ([260 x i16]* @Runner_commandLine to i32), i32 102179, i32 ptrtoint ([21 x i32]* @Runner_PathString__desc to i32) }, %SYSTEM_OBJDESC { i32 -712558960, i32 ptrtoint ([260 x i16]* @Runner_currentDir to i32), i32 105251, i32 ptrtoint ([21 x i32]* @Runner_PathString__desc to i32) }, %SYSTEM_OBJDESC { i32 -712558960, i32 ptrtoint ([260 x i16]* @Runner_exeLocation to i32), i32 108067, i32 ptrtoint ([21 x i32]* @Runner_PathString__desc to i32) }, %SYSTEM_OBJDESC { i32 -712558960, i32 ptrtoint ([260 x i16]* @Runner_exeName to i32), i32 111139, i32 ptrtoint ([21 x i32]* @Runner_PathString__desc to i32) }, %SYSTEM_OBJDESC { i32 -712558960, i32 ptrtoint ([260 x i16]* @Runner_exePathName to i32), i32 113187, i32 ptrtoint ([21 x i32]* @Runner_PathString__desc to i32) }, %SYSTEM_OBJDESC { i32 -1929411824, i32 ptrtoint (i32* @Runner_loadedAs to i32), i32 116259, i32 6 }, %SYSTEM_OBJDESC { i32 -519212227, i32 ptrtoint ([6 x [64 x i16]]* @Runner_loadedNames to i32), i32 118563, i32 ptrtoint ([4 x i32]* @Runner___1 to i32) }, %SYSTEM_OBJDESC { i32 -1929411824, i32 ptrtoint (i32* @Runner_nOpVals to i32), i32 121635, i32 6 }, %SYSTEM_OBJDESC { i32 486593328, i32 ptrtoint ([256 x %Runner_OpVal]* @Runner_opVals to i32), i32 123683, i32 ptrtoint ([21 x i32]* @Runner_OpVals__desc to i32) }, %SYSTEM_OBJDESC { i32 -1311093752, i32 ptrtoint (void ()** @Runner_runProc to i32), i32 128035, i32 ptrtoint ([21 x i32]* @Runner_RunProc__desc to i32) }, %SYSTEM_OBJDESC { i32 -1929411824, i32 ptrtoint (i32* @Runner_runResult to i32), i32 130083, i32 6 }, %SYSTEM_OBJDESC { i32 -1610877492, i32 ptrtoint (i1* @Runner_textTrapHandler to i32), i32 132643, i32 1 }] }
-@Runner__desc = global %SYSTEM_MODDESC { %SYSTEM_MODDESC* null, i32 3, i32 0, [6 x i16] [i16 2019, i16 7, i16 17, i16 16, i16 46, i16 10], [6 x i16] zeroinitializer, void ()* @Runner__body, void ()* null, i32 4, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, [713 x i8]* @Runner__names, [1 x i32]* @Runner__ptrs, [5 x %SYSTEM_MODDESC*]* @Runner__imp, %SYSTEM_DIRECTORY* @Runner__exp, [256 x i8] c"Runner\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00" }
-@Runner_OpVal__recdesc = global [23 x i32] [i32 -1, i32 0, i32 896, i32 ptrtoint (%SYSTEM_MODDESC* @Runner__desc to i32), i32 58113, i32 ptrtoint (i32* getelementptr inbounds ([23 x i32], [23 x i32]* @Runner_OpVal__recdesc, i32 0, i32 2) to i32), i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 ptrtoint ({ i32, [3 x %SYSTEM_OBJDESC] }* @Runner_OpVal__recdesc__flds to i32), i32 -4]
-@Runner_OpVal__recdesc__flds = private global { i32, [3 x %SYSTEM_OBJDESC] } { i32 3, [3 x %SYSTEM_OBJDESC] [%SYSTEM_OBJDESC { i32 0, i32 0, i32 54309, i32 0 }, %SYSTEM_OBJDESC { i32 0, i32 128, i32 55589, i32 0 }, %SYSTEM_OBJDESC { i32 0, i32 384, i32 57125, i32 0 }] }
-@Runner_Name__desc = global [21 x i32] [i32 64, i32 ptrtoint (%SYSTEM_MODDESC* @Runner__desc to i32), i32 47362, i32 3, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0]
-@Kernel_Name__desc = external global [21 x i32]
+@Runner__exp = private global %SYSTEM_DIRECTORY { i32 50, [50 x %SYSTEM_OBJDESC] [%SYSTEM_OBJDESC { i32 -2074819194, i32 0, i32 321, i32 0 }, %SYSTEM_OBJDESC { i32 1527652995, i32 0, i32 2625, i32 0 }, %SYSTEM_OBJDESC { i32 1162441350, i32 0, i32 6465, i32 0 }, %SYSTEM_OBJDESC { i32 1384913389, i32 0, i32 9281, i32 0 }, %SYSTEM_OBJDESC { i32 1607417652, i32 0, i32 12865, i32 0 }, %SYSTEM_OBJDESC { i32 1099460401, i32 0, i32 15681, i32 0 }, %SYSTEM_OBJDESC { i32 -1225827516, i32 -1225827516, i32 19522, i32 ptrtoint ([21 x i32]* @Runner_Argv__desc to i32) }, %SYSTEM_OBJDESC { i32 -1884472531, i32 -1884472531, i32 20802, i32 ptrtoint ([21 x i32]* @Runner_ArgvString__desc to i32) }, %SYSTEM_OBJDESC { i32 -831606086, i32 0, i32 23617, i32 0 }, %SYSTEM_OBJDESC { i32 -826342187, i32 329285480, i32 27410, i32 0 }, %SYSTEM_OBJDESC { i32 2022971128, i32 ptrtoint (i32 ([0 x i32]*, i32, i32, i32, i32)* @Runner_EntryPoint to i32), i32 29252, i32 0 }, %SYSTEM_OBJDESC { i32 -1665443370, i32 ptrtoint (void ([0 x i8]*, i32, [0 x i8]*, i32, i32*)* @Runner_Execute to i32), i32 32068, i32 0 }, %SYSTEM_OBJDESC { i32 -712510711, i32 ptrtoint (i1 ([0 x i16]*, i32, i32*)* @Runner_GetIntOpt to i32), i32 34116, i32 0 }, %SYSTEM_OBJDESC { i32 94426433, i32 ptrtoint (i1 ([0 x i16]*, i32, [0 x i16]*, i32)* @Runner_GetStringOpt to i32), i32 36676, i32 0 }, %SYSTEM_OBJDESC { i32 513655453, i32 0, i32 45377, i32 0 }, %SYSTEM_OBJDESC { i32 806882055, i32 806882055, i32 60738, i32 ptrtoint ([21 x i32]* @Runner_LoaderHookProxy__desc to i32) }, %SYSTEM_OBJDESC { i32 -1009990352, i32 1203397526, i32 64786, i32 ptrtoint (i32* getelementptr inbounds ([24 x i32], [24 x i32]* @Runner_LoaderHookProxy__redesc, i32 0, i32 3) to i32) }, %SYSTEM_OBJDESC { i32 -2074819194, i32 0, i32 69185, i32 0 }, %SYSTEM_OBJDESC { i32 1657500717, i32 0, i32 71489, i32 0 }, %SYSTEM_OBJDESC { i32 440658467, i32 440658467, i32 73794, i32 ptrtoint ([21 x i32]* @Runner_Name__desc to i32) }, %SYSTEM_OBJDESC { i32 -1832827417, i32 0, i32 76353, i32 0 }, %SYSTEM_OBJDESC { i32 -1360966918, i32 -1911204606, i32 83266, i32 ptrtoint (i32* getelementptr inbounds ([23 x i32], [23 x i32]* @Runner_OpVal__recdesc, i32 0, i32 2) to i32) }, %SYSTEM_OBJDESC { i32 -176858480, i32 -176858480, i32 84802, i32 ptrtoint ([21 x i32]* @Runner_OpVals__desc to i32) }, %SYSTEM_OBJDESC { i32 -1756318886, i32 0, i32 86593, i32 0 }, %SYSTEM_OBJDESC { i32 1588855546, i32 1588855546, i32 91410, i32 ptrtoint ([21 x i32]* @Runner_PathSString__desc to i32) }, %SYSTEM_OBJDESC { i32 -1377856509, i32 -1377856509, i32 94530, i32 ptrtoint ([21 x i32]* @Runner_PathString__desc to i32) }, %SYSTEM_OBJDESC { i32 1477768406, i32 ptrtoint (void ()* @Runner_PrintVars to i32), i32 100164, i32 0 }, %SYSTEM_OBJDESC { i32 2073078807, i32 0, i32 102721, i32 0 }, %SYSTEM_OBJDESC { i32 503335404, i32 503335404, i32 107586, i32 ptrtoint ([21 x i32]* @Runner_RunProc__desc to i32) }, %SYSTEM_OBJDESC { i32 1314431261, i32 1314431261, i32 109634, i32 ptrtoint ([21 x i32]* @Kernel_Utf8Name__desc to i32) }, %SYSTEM_OBJDESC { i32 -764074971, i32 ptrtoint (void (%"Runner_LoaderHookProxy^"*)* @Runner_SetLoaderHookProxy to i32), i32 112964, i32 0 }, %SYSTEM_OBJDESC { i32 547742217, i32 ptrtoint (void (i32)* @Runner_SetResult to i32), i32 117828, i32 0 }, %SYSTEM_OBJDESC { i32 494939409, i32 ptrtoint (void (void ()*)* @Runner_SetRun to i32), i32 120388, i32 0 }, %SYSTEM_OBJDESC { i32 -675083739, i32 1209949531, i32 125714, i32 ptrtoint (i32* getelementptr inbounds ([24 x i32], [24 x i32]* @Runner_StdLoaderHook__redesc, i32 0, i32 3) to i32) }, %SYSTEM_OBJDESC { i32 -1381620312, i32 ptrtoint (%"Kernel_Module^"* ([0 x i16]*, i32)* @Runner_ThisLoadedMod to i32), i32 129604, i32 0 }, %SYSTEM_OBJDESC { i32 -1929411824, i32 ptrtoint (i32* @Runner_argC to i32), i32 140579, i32 6 }, %SYSTEM_OBJDESC { i32 -1929411824, i32 ptrtoint (i32* @Runner_argC0 to i32), i32 141859, i32 6 }, %SYSTEM_OBJDESC { i32 -920797111, i32 ptrtoint ([256 x [256 x i16]]* @Runner_argV to i32), i32 143395, i32 ptrtoint ([21 x i32]* @Runner_Argv__desc to i32) }, %SYSTEM_OBJDESC { i32 -712558960, i32 ptrtoint ([260 x i16]* @Runner_commandLine to i32), i32 144675, i32 ptrtoint ([21 x i32]* @Runner_PathString__desc to i32) }, %SYSTEM_OBJDESC { i32 -712558960, i32 ptrtoint ([260 x i16]* @Runner_currentDir to i32), i32 147747, i32 ptrtoint ([21 x i32]* @Runner_PathString__desc to i32) }, %SYSTEM_OBJDESC { i32 -712558960, i32 ptrtoint ([260 x i16]* @Runner_exeLocation to i32), i32 150563, i32 ptrtoint ([21 x i32]* @Runner_PathString__desc to i32) }, %SYSTEM_OBJDESC { i32 -712558960, i32 ptrtoint ([260 x i16]* @Runner_exeName to i32), i32 153635, i32 ptrtoint ([21 x i32]* @Runner_PathString__desc to i32) }, %SYSTEM_OBJDESC { i32 -712558960, i32 ptrtoint ([260 x i16]* @Runner_exePathName to i32), i32 155683, i32 ptrtoint ([21 x i32]* @Runner_PathString__desc to i32) }, %SYSTEM_OBJDESC { i32 -1929411824, i32 ptrtoint (i32* @Runner_loadedAs to i32), i32 161315, i32 6 }, %SYSTEM_OBJDESC { i32 -519212227, i32 ptrtoint ([6 x [64 x i16]]* @Runner_loadedNames to i32), i32 163619, i32 ptrtoint ([4 x i32]* @Runner___3 to i32) }, %SYSTEM_OBJDESC { i32 -1929411824, i32 ptrtoint (i32* @Runner_nOpVals to i32), i32 166691, i32 6 }, %SYSTEM_OBJDESC { i32 1415030877, i32 ptrtoint ([256 x %Runner_OpVal]* @Runner_opVals to i32), i32 168739, i32 ptrtoint ([21 x i32]* @Runner_OpVals__desc to i32) }, %SYSTEM_OBJDESC { i32 -1311093752, i32 ptrtoint (void ()** @Runner_runProc to i32), i32 173091, i32 ptrtoint ([21 x i32]* @Runner_RunProc__desc to i32) }, %SYSTEM_OBJDESC { i32 -1929411824, i32 ptrtoint (i32* @Runner_runResult to i32), i32 175139, i32 6 }, %SYSTEM_OBJDESC { i32 -1610877492, i32 ptrtoint (i1* @Runner_textTrapHandler to i32), i32 177699, i32 1 }] }
+@Runner__desc = global %SYSTEM_MODDESC { %SYSTEM_MODDESC* null, i32 3, i32 0, [6 x i16] [i16 2019, i16 11, i16 14, i16 16, i16 2, i16 41], [6 x i16] zeroinitializer, void ()* @Runner__body, void ()* null, i32 4, i32 1, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, [908 x i8]* @Runner__names, [1 x i32]* @Runner__ptrs, [5 x %SYSTEM_MODDESC*]* @Runner__imp, %SYSTEM_DIRECTORY* @Runner__exp, [256 x i8] c"Runner\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00" }
+@Runner_OpVal__recdesc = global [23 x i32] [i32 -1, i32 0, i32 896, i32 ptrtoint (%SYSTEM_MODDESC* @Runner__desc to i32), i32 83201, i32 ptrtoint (i32* getelementptr inbounds ([23 x i32], [23 x i32]* @Runner_OpVal__recdesc, i32 0, i32 2) to i32), i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 ptrtoint ({ i32, [3 x %SYSTEM_OBJDESC] }* @Runner_OpVal__recdesc__flds to i32), i32 -4]
+@Runner_OpVal__recdesc__flds = private global { i32, [3 x %SYSTEM_OBJDESC] } { i32 3, [3 x %SYSTEM_OBJDESC] [%SYSTEM_OBJDESC { i32 0, i32 0, i32 51749, i32 0 }, %SYSTEM_OBJDESC { i32 0, i32 128, i32 80677, i32 0 }, %SYSTEM_OBJDESC { i32 0, i32 384, i32 82213, i32 0 }] }
+@Runner_Name__desc = global [21 x i32] [i32 64, i32 ptrtoint (%SYSTEM_MODDESC* @Runner__desc to i32), i32 73730, i32 3, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0]
+@Kernel_Utf8Name__desc = external global [21 x i32]
 @Runner_ArgvString__desc = global [21 x i32] [i32 256, i32 ptrtoint (%SYSTEM_MODDESC* @Runner__desc to i32), i32 20738, i32 3, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0]
 @Kernel_Command__desc = external global [21 x i32]
+@Runner_StdLoaderHook__redesc = global [24 x i32] [i32 -1, i32 ptrtoint (%"Kernel_Module^"* (%"Runner_StdLoaderHook^"*, [0 x i16]*, i32)* @Runner_StdLoaderHook_ThisMod to i32), i32 0, i32 1540, i32 ptrtoint (%SYSTEM_MODDESC* @Runner__desc to i32), i32 125729, i32 0, i32 0, i32 ptrtoint (i32* getelementptr inbounds ([24 x i32], [24 x i32]* @Runner_StdLoaderHook__redesc, i32 0, i32 3) to i32), i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 ptrtoint ({ i32, [0 x %SYSTEM_OBJDESC] }* @Runner_StdLoaderHook__redesc__flds to i32), i32 -4]
+@Runner_StdLoaderHook__desc = private global [21 x i32] [i32 0, i32 ptrtoint (%SYSTEM_MODDESC* @Runner__desc to i32), i32 122115, i32 ptrtoint (i32* getelementptr inbounds ([24 x i32], [24 x i32]* @Runner_StdLoaderHook__redesc, i32 0, i32 3) to i32), i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0]
+@Runner_StdLoaderHook__redesc__flds = private global { i32, [0 x %SYSTEM_OBJDESC] } zeroinitializer
+@Runner_LoaderHookProxy__redesc = global [24 x i32] [i32 -1, i32 0, i32 0, i32 1540, i32 ptrtoint (%SYSTEM_MODDESC* @Runner__desc to i32), i32 64797, i32 0, i32 ptrtoint (i32* getelementptr inbounds ([24 x i32], [24 x i32]* @Runner_LoaderHookProxy__redesc, i32 0, i32 3) to i32), i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 ptrtoint ({ i32, [4 x %SYSTEM_OBJDESC] }* @Runner_LoaderHookProxy__redesc__flds to i32), i32 -4]
+@Runner_LoaderHookProxy__redesc__flds = private global { i32, [4 x %SYSTEM_OBJDESC] } { i32 4, [4 x %SYSTEM_OBJDESC] [%SYSTEM_OBJDESC { i32 0, i32 0, i32 59717, i32 6 }, %SYSTEM_OBJDESC { i32 0, i32 4, i32 55365, i32 ptrtoint ([4 x i32]* @Runner___1 to i32) }, %SYSTEM_OBJDESC { i32 0, i32 516, i32 53061, i32 ptrtoint ([4 x i32]* @Runner___1 to i32) }, %SYSTEM_OBJDESC { i32 0, i32 1028, i32 57925, i32 ptrtoint ([4 x i32]* @Runner___1 to i32) }] }
+@Runner___1 = private global [4 x i32] [i32 256, i32 ptrtoint (%SYSTEM_MODDESC* @Runner__desc to i32), i32 232450, i32 3]
 @Runner_loadedAs = global i32 0
 @Runner_loadedNames = global [6 x [64 x i16]] zeroinitializer
 @Runner_textTrapHandler = global i1 false
-@Runner_RunProc__desc = global [21 x i32] [i32 0, i32 ptrtoint (%SYSTEM_MODDESC* @Runner__desc to i32), i32 82432, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0]
+@Runner_RunProc__desc = global [21 x i32] [i32 0, i32 ptrtoint (%SYSTEM_MODDESC* @Runner__desc to i32), i32 107520, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0]
 @Runner_runProc = global void ()* null
 @Runner_runResult = global i32 0
-@Runner_PathString__desc = global [21 x i32] [i32 260, i32 ptrtoint (%SYSTEM_MODDESC* @Runner__desc to i32), i32 69378, i32 3, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0]
+@Runner_PathString__desc = global [21 x i32] [i32 260, i32 ptrtoint (%SYSTEM_MODDESC* @Runner__desc to i32), i32 94466, i32 3, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0]
 @Runner_exePathName = global [260 x i16] zeroinitializer
 @Runner_exeName = global [260 x i16] zeroinitializer
 @Runner_exeLocation = global [260 x i16] zeroinitializer
@@ -44,35 +54,61 @@ source_filename = "Runner"
 @Runner_argC0 = global i32 0
 @Runner_Argv__desc = global [21 x i32] [i32 256, i32 ptrtoint (%SYSTEM_MODDESC* @Runner__desc to i32), i32 19458, i32 ptrtoint ([21 x i32]* @Runner_ArgvString__desc to i32), i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0]
 @Runner_argV = global [256 x [256 x i16]] zeroinitializer
-@Runner_OpVals__desc = global [21 x i32] [i32 256, i32 ptrtoint (%SYSTEM_MODDESC* @Runner__desc to i32), i32 59650, i32 ptrtoint (i32* getelementptr inbounds ([23 x i32], [23 x i32]* @Runner_OpVal__recdesc, i32 0, i32 2) to i32), i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0]
+@Runner_OpVals__desc = global [21 x i32] [i32 256, i32 ptrtoint (%SYSTEM_MODDESC* @Runner__desc to i32), i32 84738, i32 ptrtoint (i32* getelementptr inbounds ([23 x i32], [23 x i32]* @Runner_OpVal__recdesc, i32 0, i32 2) to i32), i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0]
 @Runner_opVals = global [256 x %Runner_OpVal] zeroinitializer
 @Runner_nOpVals = global i32 0
 @Runner_printVars = private global i1 false
+@Runner_LoaderHookProxy__desc = global [21 x i32] [i32 0, i32 ptrtoint (%SYSTEM_MODDESC* @Runner__desc to i32), i32 60675, i32 ptrtoint (i32* getelementptr inbounds ([24 x i32], [24 x i32]* @Runner_LoaderHookProxy__redesc, i32 0, i32 3) to i32), i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0]
+@Runner_hookProxy = private global %"Runner_LoaderHookProxy^"* null
 @Kernel_dLink = external global %SYSTEM_DLINK*
+@n_Runner_PrintVars = private global [10 x i8] c"PrintVars\00"
 @OLog_StringProc__desc = external global [21 x i32]
 @OLog_String = external global void ([0 x i16]*, i32)*
 @OLog_CharProc__desc = external global [21 x i32]
 @OLog_Char = external global void (i16)*
 @OLog_Proc__desc = external global [21 x i32]
 @OLog_Ln = external global void ()*
-@OLog_IntFormProc__desc = external global [21 x i32]
-@OLog_IntForm = external global void (i64, i32, i32, i16, i1)*
 @OLog_IntProc__desc = external global [21 x i32]
 @OLog_Int = external global void (i64)*
-@Runner_ParseArgs__7_s = private global %Runner_ParseArgs__7* null
+@OLog_IntFormProc__desc = external global [21 x i32]
+@OLog_IntForm = external global void (i64, i32, i32, i16, i1)*
+@n_Runner_GetStringOpt = private global [13 x i8] c"GetStringOpt\00"
+@n_Runner_GetIntOpt = private global [10 x i8] c"GetIntOpt\00"
+@Runner_ParseArgs__9_s = private global %Runner_ParseArgs__9* null
+@n_Runner___12 = private global [5 x i8] c"__12\00"
+@n_Runner___10 = private global [5 x i8] c"__10\00"
+@n_Runner_ParseArgs = private global [10 x i8] c"ParseArgs\00"
+@n_Runner_RunModule = private global [10 x i8] c"RunModule\00"
+@n_Runner_ThisMod = private global [8 x i8] c"ThisMod\00"
+@n_Runner_ThisLoadedMod = private global [14 x i8] c"ThisLoadedMod\00"
+@n_Runner_SetLoaderHookProxy = private global [19 x i8] c"SetLoaderHookProxy\00"
+@Kernel_LoaderHook__redesc = external global [24 x i32]
+@Kernel_LoaderHook__desc = external global [21 x i32]
+@n_Runner_EntryPoint = private global [11 x i8] c"EntryPoint\00"
+@n_Runner_SetRun = private global [7 x i8] c"SetRun\00"
+@n_Runner_SetResult = private global [10 x i8] c"SetResult\00"
+@n_Runner_Execute = private global [8 x i8] c"Execute\00"
+@n_Runner_PrintStack = private global [11 x i8] c"PrintStack\00"
 @OLog_SStringProc__desc = external global [21 x i32]
 @OLog_SString = external global void ([0 x i8]*, i32)*
+@n_Runner_TrapViewer = private global [11 x i8] c"TrapViewer\00"
 @Kernel_err = external global i32
 @OLog_AdrProc__desc = external global [21 x i32]
 @OLog_Adr = external global void ({}*)*
-@Runner_PathSString__desc = private global [21 x i32] [i32 260, i32 ptrtoint (%SYSTEM_MODDESC* @Runner__desc to i32), i32 66306, i32 2, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0]
+@n_Runner_TrapSignalHandler = private global [18 x i8] c"TrapSignalHandler\00"
+@n_Runner_HasSpaces = private global [10 x i8] c"HasSpaces\00"
+@n_Runner_Initialize = private global [11 x i8] c"Initialize\00"
+@Runner_PathSString__desc = private global [21 x i32] [i32 260, i32 ptrtoint (%SYSTEM_MODDESC* @Runner__desc to i32), i32 91394, i32 2, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0]
 @Api_SignalHandler__desc = external global [21 x i32]
 @Kernel_inDll = external global i1
 @Kernel_Handler__desc = external global [21 x i32]
 @Kernel_argC = external global i32
 @Kernel_Argv__desc = external global [21 x i32]
 @Kernel_argV = external global [256 x [0 x i8]*]
-@Runner___1 = private global [4 x i32] [i32 6, i32 ptrtoint (%SYSTEM_MODDESC* @Runner__desc to i32), i32 182530, i32 ptrtoint ([21 x i32]* @Runner_Name__desc to i32)]
+@n_Runner__reg = private global [5 x i8] c"_reg\00"
+@Runner___3 = private global [4 x i32] [i32 6, i32 ptrtoint (%SYSTEM_MODDESC* @Runner__desc to i32), i32 233474, i32 ptrtoint ([21 x i32]* @Runner_Name__desc to i32)]
+@Kernel_Hook__redesc = external global [23 x i32]
+@n_Runner__body = private global [6 x i8] c"_body\00"
 
 define void @Runner__reg() {
 entry:
@@ -82,8 +118,8 @@ entry:
   store %SYSTEM_DLINK* %lda, %SYSTEM_DLINK** %next
   %mod = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 1
   store %SYSTEM_MODDESC* @Runner__desc, %SYSTEM_MODDESC** %mod
-  %nidx = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 2
-  store i32 -1, i32* %nidx
+  %procname = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 2
+  store [0 x i8]* bitcast ([5 x i8]* @n_Runner__reg to [0 x i8]*), [0 x i8]** %procname
   store %SYSTEM_DLINK* %dlink, %SYSTEM_DLINK** @Kernel_dLink
   %lda1 = load i32, i32* getelementptr inbounds (%SYSTEM_MODDESC, %SYSTEM_MODDESC* @Runner__desc, i32 0, i32 1)
   %AND = and i32 %lda1, 262144
@@ -100,14 +136,19 @@ then:                                             ; preds = %entry
 merge:                                            ; preds = %entry
   %OR = or i32 %lda1, 262144
   store i32 %OR, i32* getelementptr inbounds (%SYSTEM_MODDESC, %SYSTEM_MODDESC* @Runner__desc, i32 0, i32 1)
+  store i32 ptrtoint (%"Runner_LoaderHookProxy^"** @Runner_hookProxy to i32), i32* getelementptr inbounds ([1 x i32], [1 x i32]* @Runner__ptrs, i32 0, i32 0)
   call void @Kernel__reg()
   call void @OStrings__reg()
   call void @OLog__reg()
   call void @Kernel_RegisterStaticMod(%SYSTEM_MODDESC* @Runner__desc)
-  %lda5 = load %SYSTEM_DLINK*, %SYSTEM_DLINK** @Kernel_dLink
-  %next6 = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %lda5, i32 0, i32 0
-  %lda7 = load %SYSTEM_DLINK*, %SYSTEM_DLINK** %next6
-  store %SYSTEM_DLINK* %lda7, %SYSTEM_DLINK** @Kernel_dLink
+  %lda5 = load i32, i32* getelementptr inbounds ([24 x i32], [24 x i32]* @Kernel_LoaderHook__redesc, i32 0, i32 2)
+  store i32 %lda5, i32* getelementptr inbounds ([24 x i32], [24 x i32]* @Runner_StdLoaderHook__redesc, i32 0, i32 2)
+  %lda6 = load i32, i32* getelementptr inbounds ([23 x i32], [23 x i32]* @Kernel_Hook__redesc, i32 0, i32 1)
+  store i32 %lda6, i32* getelementptr inbounds ([24 x i32], [24 x i32]* @Runner_LoaderHookProxy__redesc, i32 0, i32 2)
+  %lda7 = load %SYSTEM_DLINK*, %SYSTEM_DLINK** @Kernel_dLink
+  %next8 = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %lda7, i32 0, i32 0
+  %lda9 = load %SYSTEM_DLINK*, %SYSTEM_DLINK** %next8
+  store %SYSTEM_DLINK* %lda9, %SYSTEM_DLINK** @Kernel_dLink
   ret void
 }
 
@@ -119,8 +160,8 @@ entry:
   store %SYSTEM_DLINK* %lda, %SYSTEM_DLINK** %next
   %mod = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 1
   store %SYSTEM_MODDESC* @Runner__desc, %SYSTEM_MODDESC** %mod
-  %nidx = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 2
-  store i32 -2, i32* %nidx
+  %procname = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 2
+  store [0 x i8]* bitcast ([6 x i8]* @n_Runner__body to [0 x i8]*), [0 x i8]** %procname
   store %SYSTEM_DLINK* %dlink, %SYSTEM_DLINK** @Kernel_dLink
   %lda1 = load i32, i32* getelementptr inbounds (%SYSTEM_MODDESC, %SYSTEM_MODDESC* @Runner__desc, i32 0, i32 1)
   %AND = and i32 %lda1, 65536
@@ -168,6 +209,83 @@ merge:                                            ; preds = %entry
   ret void
 }
 
+define private %"Kernel_Module^"* @Runner_StdLoaderHook_ThisMod(%"Runner_StdLoaderHook^"* %slh, [0 x i16]* %name, i32 %name__len) {
+entry:
+  %dlink = alloca %SYSTEM_DLINK
+  %next = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 0
+  %lda = load %SYSTEM_DLINK*, %SYSTEM_DLINK** @Kernel_dLink
+  store %SYSTEM_DLINK* %lda, %SYSTEM_DLINK** %next
+  %mod = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 1
+  store %SYSTEM_MODDESC* @Runner__desc, %SYSTEM_MODDESC** %mod
+  %procname = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 2
+  store [0 x i8]* bitcast ([8 x i8]* @n_Runner_ThisMod to [0 x i8]*), [0 x i8]** %procname
+  store %SYSTEM_DLINK* %dlink, %SYSTEM_DLINK** @Kernel_dLink
+  %slh1 = alloca %"Runner_StdLoaderHook^"*
+  store %"Runner_StdLoaderHook^"* %slh, %"Runner_StdLoaderHook^"** %slh1
+  %mod2 = alloca %"Kernel_Module^"*
+  %PCAST = bitcast %"Kernel_Module^"** %mod2 to i8*
+  call void @llvm.memset.p0i8.i32(i8* %PCAST, i8 0, i32 4, i32 0, i1 false)
+  %lda3 = load %"Runner_LoaderHookProxy^"*, %"Runner_LoaderHookProxy^"** @Runner_hookProxy
+  %PICAST = ptrtoint %"Runner_LoaderHookProxy^"* %lda3 to i32
+  %MINUS = sub i32 %PICAST, 4
+  %IPCAST = inttoptr i32 %MINUS to %SYSTEM_TYPEDESC**
+  %lda4 = load %SYSTEM_TYPEDESC*, %SYSTEM_TYPEDESC** %IPCAST
+  %PICAST5 = ptrtoint %SYSTEM_TYPEDESC* %lda4 to i32
+  %MINUS6 = sub i32 %PICAST5, 8
+  %IPCAST7 = inttoptr i32 %MINUS6 to %"Kernel_Module^"* (%"Runner_LoaderHookProxy^"*, [0 x i16]*, i32)**
+  %lda8 = load %"Kernel_Module^"* (%"Runner_LoaderHookProxy^"*, [0 x i16]*, i32)*, %"Kernel_Module^"* (%"Runner_LoaderHookProxy^"*, [0 x i16]*, i32)** %IPCAST7
+  %ThisMod = call %"Kernel_Module^"* %lda8(%"Runner_LoaderHookProxy^"* %lda3, [0 x i16]* %name, i32 %name__len)
+  store %"Kernel_Module^"* %ThisMod, %"Kernel_Module^"** %mod2
+  %lda9 = load %"Runner_StdLoaderHook^"*, %"Runner_StdLoaderHook^"** %slh1
+  %res = getelementptr inbounds %"Runner_StdLoaderHook^", %"Runner_StdLoaderHook^"* %lda9, i32 0, i32 0
+  %lda10 = load %"Runner_LoaderHookProxy^"*, %"Runner_LoaderHookProxy^"** @Runner_hookProxy
+  %res11 = getelementptr inbounds %"Runner_LoaderHookProxy^", %"Runner_LoaderHookProxy^"* %lda10, i32 0, i32 0
+  %lda12 = load i32, i32* %res11
+  store i32 %lda12, i32* %res
+  %lda13 = load %"Runner_StdLoaderHook^"*, %"Runner_StdLoaderHook^"** %slh1
+  %importing = getelementptr inbounds %"Runner_StdLoaderHook^", %"Runner_StdLoaderHook^"* %lda13, i32 0, i32 1
+  %lda14 = load %"Runner_LoaderHookProxy^"*, %"Runner_LoaderHookProxy^"** @Runner_hookProxy
+  %importing15 = getelementptr inbounds %"Runner_LoaderHookProxy^", %"Runner_LoaderHookProxy^"* %lda14, i32 0, i32 1
+  %lda16 = load %"Runner_LoaderHookProxy^"*, %"Runner_LoaderHookProxy^"** @Runner_hookProxy
+  %importing17 = getelementptr inbounds %"Runner_LoaderHookProxy^", %"Runner_LoaderHookProxy^"* %lda16, i32 0, i32 1
+  %PCAST18 = bitcast [256 x i16]* %importing17 to [0 x i16]*
+  %Kernel_Strlen = call i32 @Kernel_Strlen([0 x i16]* %PCAST18, i32 -1)
+  %PLUS = add i32 %Kernel_Strlen, 1
+  %PCAST19 = bitcast [256 x i16]* %importing15 to [0 x i16]*
+  %PCAST20 = bitcast [256 x i16]* %importing to [0 x i16]*
+  call void @Kernel_StrcpyLL([0 x i16]* %PCAST19, i32 %PLUS, [0 x i16]* %PCAST20, i32 256, i32 -1)
+  %lda21 = load %"Runner_StdLoaderHook^"*, %"Runner_StdLoaderHook^"** %slh1
+  %imported = getelementptr inbounds %"Runner_StdLoaderHook^", %"Runner_StdLoaderHook^"* %lda21, i32 0, i32 2
+  %lda22 = load %"Runner_LoaderHookProxy^"*, %"Runner_LoaderHookProxy^"** @Runner_hookProxy
+  %imported23 = getelementptr inbounds %"Runner_LoaderHookProxy^", %"Runner_LoaderHookProxy^"* %lda22, i32 0, i32 2
+  %lda24 = load %"Runner_LoaderHookProxy^"*, %"Runner_LoaderHookProxy^"** @Runner_hookProxy
+  %imported25 = getelementptr inbounds %"Runner_LoaderHookProxy^", %"Runner_LoaderHookProxy^"* %lda24, i32 0, i32 2
+  %PCAST26 = bitcast [256 x i16]* %imported25 to [0 x i16]*
+  %Kernel_Strlen27 = call i32 @Kernel_Strlen([0 x i16]* %PCAST26, i32 -1)
+  %PLUS28 = add i32 %Kernel_Strlen27, 1
+  %PCAST29 = bitcast [256 x i16]* %imported23 to [0 x i16]*
+  %PCAST30 = bitcast [256 x i16]* %imported to [0 x i16]*
+  call void @Kernel_StrcpyLL([0 x i16]* %PCAST29, i32 %PLUS28, [0 x i16]* %PCAST30, i32 256, i32 -1)
+  %lda31 = load %"Runner_StdLoaderHook^"*, %"Runner_StdLoaderHook^"** %slh1
+  %object = getelementptr inbounds %"Runner_StdLoaderHook^", %"Runner_StdLoaderHook^"* %lda31, i32 0, i32 3
+  %lda32 = load %"Runner_LoaderHookProxy^"*, %"Runner_LoaderHookProxy^"** @Runner_hookProxy
+  %object33 = getelementptr inbounds %"Runner_LoaderHookProxy^", %"Runner_LoaderHookProxy^"* %lda32, i32 0, i32 3
+  %lda34 = load %"Runner_LoaderHookProxy^"*, %"Runner_LoaderHookProxy^"** @Runner_hookProxy
+  %object35 = getelementptr inbounds %"Runner_LoaderHookProxy^", %"Runner_LoaderHookProxy^"* %lda34, i32 0, i32 3
+  %PCAST36 = bitcast [256 x i16]* %object35 to [0 x i16]*
+  %Kernel_Strlen37 = call i32 @Kernel_Strlen([0 x i16]* %PCAST36, i32 -1)
+  %PLUS38 = add i32 %Kernel_Strlen37, 1
+  %PCAST39 = bitcast [256 x i16]* %object33 to [0 x i16]*
+  %PCAST40 = bitcast [256 x i16]* %object to [0 x i16]*
+  call void @Kernel_StrcpyLL([0 x i16]* %PCAST39, i32 %PLUS38, [0 x i16]* %PCAST40, i32 256, i32 -1)
+  %lda41 = load %"Kernel_Module^"*, %"Kernel_Module^"** %mod2
+  %lda42 = load %SYSTEM_DLINK*, %SYSTEM_DLINK** @Kernel_dLink
+  %next43 = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %lda42, i32 0, i32 0
+  %lda44 = load %SYSTEM_DLINK*, %SYSTEM_DLINK** %next43
+  store %SYSTEM_DLINK* %lda44, %SYSTEM_DLINK** @Kernel_dLink
+  ret %"Kernel_Module^"* %lda41
+}
+
 define void @Runner_PrintVars() {
 entry:
   %dlink = alloca %SYSTEM_DLINK
@@ -176,17 +294,17 @@ entry:
   store %SYSTEM_DLINK* %lda, %SYSTEM_DLINK** %next
   %mod = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 1
   store %SYSTEM_MODDESC* @Runner__desc, %SYSTEM_MODDESC** %mod
-  %nidx = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 2
-  store i32 293, i32* %nidx
+  %procname = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 2
+  store [0 x i8]* bitcast ([10 x i8]* @n_Runner_PrintVars to [0 x i8]*), [0 x i8]** %procname
   store %SYSTEM_DLINK* %dlink, %SYSTEM_DLINK** @Kernel_dLink
   %j = alloca i32
   %PCAST = bitcast i32* %j to i8*
   call void @llvm.memset.p0i8.i32(i8* %PCAST, i8 0, i32 4, i32 0, i1 false)
-  %_for__15 = alloca i32
-  %PCAST1 = bitcast i32* %_for__15 to i8*
+  %_for__17 = alloca i32
+  %PCAST1 = bitcast i32* %_for__17 to i8*
   call void @llvm.memset.p0i8.i32(i8* %PCAST1, i8 0, i32 4, i32 0, i1 false)
-  %_for__14 = alloca i32
-  %PCAST2 = bitcast i32* %_for__14 to i8*
+  %_for__16 = alloca i32
+  %PCAST2 = bitcast i32* %_for__16 to i8*
   call void @llvm.memset.p0i8.i32(i8* %PCAST2, i8 0, i32 4, i32 0, i1 false)
   %atmp = alloca [51 x i8]
   store [51 x i8] c"I\00n\00i\00t\00i\00a\00l\00i\00z\00e\00 \00e\00x\00e\00P\00a\00t\00h\00N\00a\00m\00e\00=\00|\00\00\00\00", [51 x i8]* %atmp
@@ -252,140 +370,154 @@ entry:
   %lda37 = load void ([0 x i16]*, i32)*, void ([0 x i16]*, i32)** @OLog_String
   %PCAST38 = bitcast [11 x i8]* %atmp36 to [0 x i16]*
   call void %lda37([0 x i16]* %PCAST38, i32 5)
-  %atmp39 = alloca [21 x i8]
-  store [21 x i8] c"W\00I\00N\00D\00O\00W\00S\003\002\00\00\00\00", [21 x i8]* %atmp39
+  %atmp39 = alloca [17 x i8]
+  store [17 x i8] c"W\00i\00n\00d\00o\00w\00s\00\00\00\00", [17 x i8]* %atmp39
   %lda40 = load void ([0 x i16]*, i32)*, void ([0 x i16]*, i32)** @OLog_String
-  %PCAST41 = bitcast [21 x i8]* %atmp39 to [0 x i16]*
-  call void %lda40([0 x i16]* %PCAST41, i32 10)
-  %lda42 = load void ()*, void ()** @OLog_Ln
-  call void %lda42()
-  %lda43 = load i32, i32* @Runner_argC
-  %MINUS = sub i32 %lda43, 1
-  store i32 %MINUS, i32* %_for__15
+  %PCAST41 = bitcast [17 x i8]* %atmp39 to [0 x i16]*
+  call void %lda40([0 x i16]* %PCAST41, i32 8)
+  %atmp42 = alloca [15 x i8]
+  store [15 x i8] c" \00b\00i\00t\00s\00=\00\00\00\00", [15 x i8]* %atmp42
+  %lda43 = load void ([0 x i16]*, i32)*, void ([0 x i16]*, i32)** @OLog_String
+  %PCAST44 = bitcast [15 x i8]* %atmp42 to [0 x i16]*
+  call void %lda43([0 x i16]* %PCAST44, i32 7)
+  %lda45 = load void (i64)*, void (i64)** @OLog_Int
+  call void %lda45(i64 32)
+  %atmp46 = alloca [19 x i8]
+  store [19 x i8] c" \00k\00e\00r\00n\00e\00l\00=\00\00\00\00", [19 x i8]* %atmp46
+  %lda47 = load void ([0 x i16]*, i32)*, void ([0 x i16]*, i32)** @OLog_String
+  %PCAST48 = bitcast [19 x i8]* %atmp46 to [0 x i16]*
+  call void %lda47([0 x i16]* %PCAST48, i32 9)
+  %lda49 = load void (i64)*, void (i64)** @OLog_Int
+  call void %lda49(i64 17)
+  %lda50 = load void ()*, void ()** @OLog_Ln
+  call void %lda50()
+  %lda51 = load i32, i32* @Runner_argC
+  %MINUS = sub i32 %lda51, 1
+  store i32 %MINUS, i32* %_for__17
   store i32 0, i32* %j
-  %atmp46 = alloca [13 x i8]
-  %atmp51 = alloca [9 x i8]
-  %atmp60 = alloca [13 x i8]
-  %atmp66 = alloca [17 x i8]
-  %atmp81 = alloca [17 x i8]
-  %atmp87 = alloca [17 x i8]
-  %atmp94 = alloca [17 x i8]
-  %atmp104 = alloca [19 x i8]
+  %atmp54 = alloca [13 x i8]
+  %atmp59 = alloca [9 x i8]
+  %atmp68 = alloca [13 x i8]
+  %atmp74 = alloca [17 x i8]
+  %atmp89 = alloca [17 x i8]
+  %atmp95 = alloca [17 x i8]
+  %atmp102 = alloca [17 x i8]
+  %atmp112 = alloca [19 x i8]
   br label %while.cond
 
 while.cond:                                       ; preds = %while.body, %entry
-  %lda44 = load i32, i32* %j
-  %lda45 = load i32, i32* %_for__15
-  %ICMP = icmp sle i32 %lda44, %lda45
+  %lda52 = load i32, i32* %j
+  %lda53 = load i32, i32* %_for__17
+  %ICMP = icmp sle i32 %lda52, %lda53
   br i1 %ICMP, label %while.body, label %while.end
 
 while.body:                                       ; preds = %while.cond
-  store [13 x i8] c"a\00r\00g\00v\00[\00\00\00\00", [13 x i8]* %atmp46
-  %lda47 = load void ([0 x i16]*, i32)*, void ([0 x i16]*, i32)** @OLog_String
-  %PCAST48 = bitcast [13 x i8]* %atmp46 to [0 x i16]*
-  call void %lda47([0 x i16]* %PCAST48, i32 6)
-  %lda49 = load i32, i32* %j
-  %lda50 = load void (i64, i32, i32, i16, i1)*, void (i64, i32, i32, i16, i1)** @OLog_IntForm
-  %conv = sext i32 %lda49 to i64
-  call void %lda50(i64 %conv, i32 10, i32 0, i16 0, i1 false)
-  store [9 x i8] c"]\00=\00 \00\00\00\00", [9 x i8]* %atmp51
-  %lda52 = load void ([0 x i16]*, i32)*, void ([0 x i16]*, i32)** @OLog_String
-  %PCAST53 = bitcast [9 x i8]* %atmp51 to [0 x i16]*
-  call void %lda52([0 x i16]* %PCAST53, i32 4)
-  %lda54 = load i32, i32* %j
-  %INDX55 = getelementptr inbounds [256 x [256 x i16]], [256 x [256 x i16]]* @Runner_argV, i32 0, i32 %lda54
-  %lda56 = load void ([0 x i16]*, i32)*, void ([0 x i16]*, i32)** @OLog_String
-  %PCAST57 = bitcast [256 x i16]* %INDX55 to [0 x i16]*
-  call void %lda56([0 x i16]* %PCAST57, i32 256)
-  %lda58 = load void ()*, void ()** @OLog_Ln
-  call void %lda58()
-  %lda59 = load i32, i32* %j
-  %PLUS = add i32 %lda59, 1
+  store [13 x i8] c"a\00r\00g\00v\00[\00\00\00\00", [13 x i8]* %atmp54
+  %lda55 = load void ([0 x i16]*, i32)*, void ([0 x i16]*, i32)** @OLog_String
+  %PCAST56 = bitcast [13 x i8]* %atmp54 to [0 x i16]*
+  call void %lda55([0 x i16]* %PCAST56, i32 6)
+  %lda57 = load i32, i32* %j
+  %lda58 = load void (i64, i32, i32, i16, i1)*, void (i64, i32, i32, i16, i1)** @OLog_IntForm
+  %conv = sext i32 %lda57 to i64
+  call void %lda58(i64 %conv, i32 10, i32 0, i16 0, i1 false)
+  store [9 x i8] c"]\00=\00 \00\00\00\00", [9 x i8]* %atmp59
+  %lda60 = load void ([0 x i16]*, i32)*, void ([0 x i16]*, i32)** @OLog_String
+  %PCAST61 = bitcast [9 x i8]* %atmp59 to [0 x i16]*
+  call void %lda60([0 x i16]* %PCAST61, i32 4)
+  %lda62 = load i32, i32* %j
+  %INDX63 = getelementptr inbounds [256 x [256 x i16]], [256 x [256 x i16]]* @Runner_argV, i32 0, i32 %lda62
+  %lda64 = load void ([0 x i16]*, i32)*, void ([0 x i16]*, i32)** @OLog_String
+  %PCAST65 = bitcast [256 x i16]* %INDX63 to [0 x i16]*
+  call void %lda64([0 x i16]* %PCAST65, i32 256)
+  %lda66 = load void ()*, void ()** @OLog_Ln
+  call void %lda66()
+  %lda67 = load i32, i32* %j
+  %PLUS = add i32 %lda67, 1
   store i32 %PLUS, i32* %j
   br label %while.cond
 
 while.end:                                        ; preds = %while.cond
-  store [13 x i8] c"a\00r\00g\00C\00=\00\00\00\00", [13 x i8]* %atmp60
-  %lda61 = load void ([0 x i16]*, i32)*, void ([0 x i16]*, i32)** @OLog_String
-  %PCAST62 = bitcast [13 x i8]* %atmp60 to [0 x i16]*
-  call void %lda61([0 x i16]* %PCAST62, i32 6)
-  %lda63 = load i32, i32* @Runner_argC
-  %lda64 = load void (i64)*, void (i64)** @OLog_Int
-  %conv65 = sext i32 %lda63 to i64
-  call void %lda64(i64 %conv65)
-  store [17 x i8] c" \00a\00r\00g\00C\000\00=\00\00\00\00", [17 x i8]* %atmp66
-  %lda67 = load void ([0 x i16]*, i32)*, void ([0 x i16]*, i32)** @OLog_String
-  %PCAST68 = bitcast [17 x i8]* %atmp66 to [0 x i16]*
-  call void %lda67([0 x i16]* %PCAST68, i32 8)
-  %lda69 = load i32, i32* @Runner_argC0
-  %lda70 = load void (i64)*, void (i64)** @OLog_Int
-  %conv71 = sext i32 %lda69 to i64
-  call void %lda70(i64 %conv71)
-  %lda72 = load void ()*, void ()** @OLog_Ln
-  call void %lda72()
-  %lda73 = load i32, i32* @Runner_nOpVals
-  %MINUS74 = sub i32 %lda73, 1
-  store i32 %MINUS74, i32* %_for__14
+  store [13 x i8] c"a\00r\00g\00C\00=\00\00\00\00", [13 x i8]* %atmp68
+  %lda69 = load void ([0 x i16]*, i32)*, void ([0 x i16]*, i32)** @OLog_String
+  %PCAST70 = bitcast [13 x i8]* %atmp68 to [0 x i16]*
+  call void %lda69([0 x i16]* %PCAST70, i32 6)
+  %lda71 = load i32, i32* @Runner_argC
+  %lda72 = load void (i64)*, void (i64)** @OLog_Int
+  %conv73 = sext i32 %lda71 to i64
+  call void %lda72(i64 %conv73)
+  store [17 x i8] c" \00a\00r\00g\00C\000\00=\00\00\00\00", [17 x i8]* %atmp74
+  %lda75 = load void ([0 x i16]*, i32)*, void ([0 x i16]*, i32)** @OLog_String
+  %PCAST76 = bitcast [17 x i8]* %atmp74 to [0 x i16]*
+  call void %lda75([0 x i16]* %PCAST76, i32 8)
+  %lda77 = load i32, i32* @Runner_argC0
+  %lda78 = load void (i64)*, void (i64)** @OLog_Int
+  %conv79 = sext i32 %lda77 to i64
+  call void %lda78(i64 %conv79)
+  %lda80 = load void ()*, void ()** @OLog_Ln
+  call void %lda80()
+  %lda81 = load i32, i32* @Runner_nOpVals
+  %MINUS82 = sub i32 %lda81, 1
+  store i32 %MINUS82, i32* %_for__16
   store i32 0, i32* %j
-  br label %while.cond75
+  br label %while.cond83
 
-while.cond75:                                     ; preds = %while.body76, %while.end
-  %lda78 = load i32, i32* %j
-  %lda79 = load i32, i32* %_for__14
-  %ICMP80 = icmp sle i32 %lda78, %lda79
-  br i1 %ICMP80, label %while.body76, label %while.end77
+while.cond83:                                     ; preds = %while.body84, %while.end
+  %lda86 = load i32, i32* %j
+  %lda87 = load i32, i32* %_for__16
+  %ICMP88 = icmp sle i32 %lda86, %lda87
+  br i1 %ICMP88, label %while.body84, label %while.end85
 
-while.body76:                                     ; preds = %while.cond75
-  store [17 x i8] c"o\00p\00V\00a\00l\00s\00[\00\00\00\00", [17 x i8]* %atmp81
-  %lda82 = load void ([0 x i16]*, i32)*, void ([0 x i16]*, i32)** @OLog_String
-  %PCAST83 = bitcast [17 x i8]* %atmp81 to [0 x i16]*
-  call void %lda82([0 x i16]* %PCAST83, i32 8)
-  %lda84 = load i32, i32* %j
-  %lda85 = load void (i64, i32, i32, i16, i1)*, void (i64, i32, i32, i16, i1)** @OLog_IntForm
-  %conv86 = sext i32 %lda84 to i64
-  call void %lda85(i64 %conv86, i32 10, i32 0, i16 0, i1 false)
-  store [17 x i8] c"]\00 \00n\00a\00m\00e\00=\00\00\00\00", [17 x i8]* %atmp87
-  %lda88 = load void ([0 x i16]*, i32)*, void ([0 x i16]*, i32)** @OLog_String
-  %PCAST89 = bitcast [17 x i8]* %atmp87 to [0 x i16]*
-  call void %lda88([0 x i16]* %PCAST89, i32 8)
-  %lda90 = load i32, i32* %j
-  %INDX91 = getelementptr inbounds [256 x %Runner_OpVal], [256 x %Runner_OpVal]* @Runner_opVals, i32 0, i32 %lda90
-  %name = getelementptr inbounds %Runner_OpVal, %Runner_OpVal* %INDX91, i32 0, i32 0
-  %lda92 = load void ([0 x i16]*, i32)*, void ([0 x i16]*, i32)** @OLog_String
-  %PCAST93 = bitcast [64 x i16]* %name to [0 x i16]*
-  call void %lda92([0 x i16]* %PCAST93, i32 64)
-  store [17 x i8] c" \00v\00a\00l\00u\00e\00=\00\00\00\00", [17 x i8]* %atmp94
-  %lda95 = load void ([0 x i16]*, i32)*, void ([0 x i16]*, i32)** @OLog_String
-  %PCAST96 = bitcast [17 x i8]* %atmp94 to [0 x i16]*
-  call void %lda95([0 x i16]* %PCAST96, i32 8)
-  %lda97 = load i32, i32* %j
-  %INDX98 = getelementptr inbounds [256 x %Runner_OpVal], [256 x %Runner_OpVal]* @Runner_opVals, i32 0, i32 %lda97
-  %val = getelementptr inbounds %Runner_OpVal, %Runner_OpVal* %INDX98, i32 0, i32 2
-  %lda99 = load void ([0 x i16]*, i32)*, void ([0 x i16]*, i32)** @OLog_String
-  %PCAST100 = bitcast [256 x i16]* %val to [0 x i16]*
-  call void %lda99([0 x i16]* %PCAST100, i32 256)
-  %lda101 = load void ()*, void ()** @OLog_Ln
-  call void %lda101()
-  %lda102 = load i32, i32* %j
-  %PLUS103 = add i32 %lda102, 1
-  store i32 %PLUS103, i32* %j
-  br label %while.cond75
+while.body84:                                     ; preds = %while.cond83
+  store [17 x i8] c"o\00p\00V\00a\00l\00s\00[\00\00\00\00", [17 x i8]* %atmp89
+  %lda90 = load void ([0 x i16]*, i32)*, void ([0 x i16]*, i32)** @OLog_String
+  %PCAST91 = bitcast [17 x i8]* %atmp89 to [0 x i16]*
+  call void %lda90([0 x i16]* %PCAST91, i32 8)
+  %lda92 = load i32, i32* %j
+  %lda93 = load void (i64, i32, i32, i16, i1)*, void (i64, i32, i32, i16, i1)** @OLog_IntForm
+  %conv94 = sext i32 %lda92 to i64
+  call void %lda93(i64 %conv94, i32 10, i32 0, i16 0, i1 false)
+  store [17 x i8] c"]\00 \00n\00a\00m\00e\00=\00\00\00\00", [17 x i8]* %atmp95
+  %lda96 = load void ([0 x i16]*, i32)*, void ([0 x i16]*, i32)** @OLog_String
+  %PCAST97 = bitcast [17 x i8]* %atmp95 to [0 x i16]*
+  call void %lda96([0 x i16]* %PCAST97, i32 8)
+  %lda98 = load i32, i32* %j
+  %INDX99 = getelementptr inbounds [256 x %Runner_OpVal], [256 x %Runner_OpVal]* @Runner_opVals, i32 0, i32 %lda98
+  %name = getelementptr inbounds %Runner_OpVal, %Runner_OpVal* %INDX99, i32 0, i32 0
+  %lda100 = load void ([0 x i16]*, i32)*, void ([0 x i16]*, i32)** @OLog_String
+  %PCAST101 = bitcast [64 x i16]* %name to [0 x i16]*
+  call void %lda100([0 x i16]* %PCAST101, i32 64)
+  store [17 x i8] c" \00v\00a\00l\00u\00e\00=\00\00\00\00", [17 x i8]* %atmp102
+  %lda103 = load void ([0 x i16]*, i32)*, void ([0 x i16]*, i32)** @OLog_String
+  %PCAST104 = bitcast [17 x i8]* %atmp102 to [0 x i16]*
+  call void %lda103([0 x i16]* %PCAST104, i32 8)
+  %lda105 = load i32, i32* %j
+  %INDX106 = getelementptr inbounds [256 x %Runner_OpVal], [256 x %Runner_OpVal]* @Runner_opVals, i32 0, i32 %lda105
+  %val = getelementptr inbounds %Runner_OpVal, %Runner_OpVal* %INDX106, i32 0, i32 2
+  %lda107 = load void ([0 x i16]*, i32)*, void ([0 x i16]*, i32)** @OLog_String
+  %PCAST108 = bitcast [256 x i16]* %val to [0 x i16]*
+  call void %lda107([0 x i16]* %PCAST108, i32 256)
+  %lda109 = load void ()*, void ()** @OLog_Ln
+  call void %lda109()
+  %lda110 = load i32, i32* %j
+  %PLUS111 = add i32 %lda110, 1
+  store i32 %PLUS111, i32* %j
+  br label %while.cond83
 
-while.end77:                                      ; preds = %while.cond75
-  store [19 x i8] c"n\00O\00p\00V\00a\00l\00s\00=\00\00\00\00", [19 x i8]* %atmp104
-  %lda105 = load void ([0 x i16]*, i32)*, void ([0 x i16]*, i32)** @OLog_String
-  %PCAST106 = bitcast [19 x i8]* %atmp104 to [0 x i16]*
-  call void %lda105([0 x i16]* %PCAST106, i32 9)
-  %lda107 = load i32, i32* @Runner_nOpVals
-  %lda108 = load void (i64)*, void (i64)** @OLog_Int
-  %conv109 = sext i32 %lda107 to i64
-  call void %lda108(i64 %conv109)
-  %lda110 = load void ()*, void ()** @OLog_Ln
-  call void %lda110()
-  %lda111 = load %SYSTEM_DLINK*, %SYSTEM_DLINK** @Kernel_dLink
-  %next112 = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %lda111, i32 0, i32 0
-  %lda113 = load %SYSTEM_DLINK*, %SYSTEM_DLINK** %next112
-  store %SYSTEM_DLINK* %lda113, %SYSTEM_DLINK** @Kernel_dLink
+while.end85:                                      ; preds = %while.cond83
+  store [19 x i8] c"n\00O\00p\00V\00a\00l\00s\00=\00\00\00\00", [19 x i8]* %atmp112
+  %lda113 = load void ([0 x i16]*, i32)*, void ([0 x i16]*, i32)** @OLog_String
+  %PCAST114 = bitcast [19 x i8]* %atmp112 to [0 x i16]*
+  call void %lda113([0 x i16]* %PCAST114, i32 9)
+  %lda115 = load i32, i32* @Runner_nOpVals
+  %lda116 = load void (i64)*, void (i64)** @OLog_Int
+  %conv117 = sext i32 %lda115 to i64
+  call void %lda116(i64 %conv117)
+  %lda118 = load void ()*, void ()** @OLog_Ln
+  call void %lda118()
+  %lda119 = load %SYSTEM_DLINK*, %SYSTEM_DLINK** @Kernel_dLink
+  %next120 = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %lda119, i32 0, i32 0
+  %lda121 = load %SYSTEM_DLINK*, %SYSTEM_DLINK** %next120
+  store %SYSTEM_DLINK* %lda121, %SYSTEM_DLINK** @Kernel_dLink
   ret void
 }
 
@@ -400,8 +532,8 @@ entry:
   store %SYSTEM_DLINK* %lda, %SYSTEM_DLINK** %next
   %mod = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 1
   store %SYSTEM_MODDESC* @Runner__desc, %SYSTEM_MODDESC** %mod
-  %nidx = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 2
-  store i32 126, i32* %nidx
+  %procname = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 2
+  store [0 x i8]* bitcast ([13 x i8]* @n_Runner_GetStringOpt to [0 x i8]*), [0 x i8]** %procname
   store %SYSTEM_DLINK* %dlink, %SYSTEM_DLINK** @Kernel_dLink
   %j = alloca i32
   %PCAST = bitcast i32* %j to i8*
@@ -478,8 +610,8 @@ entry:
   store %SYSTEM_DLINK* %lda, %SYSTEM_DLINK** %next
   %mod = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 1
   store %SYSTEM_MODDESC* @Runner__desc, %SYSTEM_MODDESC** %mod
-  %nidx = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 2
-  store i32 116, i32* %nidx
+  %procname = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 2
+  store [0 x i8]* bitcast ([10 x i8]* @n_Runner_GetIntOpt to [0 x i8]*), [0 x i8]** %procname
   store %SYSTEM_DLINK* %dlink, %SYSTEM_DLINK** @Kernel_dLink
   %sval = alloca [256 x i16]
   %res = alloca i32
@@ -518,8 +650,8 @@ entry:
   store %SYSTEM_DLINK* %lda, %SYSTEM_DLINK** %next
   %mod = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 1
   store %SYSTEM_MODDESC* @Runner__desc, %SYSTEM_MODDESC** %mod
-  %nidx = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 2
-  store i32 249, i32* %nidx
+  %procname = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 2
+  store [0 x i8]* bitcast ([10 x i8]* @n_Runner_ParseArgs to [0 x i8]*), [0 x i8]** %procname
   store %SYSTEM_DLINK* %dlink, %SYSTEM_DLINK** @Kernel_dLink
   %j = alloca i32
   %PCAST = bitcast i32* %j to i8*
@@ -536,14 +668,14 @@ entry:
   %was_op = alloca i1
   %PCAST4 = bitcast i1* %was_op to i8*
   call void @llvm.memset.p0i8.i32(i8* %PCAST4, i8 0, i32 0, i32 0, i1 false)
-  %_s = alloca %Runner_ParseArgs__7
-  %lda5 = load %Runner_ParseArgs__7*, %Runner_ParseArgs__7** @Runner_ParseArgs__7_s
-  %was_op6 = getelementptr inbounds %Runner_ParseArgs__7, %Runner_ParseArgs__7* %_s, i32 0, i32 4
+  %_s = alloca %Runner_ParseArgs__9
+  %lda5 = load %Runner_ParseArgs__9*, %Runner_ParseArgs__9** @Runner_ParseArgs__9_s
+  %was_op6 = getelementptr inbounds %Runner_ParseArgs__9, %Runner_ParseArgs__9* %_s, i32 0, i32 4
   store i1* %was_op, i1** %was_op6
   %lda7 = load i1*, i1** %was_op6
-  %lnk = getelementptr inbounds %Runner_ParseArgs__7, %Runner_ParseArgs__7* %_s, i32 0, i32 5
-  store %Runner_ParseArgs__7* %lda5, %Runner_ParseArgs__7** %lnk
-  store %Runner_ParseArgs__7* %_s, %Runner_ParseArgs__7** @Runner_ParseArgs__7_s
+  %lnk = getelementptr inbounds %Runner_ParseArgs__9, %Runner_ParseArgs__9* %_s, i32 0, i32 5
+  store %Runner_ParseArgs__9* %lda5, %Runner_ParseArgs__9** %lnk
+  store %Runner_ParseArgs__9* %_s, %Runner_ParseArgs__9** @Runner_ParseArgs__9_s
   store i32 0, i32* @Runner_argC
   store i32 0, i32* %j
   store i32 0, i32* %k
@@ -704,7 +836,7 @@ if.then59:                                        ; preds = %if.else42
   %lda63 = load i32, i32* @Runner_argC
   %INDX64 = getelementptr inbounds [256 x [256 x i16]], [256 x [256 x i16]]* @Runner_argV, i32 0, i32 %lda63
   %PCAST65 = bitcast [256 x i16]* %INDX64 to [0 x i16]*
-  call void @Runner_AddOpVal___8([0 x i16]* %PCAST65, i32 256, i1* %lda7)
+  call void @Runner_AddOpVal___10([0 x i16]* %PCAST65, i32 256, i1* %lda7)
   %lda66 = load i32, i32* @Runner_argC
   %PLUS67 = add i32 %lda66, 1
   store i32 %PLUS67, i32* @Runner_argC
@@ -718,7 +850,7 @@ if.then83:                                        ; preds = %while.end
   %lda87 = load i32, i32* @Runner_argC
   %INDX88 = getelementptr inbounds [256 x [256 x i16]], [256 x [256 x i16]]* @Runner_argV, i32 0, i32 %lda87
   %PCAST89 = bitcast [256 x i16]* %INDX88 to [0 x i16]*
-  call void @Runner_AddOpVal___8([0 x i16]* %PCAST89, i32 256, i1* %lda7)
+  call void @Runner_AddOpVal___10([0 x i16]* %PCAST89, i32 256, i1* %lda7)
   %lda90 = load i32, i32* @Runner_argC
   %PLUS91 = add i32 %lda90, 1
   store i32 %PLUS91, i32* @Runner_argC
@@ -738,7 +870,7 @@ if.else93:                                        ; preds = %if.end84
   br label %if.end94
 
 if.end94:                                         ; preds = %if.else93, %if.then92
-  store %Runner_ParseArgs__7* %lda5, %Runner_ParseArgs__7** @Runner_ParseArgs__7_s
+  store %Runner_ParseArgs__9* %lda5, %Runner_ParseArgs__9** @Runner_ParseArgs__9_s
   %lda97 = load %SYSTEM_DLINK*, %SYSTEM_DLINK** @Kernel_dLink
   %next98 = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %lda97, i32 0, i32 0
   %lda99 = load %SYSTEM_DLINK*, %SYSTEM_DLINK** %next98
@@ -746,7 +878,7 @@ if.end94:                                         ; preds = %if.else93, %if.then
   ret void
 }
 
-define private i1 @Runner_IsOption___10([0 x i16]* %str, i32 %str__len) {
+define private i1 @Runner_IsOption___12([0 x i16]* %str, i32 %str__len) {
 entry:
   %dlink = alloca %SYSTEM_DLINK
   %next = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 0
@@ -754,8 +886,8 @@ entry:
   store %SYSTEM_DLINK* %lda, %SYSTEM_DLINK** %next
   %mod = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 1
   store %SYSTEM_MODDESC* @Runner__desc, %SYSTEM_MODDESC** %mod
-  %nidx = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 2
-  store i32 627, i32* %nidx
+  %procname = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 2
+  store [0 x i8]* bitcast ([5 x i8]* @n_Runner___12 to [0 x i8]*), [0 x i8]** %procname
   store %SYSTEM_DLINK* %dlink, %SYSTEM_DLINK** @Kernel_dLink
   %INDX = getelementptr inbounds [0 x i16], [0 x i16]* %str, i32 0, i32 0
   %lda1 = load i16, i16* %INDX
@@ -782,7 +914,7 @@ entry:
   ret i1 %AND12
 }
 
-define private void @Runner_AddOpVal___8([0 x i16]* %str, i32 %str__len, i1* %was_op) {
+define private void @Runner_AddOpVal___10([0 x i16]* %str, i32 %str__len, i1* %was_op) {
 entry:
   %dlink = alloca %SYSTEM_DLINK
   %next = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 0
@@ -790,8 +922,8 @@ entry:
   store %SYSTEM_DLINK* %lda, %SYSTEM_DLINK** %next
   %mod = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 1
   store %SYSTEM_MODDESC* @Runner__desc, %SYSTEM_MODDESC** %mod
-  %nidx = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 2
-  store i32 623, i32* %nidx
+  %procname = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 2
+  store [0 x i8]* bitcast ([5 x i8]* @n_Runner___10 to [0 x i8]*), [0 x i8]** %procname
   store %SYSTEM_DLINK* %dlink, %SYSTEM_DLINK** @Kernel_dLink
   %atmp = alloca [7 x i8]
   store [7 x i8] c"-\00p\00\00\00\00", [7 x i8]* %atmp
@@ -811,12 +943,12 @@ if.end:                                           ; preds = %if.then, %entry
   br i1 %lda3, label %if.then1, label %if.else
 
 if.then1:                                         ; preds = %if.end
-  %__10 = call i1 @Runner_IsOption___10([0 x i16]* %str, i32 %str__len)
-  br i1 %__10, label %if.then4, label %if.else5
+  %__12 = call i1 @Runner_IsOption___12([0 x i16]* %str, i32 %str__len)
+  br i1 %__12, label %if.then4, label %if.else5
 
 if.else:                                          ; preds = %if.end
-  %__1027 = call i1 @Runner_IsOption___10([0 x i16]* %str, i32 %str__len)
-  br i1 %__1027, label %if.then24, label %if.else25
+  %__1227 = call i1 @Runner_IsOption___12([0 x i16]* %str, i32 %str__len)
+  br i1 %__1227, label %if.then24, label %if.else25
 
 if.end2:                                          ; preds = %if.end26, %if.end6
   %lda46 = load %SYSTEM_DLINK*, %SYSTEM_DLINK** @Kernel_dLink
@@ -901,8 +1033,8 @@ entry:
   store %SYSTEM_DLINK* %lda, %SYSTEM_DLINK** %next
   %mod = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 1
   store %SYSTEM_MODDESC* @Runner__desc, %SYSTEM_MODDESC** %mod
-  %nidx = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 2
-  store i32 312, i32* %nidx
+  %procname = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 2
+  store [0 x i8]* bitcast ([10 x i8]* @n_Runner_RunModule to [0 x i8]*), [0 x i8]** %procname
   store %SYSTEM_DLINK* %dlink, %SYSTEM_DLINK** @Kernel_dLink
   %imd1 = alloca i32
   store i32 %imd, i32* %imd1
@@ -920,6 +1052,71 @@ entry:
   ret void
 }
 
+define %"Kernel_Module^"* @Runner_ThisLoadedMod([0 x i16]* %name, i32 %name__len) {
+entry:
+  %dlink = alloca %SYSTEM_DLINK
+  %next = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 0
+  %lda = load %SYSTEM_DLINK*, %SYSTEM_DLINK** @Kernel_dLink
+  store %SYSTEM_DLINK* %lda, %SYSTEM_DLINK** %next
+  %mod = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 1
+  store %SYSTEM_MODDESC* @Runner__desc, %SYSTEM_MODDESC** %mod
+  %procname = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 2
+  store [0 x i8]* bitcast ([14 x i8]* @n_Runner_ThisLoadedMod to [0 x i8]*), [0 x i8]** %procname
+  store %SYSTEM_DLINK* %dlink, %SYSTEM_DLINK** @Kernel_dLink
+  %ThisLoadedMod = call %"Kernel_Module^"* @Kernel_ThisLoadedMod([0 x i16]* %name, i32 %name__len)
+  %lda1 = load %SYSTEM_DLINK*, %SYSTEM_DLINK** @Kernel_dLink
+  %next2 = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %lda1, i32 0, i32 0
+  %lda3 = load %SYSTEM_DLINK*, %SYSTEM_DLINK** %next2
+  store %SYSTEM_DLINK* %lda3, %SYSTEM_DLINK** @Kernel_dLink
+  ret %"Kernel_Module^"* %ThisLoadedMod
+}
+
+declare %"Kernel_Module^"* @Kernel_ThisLoadedMod([0 x i16]*, i32)
+
+define void @Runner_SetLoaderHookProxy(%"Runner_LoaderHookProxy^"* %hp) {
+entry:
+  %dlink = alloca %SYSTEM_DLINK
+  %next = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 0
+  %lda = load %SYSTEM_DLINK*, %SYSTEM_DLINK** @Kernel_dLink
+  store %SYSTEM_DLINK* %lda, %SYSTEM_DLINK** %next
+  %mod = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 1
+  store %SYSTEM_MODDESC* @Runner__desc, %SYSTEM_MODDESC** %mod
+  %procname = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 2
+  store [0 x i8]* bitcast ([19 x i8]* @n_Runner_SetLoaderHookProxy to [0 x i8]*), [0 x i8]** %procname
+  store %SYSTEM_DLINK* %dlink, %SYSTEM_DLINK** @Kernel_dLink
+  %hp1 = alloca %"Runner_LoaderHookProxy^"*
+  store %"Runner_LoaderHookProxy^"* %hp, %"Runner_LoaderHookProxy^"** %hp1
+  %slh = alloca %"Runner_StdLoaderHook^"*
+  %PCAST = bitcast %"Runner_StdLoaderHook^"** %slh to i8*
+  call void @llvm.memset.p0i8.i32(i8* %PCAST, i8 0, i32 4, i32 0, i1 false)
+  %lda2 = load %"Runner_LoaderHookProxy^"*, %"Runner_LoaderHookProxy^"** @Runner_hookProxy
+  %PCAST3 = bitcast %"Runner_LoaderHookProxy^"* %lda2 to [0 x i8]*
+  %ICMP = icmp eq [0 x i8]* %PCAST3, null
+  br i1 %ICMP, label %if.then, label %if.end
+
+if.then:                                          ; preds = %entry
+  %Kernel_NewRec = call i32 @Kernel_NewRec(i32 ptrtoint (i32* getelementptr inbounds ([24 x i32], [24 x i32]* @Runner_StdLoaderHook__redesc, i32 0, i32 3) to i32))
+  %IPCAST = inttoptr i32 %Kernel_NewRec to %"Runner_StdLoaderHook^"*
+  store %"Runner_StdLoaderHook^"* %IPCAST, %"Runner_StdLoaderHook^"** %slh
+  %lda4 = load %"Runner_StdLoaderHook^"*, %"Runner_StdLoaderHook^"** %slh
+  %PCAST5 = bitcast %"Runner_StdLoaderHook^"* %lda4 to %"Kernel_LoaderHook^"*
+  call void @Kernel_SetLoaderHook(%"Kernel_LoaderHook^"* %PCAST5)
+  br label %if.end
+
+if.end:                                           ; preds = %if.then, %entry
+  %lda6 = load %"Runner_LoaderHookProxy^"*, %"Runner_LoaderHookProxy^"** %hp1
+  store %"Runner_LoaderHookProxy^"* %lda6, %"Runner_LoaderHookProxy^"** @Runner_hookProxy
+  %lda7 = load %SYSTEM_DLINK*, %SYSTEM_DLINK** @Kernel_dLink
+  %next8 = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %lda7, i32 0, i32 0
+  %lda9 = load %SYSTEM_DLINK*, %SYSTEM_DLINK** %next8
+  store %SYSTEM_DLINK* %lda9, %SYSTEM_DLINK** @Kernel_dLink
+  ret void
+}
+
+declare i32 @Kernel_NewRec(i32)
+
+declare void @Kernel_SetLoaderHook(%"Kernel_LoaderHook^"*)
+
 define i32 @Runner_EntryPoint([0 x i32]* %argv, i32 %argv__len, i32 %pargc, i32 %p_reg, i32 %p_body) {
 entry:
   %dlink = alloca %SYSTEM_DLINK
@@ -928,8 +1125,8 @@ entry:
   store %SYSTEM_DLINK* %lda, %SYSTEM_DLINK** %next
   %mod = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 1
   store %SYSTEM_MODDESC* @Runner__desc, %SYSTEM_MODDESC** %mod
-  %nidx = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 2
-  store i32 105, i32* %nidx
+  %procname = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 2
+  store [0 x i8]* bitcast ([11 x i8]* @n_Runner_EntryPoint to [0 x i8]*), [0 x i8]** %procname
   store %SYSTEM_DLINK* %dlink, %SYSTEM_DLINK** @Kernel_dLink
   %pargc1 = alloca i32
   store i32 %pargc, i32* %pargc1
@@ -953,8 +1150,8 @@ entry:
   store %SYSTEM_DLINK* %lda, %SYSTEM_DLINK** %next
   %mod = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 1
   store %SYSTEM_MODDESC* @Runner__desc, %SYSTEM_MODDESC** %mod
-  %nidx = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 2
-  store i32 347, i32* %nidx
+  %procname = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 2
+  store [0 x i8]* bitcast ([7 x i8]* @n_Runner_SetRun to [0 x i8]*), [0 x i8]** %procname
   store %SYSTEM_DLINK* %dlink, %SYSTEM_DLINK** @Kernel_dLink
   %rp1 = alloca void ()*
   store void ()* %rp, void ()** %rp1
@@ -1053,8 +1250,8 @@ entry:
   store %SYSTEM_DLINK* %lda, %SYSTEM_DLINK** %next
   %mod = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 1
   store %SYSTEM_MODDESC* @Runner__desc, %SYSTEM_MODDESC** %mod
-  %nidx = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 2
-  store i32 337, i32* %nidx
+  %procname = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 2
+  store [0 x i8]* bitcast ([10 x i8]* @n_Runner_SetResult to [0 x i8]*), [0 x i8]** %procname
   store %SYSTEM_DLINK* %dlink, %SYSTEM_DLINK** @Kernel_dLink
   %result1 = alloca i32
   store i32 %result, i32* %result1
@@ -1089,6 +1286,30 @@ if.end:                                           ; preds = %if.else, %if.then
   ret void
 }
 
+define void @Runner_Execute([0 x i8]* %command, i32 %command__len, [0 x i8]* %out, i32 %out__len, i32* %result) {
+entry:
+  %dlink = alloca %SYSTEM_DLINK
+  %next = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 0
+  %lda = load %SYSTEM_DLINK*, %SYSTEM_DLINK** @Kernel_dLink
+  store %SYSTEM_DLINK* %lda, %SYSTEM_DLINK** %next
+  %mod = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 1
+  store %SYSTEM_MODDESC* @Runner__desc, %SYSTEM_MODDESC** %mod
+  %procname = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 2
+  store [0 x i8]* bitcast ([8 x i8]* @n_Runner_Execute to [0 x i8]*), [0 x i8]** %procname
+  store %SYSTEM_DLINK* %dlink, %SYSTEM_DLINK** @Kernel_dLink
+  %f = alloca i32
+  %PCAST = bitcast i32* %f to i8*
+  call void @llvm.memset.p0i8.i32(i8* %PCAST, i8 0, i32 4, i32 0, i1 false)
+  %INDX = getelementptr inbounds [0 x i8], [0 x i8]* %out, i32 0, i32 0
+  store i8 0, i8* %INDX
+  store i32 0, i32* %result
+  %lda1 = load %SYSTEM_DLINK*, %SYSTEM_DLINK** @Kernel_dLink
+  %next2 = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %lda1, i32 0, i32 0
+  %lda3 = load %SYSTEM_DLINK*, %SYSTEM_DLINK** %next2
+  store %SYSTEM_DLINK* %lda3, %SYSTEM_DLINK** @Kernel_dLink
+  ret void
+}
+
 define private void @Runner_PrintStack(i32 %n) {
 entry:
   %dlink = alloca %SYSTEM_DLINK
@@ -1097,8 +1318,8 @@ entry:
   store %SYSTEM_DLINK* %lda, %SYSTEM_DLINK** %next
   %mod = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 1
   store %SYSTEM_MODDESC* @Runner__desc, %SYSTEM_MODDESC** %mod
-  %nidx = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 2
-  store i32 282, i32* %nidx
+  %procname = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 2
+  store [0 x i8]* bitcast ([11 x i8]* @n_Runner_PrintStack to [0 x i8]*), [0 x i8]** %procname
   store %SYSTEM_DLINK* %dlink, %SYSTEM_DLINK** @Kernel_dLink
   %n1 = alloca i32
   store i32 %n, i32* %n1
@@ -1118,10 +1339,6 @@ entry:
   %PCAST7 = bitcast %SYSTEM_DLINK* %lda6 to %"Runner_DLink^"*
   store %"Runner_DLink^"* %PCAST7, %"Runner_DLink^"** %dl
   %atmp = alloca [5 x i8]
-  %atmp42 = alloca [11 x i8]
-  %atmp45 = alloca [13 x i8]
-  %atmp48 = alloca [15 x i8]
-  %atmp51 = alloca [13 x i8]
   br label %while.cond
 
 while.cond:                                       ; preds = %while.body, %entry
@@ -1154,12 +1371,12 @@ while.body14:                                     ; preds = %while.cond13
   br i1 %lda19, label %if.then, label %if.else
 
 while.end15:                                      ; preds = %while.cond13
-  %lda79 = load void ()*, void ()** @OLog_Ln
-  call void %lda79()
-  %lda80 = load %SYSTEM_DLINK*, %SYSTEM_DLINK** @Kernel_dLink
-  %next81 = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %lda80, i32 0, i32 0
-  %lda82 = load %SYSTEM_DLINK*, %SYSTEM_DLINK** %next81
-  store %SYSTEM_DLINK* %lda82, %SYSTEM_DLINK** @Kernel_dLink
+  %lda61 = load void ()*, void ()** @OLog_Ln
+  call void %lda61()
+  %lda62 = load %SYSTEM_DLINK*, %SYSTEM_DLINK** @Kernel_dLink
+  %next63 = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %lda62, i32 0, i32 0
+  %lda64 = load %SYSTEM_DLINK*, %SYSTEM_DLINK** %next63
+  store %SYSTEM_DLINK* %lda64, %SYSTEM_DLINK** @Kernel_dLink
   ret void
 
 if.then:                                          ; preds = %while.body14
@@ -1192,98 +1409,55 @@ if.then24:                                        ; preds = %if.end
   %lda33 = load void ([0 x i16]*, i32)*, void ([0 x i16]*, i32)** @OLog_String
   %PCAST34 = bitcast [5 x i8]* %atmp to [0 x i16]*
   call void %lda33([0 x i16]* %PCAST34, i32 2)
-  %lda35 = load %"Runner_DLink^"*, %"Runner_DLink^"** %dl
-  %nidx36 = getelementptr inbounds %"Runner_DLink^", %"Runner_DLink^"* %lda35, i32 0, i32 2
-  %lda37 = load i32, i32* %nidx36
-  store i32 %lda37, i32* %j
-  %lda38 = load i32, i32* %j
-  switch i32 %lda38, label %case.else [
-    i32 -1, label %case.of
-    i32 -2, label %case.of39
-    i32 -3, label %case.of40
-    i32 -4, label %case.of41
-  ]
+  store i32 0, i32* %j
+  br label %while.cond35
 
 if.else25:                                        ; preds = %if.end
-  %lda70 = load void (i16)*, void (i16)** @OLog_Char
-  call void %lda70(i16 40)
-  %lda71 = load %"Kernel_Module^"*, %"Kernel_Module^"** %mod3
-  %name72 = getelementptr inbounds %"Kernel_Module^", %"Kernel_Module^"* %lda71, i32 0, i32 21
-  %lda73 = load void ([0 x i8]*, i32)*, void ([0 x i8]*, i32)** @OLog_SString
-  %PCAST74 = bitcast [256 x i8]* %name72 to [0 x i8]*
-  call void %lda73([0 x i8]* %PCAST74, i32 256)
-  %lda75 = load void (i16)*, void (i16)** @OLog_Char
-  call void %lda75(i16 41)
+  %lda52 = load void (i16)*, void (i16)** @OLog_Char
+  call void %lda52(i16 40)
+  %lda53 = load %"Kernel_Module^"*, %"Kernel_Module^"** %mod3
+  %name54 = getelementptr inbounds %"Kernel_Module^", %"Kernel_Module^"* %lda53, i32 0, i32 21
+  %lda55 = load void ([0 x i8]*, i32)*, void ([0 x i8]*, i32)** @OLog_SString
+  %PCAST56 = bitcast [256 x i8]* %name54 to [0 x i8]*
+  call void %lda55([0 x i8]* %PCAST56, i32 256)
+  %lda57 = load void (i16)*, void (i16)** @OLog_Char
+  call void %lda57(i16 41)
   br label %if.end26
 
-if.end26:                                         ; preds = %if.else25, %case.end
-  %lda76 = load %"Runner_DLink^"*, %"Runner_DLink^"** %dl
-  %next77 = getelementptr inbounds %"Runner_DLink^", %"Runner_DLink^"* %lda76, i32 0, i32 0
-  %lda78 = load %"Runner_DLink^"*, %"Runner_DLink^"** %next77
-  store %"Runner_DLink^"* %lda78, %"Runner_DLink^"** %dl
+if.end26:                                         ; preds = %if.else25, %while.end37
+  %lda58 = load %"Runner_DLink^"*, %"Runner_DLink^"** %dl
+  %next59 = getelementptr inbounds %"Runner_DLink^", %"Runner_DLink^"* %lda58, i32 0, i32 0
+  %lda60 = load %"Runner_DLink^"*, %"Runner_DLink^"** %next59
+  store %"Runner_DLink^"* %lda60, %"Runner_DLink^"** %dl
   br label %while.cond13
 
-case.of:                                          ; preds = %if.then24
-  store [11 x i8] c"_\00r\00e\00g\00\00\00\00", [11 x i8]* %atmp42
-  %lda43 = load void ([0 x i16]*, i32)*, void ([0 x i16]*, i32)** @OLog_String
-  %PCAST44 = bitcast [11 x i8]* %atmp42 to [0 x i16]*
-  call void %lda43([0 x i16]* %PCAST44, i32 5)
-  br label %case.end
+while.cond35:                                     ; preds = %while.body36, %if.then24
+  %lda38 = load %"Runner_DLink^"*, %"Runner_DLink^"** %dl
+  %procname39 = getelementptr inbounds %"Runner_DLink^", %"Runner_DLink^"* %lda38, i32 0, i32 2
+  %lda40 = load [0 x i8]*, [0 x i8]** %procname39
+  %lda41 = load i32, i32* %j
+  %INDX = getelementptr inbounds [0 x i8], [0 x i8]* %lda40, i32 0, i32 %lda41
+  %lda42 = load i8, i8* %INDX
+  %ICMP43 = icmp ne i8 %lda42, 0
+  br i1 %ICMP43, label %while.body36, label %while.end37
 
-case.of39:                                        ; preds = %if.then24
-  store [13 x i8] c"_\00b\00o\00d\00y\00\00\00\00", [13 x i8]* %atmp45
-  %lda46 = load void ([0 x i16]*, i32)*, void ([0 x i16]*, i32)** @OLog_String
-  %PCAST47 = bitcast [13 x i8]* %atmp45 to [0 x i16]*
-  call void %lda46([0 x i16]* %PCAST47, i32 6)
-  br label %case.end
-
-case.of40:                                        ; preds = %if.then24
-  store [15 x i8] c"_\00c\00l\00o\00s\00e\00\00\00\00", [15 x i8]* %atmp48
-  %lda49 = load void ([0 x i16]*, i32)*, void ([0 x i16]*, i32)** @OLog_String
-  %PCAST50 = bitcast [15 x i8]* %atmp48 to [0 x i16]*
-  call void %lda49([0 x i16]* %PCAST50, i32 7)
-  br label %case.end
-
-case.of41:                                        ; preds = %if.then24
-  store [13 x i8] c"_\00m\00a\00i\00n\00\00\00\00", [13 x i8]* %atmp51
-  %lda52 = load void ([0 x i16]*, i32)*, void ([0 x i16]*, i32)** @OLog_String
-  %PCAST53 = bitcast [13 x i8]* %atmp51 to [0 x i16]*
-  call void %lda52([0 x i16]* %PCAST53, i32 6)
-  br label %case.end
-
-case.else:                                        ; preds = %if.then24
-  br label %while.cond54
-
-case.end:                                         ; preds = %while.end56, %case.of41, %case.of40, %case.of39, %case.of
-  br label %if.end26
-
-while.cond54:                                     ; preds = %while.body55, %case.else
-  %lda57 = load %"Kernel_Module^"*, %"Kernel_Module^"** %mod3
-  %names = getelementptr inbounds %"Kernel_Module^", %"Kernel_Module^"* %lda57, i32 0, i32 17
-  %lda58 = load [0 x i8]*, [0 x i8]** %names
-  %lda59 = load i32, i32* %j
-  %INDX = getelementptr inbounds [0 x i8], [0 x i8]* %lda58, i32 0, i32 %lda59
-  %lda60 = load i8, i8* %INDX
-  %ICMP61 = icmp ne i8 %lda60, 0
-  br i1 %ICMP61, label %while.body55, label %while.end56
-
-while.body55:                                     ; preds = %while.cond54
-  %lda62 = load %"Kernel_Module^"*, %"Kernel_Module^"** %mod3
-  %names63 = getelementptr inbounds %"Kernel_Module^", %"Kernel_Module^"* %lda62, i32 0, i32 17
-  %lda64 = load [0 x i8]*, [0 x i8]** %names63
-  %lda65 = load i32, i32* %j
-  %INDX66 = getelementptr inbounds [0 x i8], [0 x i8]* %lda64, i32 0, i32 %lda65
-  %lda67 = load i8, i8* %INDX66
-  %lda68 = load void (i16)*, void (i16)** @OLog_Char
-  %conv = sext i8 %lda67 to i16
-  call void %lda68(i16 %conv)
-  %lda69 = load i32, i32* %j
-  %PLUS = add i32 %lda69, 1
+while.body36:                                     ; preds = %while.cond35
+  %lda44 = load %"Runner_DLink^"*, %"Runner_DLink^"** %dl
+  %procname45 = getelementptr inbounds %"Runner_DLink^", %"Runner_DLink^"* %lda44, i32 0, i32 2
+  %lda46 = load [0 x i8]*, [0 x i8]** %procname45
+  %lda47 = load i32, i32* %j
+  %INDX48 = getelementptr inbounds [0 x i8], [0 x i8]* %lda46, i32 0, i32 %lda47
+  %lda49 = load i8, i8* %INDX48
+  %lda50 = load void (i16)*, void (i16)** @OLog_Char
+  %conv = sext i8 %lda49 to i16
+  call void %lda50(i16 %conv)
+  %lda51 = load i32, i32* %j
+  %PLUS = add i32 %lda51, 1
   store i32 %PLUS, i32* %j
-  br label %while.cond54
+  br label %while.cond35
 
-while.end56:                                      ; preds = %while.cond54
-  br label %case.end
+while.end37:                                      ; preds = %while.cond35
+  br label %if.end26
 }
 
 define private void @Runner_TrapViewer() {
@@ -1294,8 +1468,8 @@ entry:
   store %SYSTEM_DLINK* %lda, %SYSTEM_DLINK** %next
   %mod = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 1
   store %SYSTEM_MODDESC* @Runner__desc, %SYSTEM_MODDESC** %mod
-  %nidx = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 2
-  store i32 372, i32* %nidx
+  %procname = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 2
+  store [0 x i8]* bitcast ([11 x i8]* @n_Runner_TrapViewer to [0 x i8]*), [0 x i8]** %procname
   store %SYSTEM_DLINK* %dlink, %SYSTEM_DLINK** @Kernel_dLink
   %atmp = alloca [23 x i8]
   store [23 x i8] c"*\00*\00*\00 \00t\00r\00a\00p\00 \00#\00\00\00\00", [23 x i8]* %atmp
@@ -1331,8 +1505,8 @@ entry:
   store %SYSTEM_DLINK* %lda, %SYSTEM_DLINK** %next
   %mod = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 1
   store %SYSTEM_MODDESC* @Runner__desc, %SYSTEM_MODDESC** %mod
-  %nidx = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 2
-  store i32 354, i32* %nidx
+  %procname = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 2
+  store [0 x i8]* bitcast ([18 x i8]* @n_Runner_TrapSignalHandler to [0 x i8]*), [0 x i8]** %procname
   store %SYSTEM_DLINK* %dlink, %SYSTEM_DLINK** @Kernel_dLink
   %isig1 = alloca i32
   store i32 %isig, i32* %isig1
@@ -1372,8 +1546,8 @@ entry:
   store %SYSTEM_DLINK* %lda, %SYSTEM_DLINK** %next
   %mod = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 1
   store %SYSTEM_MODDESC* @Runner__desc, %SYSTEM_MODDESC** %mod
-  %nidx = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 2
-  store i32 139, i32* %nidx
+  %procname = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 2
+  store [0 x i8]* bitcast ([10 x i8]* @n_Runner_HasSpaces to [0 x i8]*), [0 x i8]** %procname
   store %SYSTEM_DLINK* %dlink, %SYSTEM_DLINK** @Kernel_dLink
   %j = alloca i32
   %PCAST = bitcast i32* %j to i8*
@@ -1437,8 +1611,8 @@ entry:
   store %SYSTEM_DLINK* %lda, %SYSTEM_DLINK** %next
   %mod = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 1
   store %SYSTEM_MODDESC* @Runner__desc, %SYSTEM_MODDESC** %mod
-  %nidx = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 2
-  store i32 149, i32* %nidx
+  %procname = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 2
+  store [0 x i8]* bitcast ([11 x i8]* @n_Runner_Initialize to [0 x i8]*), [0 x i8]** %procname
   store %SYSTEM_DLINK* %dlink, %SYSTEM_DLINK** @Kernel_dLink
   %str = alloca [260 x i8]
   %j = alloca i32
@@ -1454,8 +1628,8 @@ entry:
   %tmp = alloca void (i32)*
   %PCAST3 = bitcast void (i32)** %tmp to i8*
   call void @llvm.memset.p0i8.i32(i8* %PCAST3, i8 0, i32 4, i32 0, i1 false)
-  %_for__6 = alloca i32
-  %PCAST4 = bitcast i32* %_for__6 to i8*
+  %_for__8 = alloca i32
+  %PCAST4 = bitcast i32* %_for__8 to i8*
   call void @llvm.memset.p0i8.i32(i8* %PCAST4, i8 0, i32 4, i32 0, i1 false)
   %lda5 = load i1, i1* @Kernel_inDll
   %atmp = alloca [7 x i8]
@@ -1490,9 +1664,9 @@ while.body:                                       ; preds = %while.cond
   br label %while.cond
 
 while.end:                                        ; preds = %while.cond
+  call void @Kernel_InstallTrapViewer(void ()* @Runner_TrapViewer)
   %DebugSetProcessKillOnExit = call x86_stdcallcc i32 @DebugSetProcessKillOnExit(i32 1)
   store i32 %DebugSetProcessKillOnExit, i32* %j
-  call void @Kernel_InstallTrapViewer(void ()* @Runner_TrapViewer)
   %PCAST9 = bitcast [260 x i8]* %str to [0 x i8]*
   %GetModuleFileNameA = call x86_stdcallcc i32 @GetModuleFileNameA(i32 0, [0 x i8]* %PCAST9, i32 260)
   store i32 %GetModuleFileNameA, i32* %j
@@ -1639,13 +1813,13 @@ while.end85:                                      ; preds = %while.cond83
   store i16 0, i16* %INDX99
   %lda100 = load i32, i32* @Kernel_argC
   %MINUS101 = sub i32 %lda100, 1
-  store i32 %MINUS101, i32* %_for__6
+  store i32 %MINUS101, i32* %_for__8
   store i32 0, i32* %j
   br label %while.cond102
 
 while.cond102:                                    ; preds = %if.end119, %while.end85
   %lda105 = load i32, i32* %j
-  %lda106 = load i32, i32* %_for__6
+  %lda106 = load i32, i32* %_for__8
   %ICMP107 = icmp sle i32 %lda105, %lda106
   br i1 %ICMP107, label %while.body103, label %while.end104
 
@@ -1720,9 +1894,9 @@ if.end119:                                        ; preds = %if.else118, %elsif.
 
 declare void (i32)* @signal(i32, void (i32)*)
 
-declare x86_stdcallcc i32 @DebugSetProcessKillOnExit(i32)
-
 declare void @Kernel_InstallTrapViewer(void ()*)
+
+declare x86_stdcallcc i32 @DebugSetProcessKillOnExit(i32)
 
 declare x86_stdcallcc i32 @GetModuleFileNameA(i32, [0 x i8]*, i32)
 

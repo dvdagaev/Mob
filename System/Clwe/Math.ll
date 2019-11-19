@@ -4,15 +4,18 @@ source_filename = "Math"
 %SYSTEM_MODDESC = type { %SYSTEM_MODDESC*, i32, i32, [6 x i16], [6 x i16], void ()*, void ()*, i32, i32, i32, i32, i32, i32, i32, i32, i32, i32, [18 x i8]*, [1 x i32]*, [2 x %SYSTEM_MODDESC*]*, %SYSTEM_DIRECTORY*, [256 x i8] }
 %SYSTEM_DIRECTORY = type { i32, [1 x %SYSTEM_OBJDESC] }
 %SYSTEM_OBJDESC = type { i32, i32, i32, i32 }
-%SYSTEM_DLINK = type { %SYSTEM_DLINK*, %SYSTEM_MODDESC*, i32 }
+%SYSTEM_DLINK = type { %SYSTEM_DLINK*, %SYSTEM_MODDESC*, [0 x i8]* }
 
 @Math__names = private global [18 x i8] c"\00Api\00IntPower\00n\00x\00"
 @Math__imp = private global [2 x %SYSTEM_MODDESC*] zeroinitializer
 @Math__inames = global [6 x i8] c"Math\00\00"
 @Math__ptrs = private global [1 x i32] zeroinitializer
 @Math__exp = private global %SYSTEM_DIRECTORY { i32 1, [1 x %SYSTEM_OBJDESC] [%SYSTEM_OBJDESC { i32 -569888856, i32 ptrtoint (double (double, i32)* @Math_IntPower to i32), i32 1348, i32 0 }] }
-@Math__desc = global %SYSTEM_MODDESC { %SYSTEM_MODDESC* null, i32 3, i32 0, [6 x i16] [i16 2019, i16 7, i16 17, i16 16, i16 46, i16 9], [6 x i16] zeroinitializer, void ()* @Math__body, void ()* null, i32 1, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, [18 x i8]* @Math__names, [1 x i32]* @Math__ptrs, [2 x %SYSTEM_MODDESC*]* @Math__imp, %SYSTEM_DIRECTORY* @Math__exp, [256 x i8] c"Math\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00" }
+@Math__desc = global %SYSTEM_MODDESC { %SYSTEM_MODDESC* null, i32 3, i32 0, [6 x i16] [i16 2019, i16 11, i16 14, i16 16, i16 2, i16 41], [6 x i16] zeroinitializer, void ()* @Math__body, void ()* null, i32 1, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, [18 x i8]* @Math__names, [1 x i32]* @Math__ptrs, [2 x %SYSTEM_MODDESC*]* @Math__imp, %SYSTEM_DIRECTORY* @Math__exp, [256 x i8] c"Math\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00" }
 @Kernel_dLink = external global %SYSTEM_DLINK*
+@n_Math_IntPower = private global [9 x i8] c"IntPower\00"
+@n_Math__reg = private global [5 x i8] c"_reg\00"
+@n_Math__body = private global [6 x i8] c"_body\00"
 
 define void @Math__reg() {
 entry:
@@ -22,8 +25,8 @@ entry:
   store %SYSTEM_DLINK* %lda, %SYSTEM_DLINK** %next
   %mod = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 1
   store %SYSTEM_MODDESC* @Math__desc, %SYSTEM_MODDESC** %mod
-  %nidx = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 2
-  store i32 -1, i32* %nidx
+  %procname = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 2
+  store [0 x i8]* bitcast ([5 x i8]* @n_Math__reg to [0 x i8]*), [0 x i8]** %procname
   store %SYSTEM_DLINK* %dlink, %SYSTEM_DLINK** @Kernel_dLink
   %lda1 = load i32, i32* getelementptr inbounds (%SYSTEM_MODDESC, %SYSTEM_MODDESC* @Math__desc, i32 0, i32 1)
   %AND = and i32 %lda1, 262144
@@ -57,8 +60,8 @@ entry:
   store %SYSTEM_DLINK* %lda, %SYSTEM_DLINK** %next
   %mod = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 1
   store %SYSTEM_MODDESC* @Math__desc, %SYSTEM_MODDESC** %mod
-  %nidx = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 2
-  store i32 -2, i32* %nidx
+  %procname = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 2
+  store [0 x i8]* bitcast ([6 x i8]* @n_Math__body to [0 x i8]*), [0 x i8]** %procname
   store %SYSTEM_DLINK* %dlink, %SYSTEM_DLINK** @Kernel_dLink
   %lda1 = load i32, i32* getelementptr inbounds (%SYSTEM_MODDESC, %SYSTEM_MODDESC* @Math__desc, i32 0, i32 1)
   %AND = and i32 %lda1, 65536
@@ -91,8 +94,8 @@ entry:
   store %SYSTEM_DLINK* %lda, %SYSTEM_DLINK** %next
   %mod = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 1
   store %SYSTEM_MODDESC* @Math__desc, %SYSTEM_MODDESC** %mod
-  %nidx = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 2
-  store i32 5, i32* %nidx
+  %procname = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 2
+  store [0 x i8]* bitcast ([9 x i8]* @n_Math_IntPower to [0 x i8]*), [0 x i8]** %procname
   store %SYSTEM_DLINK* %dlink, %SYSTEM_DLINK** @Kernel_dLink
   %x1 = alloca double
   store double %x, double* %x1

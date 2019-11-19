@@ -17,7 +17,7 @@ typedef
 typedef
 	struct Runner_OpVal {
 		Runner_Name name;
-		Kernel_Name sname;
+		Kernel_Utf8Name sname;
 		Runner_ArgvString val;
 	} Runner_OpVal;
 
@@ -67,6 +67,8 @@ export SYSTEM_TYPEDESC *Runner__1__typ = (SYSTEM_TYPEDESC*)Runner__1__desc;
 
 export INTEGER Runner_EntryPoint (LONGINT *argv, INTEGER argv__len, LONGINT pargc, LONGINT p_reg, LONGINT \
 p_body);
+export void Runner_Execute (SHORTCHAR *command, INTEGER command__len, SHORTCHAR *out, INTEGER out__len, \
+INTEGER *result);
 export _BOOLEAN Runner_GetIntOpt (_CHAR *name, INTEGER name__len, INTEGER *ival);
 export _BOOLEAN Runner_GetStringOpt (_CHAR *name, INTEGER name__len, _CHAR *val, INTEGER val__len);
 static _BOOLEAN Runner_HasSpaces (_CHAR *s, INTEGER s__len);
@@ -85,7 +87,7 @@ export struct SYSTEM_MODDESC Runner__desc;
 
 void Runner_PrintVars (void)
 {
-	INTEGER j, _for__15, _for__14;
+	INTEGER j, _for__16, _for__15;
 	__ENTER("Runner.PrintVars");
 	(*OLog_String)((_CHAR*)L"Initialize exePathName=|", 25);
 	(*OLog_String)(Runner_exePathName, 260);
@@ -104,11 +106,15 @@ void Runner_PrintVars (void)
 	(*OLog_String)((_CHAR*)L" runtime=", 10);
 	(*OLog_String)((_CHAR*)L"OMF", 4);
 	(*OLog_String)((_CHAR*)L" os=", 5);
-	(*OLog_String)((_CHAR*)L"WINDOWS64", 10);
+	(*OLog_String)((_CHAR*)L"Windows", 8);
+	(*OLog_String)((_CHAR*)L" bits=", 7);
+	(*OLog_Int)(64L);
+	(*OLog_String)((_CHAR*)L" kernel=", 9);
+	(*OLog_Int)(17L);
 	(*OLog_Ln)();
-	_for__15 = Runner_argC - 1;
+	_for__16 = Runner_argC - 1;
 	j = 0;
-	while (j <= _for__15) {
+	while (j <= _for__16) {
 		(*OLog_String)((_CHAR*)L"argv[", 6);
 		(*OLog_IntForm)(j, 10, 0, 0, 0);
 		(*OLog_String)((_CHAR*)L"]= ", 4);
@@ -121,9 +127,9 @@ void Runner_PrintVars (void)
 	(*OLog_String)((_CHAR*)L" argC0=", 8);
 	(*OLog_Int)(Runner_argC0);
 	(*OLog_Ln)();
-	_for__14 = Runner_nOpVals - 1;
+	_for__15 = Runner_nOpVals - 1;
 	j = 0;
-	while (j <= _for__14) {
+	while (j <= _for__15) {
 		(*OLog_String)((_CHAR*)L"opVals[", 8);
 		(*OLog_IntForm)(j, 10, 0, 0, 0);
 		(*OLog_String)((_CHAR*)L"] name=", 8);
@@ -170,15 +176,15 @@ _BOOLEAN Runner_GetIntOpt (_CHAR *name, INTEGER name__len, INTEGER *ival)
 	return 0;
 }
 
-static struct ParseArgs__8 {
+static struct ParseArgs__9 {
 	_BOOLEAN *was_op;
-	struct ParseArgs__8 *lnk;
-} *ParseArgs__8_s;
+	struct ParseArgs__9 *lnk;
+} *ParseArgs__9_s;
 
-static void __9 (_CHAR *str, INTEGER str__len, _BOOLEAN *was_op);
-static _BOOLEAN __11 (_CHAR *str, INTEGER str__len);
+static void __10 (_CHAR *str, INTEGER str__len, _BOOLEAN *was_op);
+static _BOOLEAN __12 (_CHAR *str, INTEGER str__len);
 
-static _BOOLEAN __11 (_CHAR *str, INTEGER str__len)
+static _BOOLEAN __12 (_CHAR *str, INTEGER str__len)
 {
 	__ENTER("Runner.IsOption");
 	__EXIT;
@@ -186,14 +192,14 @@ static _BOOLEAN __11 (_CHAR *str, INTEGER str__len)
 (INTEGER)str[__X(1, str__len)] <= 57);
 }
 
-static void __9 (_CHAR *str, INTEGER str__len, _BOOLEAN *was_op)
+static void __10 (_CHAR *str, INTEGER str__len, _BOOLEAN *was_op)
 {
 	__ENTER("Runner.AddOpVal");
 	if (__STRCMPLL(str, L"-p") == 0) {
 		Runner_printVars = 1;
 	}
 	if (*was_op) {
-		if (__11((void*)str, str__len)) {
+		if (__12((void*)str, str__len)) {
 			Runner_opVals[__X(Runner_nOpVals, 256)].val[0] = 0;
 			Runner_nOpVals += 1;
 			__STRCOPYLL(str, Runner_opVals[__X(Runner_nOpVals, 256)].name, 64);
@@ -203,7 +209,7 @@ static void __9 (_CHAR *str, INTEGER str__len, _BOOLEAN *was_op)
 			*was_op = 0;
 		}
 	} else {
-		if (__11((void*)str, str__len)) {
+		if (__12((void*)str, str__len)) {
 			__STRCOPYLL(str, Runner_opVals[__X(Runner_nOpVals, 256)].name, 64);
 			*was_op = 1;
 		} else {
@@ -219,11 +225,11 @@ static void Runner_ParseArgs (void)
 {
 	INTEGER j, k;
 	_BOOLEAN bquote, bdquote, was_op;
-	struct ParseArgs__8 _s;
+	struct ParseArgs__9 _s;
 	__ENTER("Runner.ParseArgs");
 	_s.was_op = &was_op;
-	_s.lnk = ParseArgs__8_s;
-	ParseArgs__8_s = &_s;
+	_s.lnk = ParseArgs__9_s;
+	ParseArgs__9_s = &_s;
 	Runner_argC = 0;
 	j = 0;
 	k = 0;
@@ -261,7 +267,7 @@ static void Runner_ParseArgs (void)
 				} else {
 					Runner_argV[__X(Runner_argC, 256)][__X(k, 256)] = 0;
 					if (k != 0) {
-						__9((void*)Runner_argV[__X(Runner_argC, 256)], 256, &was_op);
+						__10((void*)Runner_argV[__X(Runner_argC, 256)], 256, &was_op);
 						Runner_argC += 1;
 						k = 0;
 					}
@@ -276,7 +282,7 @@ static void Runner_ParseArgs (void)
 	}
 	Runner_argV[__X(Runner_argC, 256)][__X(k, 256)] = 0;
 	if (k != 0) {
-		__9((void*)Runner_argV[__X(Runner_argC, 256)], 256, &was_op);
+		__10((void*)Runner_argV[__X(Runner_argC, 256)], 256, &was_op);
 		Runner_argC += 1;
 	}
 	if (Runner_loadedAs == 2) {
@@ -287,7 +293,7 @@ static void Runner_ParseArgs (void)
 	if (Runner_printVars) {
 		Runner_PrintVars();
 	}
-	ParseArgs__8_s = _s.lnk;
+	ParseArgs__9_s = _s.lnk;
 	__EXIT;
 }
 
@@ -369,6 +375,16 @@ void Runner_SetResult (INTEGER result)
 	__EXIT;
 }
 
+void Runner_Execute (SHORTCHAR *command, INTEGER command__len, SHORTCHAR *out, INTEGER out__len, INTEGER \
+*result)
+{
+	Api_PtrFILE f;
+	__ENTER("Runner.Execute");
+	out[0] = 0;
+	*result = 0;
+	__EXIT;
+}
+
 static void Runner_TrapSignalHandler (INTEGER isig)
 {
 	__ENTER("Runner.TrapSignalHandler");
@@ -404,7 +420,7 @@ static void Runner_Initialize (void)
 	INTEGER j, k;
 	Runner_Name s;
 	Api_SignalHandler h = NIL, tmp = NIL;
-	INTEGER _for__7;
+	INTEGER _for__8;
 	__ENTER("Runner.Initialize");
 	if (Kernel_inDll) {
 		Runner_loadedAs = 2;
@@ -446,9 +462,9 @@ static void Runner_Initialize (void)
 		j += 1;
 	}
 	Runner_currentDir[__X(j, 260)] = 0;
-	_for__7 = Kernel_argC - 1;
+	_for__8 = Kernel_argC - 1;
 	j = 0;
-	while (j <= _for__7) {
+	while (j <= _for__8) {
 		__STRCOPYSL(Kernel_argV[__X(j, 256)], s, 64);
 		if (j == 0) {
 			__STRCOPYLL(s, Runner_commandLine, 260);
@@ -471,7 +487,7 @@ static void Runner_Initialize (void)
 static ADDRESS Runner_OpVal__flds[] = {
 	3, 
 	0, 0, 1<<8 | 0x25, (ADDRESS)Runner_Name__desc,
-	0, 128, 6<<8 | 0x25, (ADDRESS)Kernel_Name__desc,
+	0, 128, 6<<8 | 0x25, (ADDRESS)Kernel_Utf8Name__desc,
 	0, 384, 12<<8 | 0x25, (ADDRESS)Runner_ArgvString__desc,
 };
 export ADDRESS Runner_OpVal__desc[] = {
@@ -539,7 +555,7 @@ static SYSTEM_MODDESC *Runner__imp[] = {
 	&OStrings__desc,
 };
 static ADDRESS Runner__exp[] = {
-	40, 
+	44, 
 	0x8454c586, 0, 81<<8 | 0x41, 0,
 	0x5b0e2283, 0, 90<<8 | 0x41, 0,
 	0x45497286, 0, 105<<8 | 0x41, 0,
@@ -548,38 +564,42 @@ static ADDRESS Runner__exp[] = {
 	0x41886f31, 0, 141<<8 | 0x41, 0,
 	0xb6ef5b44, 0xb6ef5b44, 38<<8 | 0x42, (ADDRESS)Runner_Argv__desc,
 	0x8fad3b2d, 0x8fad3b2d, 27<<8 | 0x42, (ADDRESS)Runner_ArgvString__desc,
-	0xe33aa2fb, (ADDRESS)Runner_EntryPoint, 152<<8 | 0x44, 0,
-	0xd587f309, (ADDRESS)Runner_GetIntOpt, 163<<8 | 0x44, 0,
-	0x05a0d541, (ADDRESS)Runner_GetStringOpt, 173<<8 | 0x44, 0,
-	0x8454c586, 0, 186<<8 | 0x41, 0,
-	0x62cb742d, 0, 195<<8 | 0x41, 0,
+	0x62cb742d, 0, 152<<8 | 0x41, 0,
+	0xe33aa2fb, (ADDRESS)Runner_EntryPoint, 161<<8 | 0x44, 0,
+	0x9cbb59d6, (ADDRESS)Runner_Execute, 172<<8 | 0x44, 0,
+	0xd587f309, (ADDRESS)Runner_GetIntOpt, 180<<8 | 0x44, 0,
+	0x05a0d541, (ADDRESS)Runner_GetStringOpt, 190<<8 | 0x44, 0,
+	0x1e9dc29d, 0, 203<<8 | 0x41, 0,
+	0x8454c586, 0, 218<<8 | 0x41, 0,
+	0x62cb742d, 0, 227<<8 | 0x41, 0,
 	0x1a43ea23, 0x1a43ea23, 22<<8 | 0x42, (ADDRESS)Runner_Name__desc,
-	0xdaf39832, 0, 204<<8 | 0x41, 0,
-	0x6a8142f6, 0x4a755d0e, 16<<8 | 0x42, (ADDRESS)(Runner_OpVal__desc + 2),
-	0x0c0fd2cb, 0x0c0fd2cb, 43<<8 | 0x42, (ADDRESS)Runner_OpVals__desc,
-	0x9750b35a, 0, 212<<8 | 0x41, 0,
+	0x92c145e7, 0, 236<<8 | 0x41, 0,
+	0xaee14afa, 0x8e155502, 16<<8 | 0x42, (ADDRESS)(Runner_OpVal__desc + 2),
+	0xf5755a90, 0xf5755a90, 43<<8 | 0x42, (ADDRESS)Runner_OpVals__desc,
+	0x9750b35a, 0, 244<<8 | 0x41, 0,
 	0x5eb402fa, 0x5eb402fa, 50<<8 | 0x12, (ADDRESS)Runner_PathSString__desc,
 	0xaddf9403, 0xaddf9403, 62<<8 | 0x42, (ADDRESS)Runner_PathString__desc,
-	0x5814f4d6, (ADDRESS)Runner_PrintVars, 221<<8 | 0x44, 0,
-	0xa863640b, 0, 231<<8 | 0x41, 0,
+	0x5814f4d6, (ADDRESS)Runner_PrintVars, 253<<8 | 0x44, 0,
+	0xa863640b, 0, 263<<8 | 0x41, 0,
 	0x1e0049ec, 0x1e0049ec, 73<<8 | 0x42, (ADDRESS)Runner_RunProc__desc,
-	0x20a5e209, (ADDRESS)Runner_SetResult, 240<<8 | 0x44, 0,
-	0x1d802d11, (ADDRESS)Runner_SetRun, 250<<8 | 0x44, 0,
-	0x8cff8310, (ADDRESS)&Runner_argC, 257<<8 | 0x23, 6,
-	0x8cff8310, (ADDRESS)&Runner_argC0, 262<<8 | 0x23, 6,
-	0xc91dc049, (ADDRESS)&Runner_argV, 268<<8 | 0x23, (ADDRESS)Runner_Argv__desc,
-	0xd5873690, (ADDRESS)&Runner_commandLine, 273<<8 | 0x23, (ADDRESS)Runner_PathString__desc,
-	0xd5873690, (ADDRESS)&Runner_currentDir, 285<<8 | 0x23, (ADDRESS)Runner_PathString__desc,
-	0xd5873690, (ADDRESS)&Runner_exeLocation, 296<<8 | 0x23, (ADDRESS)Runner_PathString__desc,
-	0xd5873690, (ADDRESS)&Runner_exeName, 308<<8 | 0x23, (ADDRESS)Runner_PathString__desc,
-	0xd5873690, (ADDRESS)&Runner_exePathName, 316<<8 | 0x23, (ADDRESS)Runner_PathString__desc,
-	0x8cff8310, (ADDRESS)&Runner_loadedAs, 328<<8 | 0x23, 6,
-	0xe10d733d, (ADDRESS)&Runner_loadedNames, 337<<8 | 0x23, (ADDRESS)Runner__1__desc,
-	0x8cff8310, (ADDRESS)&Runner_nOpVals, 349<<8 | 0x23, 6,
-	0x1d00d330, (ADDRESS)&Runner_opVals, 357<<8 | 0x23, (ADDRESS)Runner_OpVals__desc,
-	0xb1da4c08, (ADDRESS)&Runner_runProc, 364<<8 | 0x23, (ADDRESS)Runner_RunProc__desc,
-	0x8cff8310, (ADDRESS)&Runner_runResult, 372<<8 | 0x23, 6,
-	0x9ffbf5cc, (ADDRESS)&Runner_textTrapHandler, 382<<8 | 0x23, 1,
+	0x4e58a11d, 0x4e58a11d, 272<<8 | 0x42, (ADDRESS)Kernel_Utf8Name__desc,
+	0x20a5e209, (ADDRESS)Runner_SetResult, 278<<8 | 0x44, 0,
+	0x1d802d11, (ADDRESS)Runner_SetRun, 288<<8 | 0x44, 0,
+	0x8cff8310, (ADDRESS)&Runner_argC, 295<<8 | 0x23, 6,
+	0x8cff8310, (ADDRESS)&Runner_argC0, 300<<8 | 0x23, 6,
+	0xc91dc049, (ADDRESS)&Runner_argV, 306<<8 | 0x23, (ADDRESS)Runner_Argv__desc,
+	0xd5873690, (ADDRESS)&Runner_commandLine, 311<<8 | 0x23, (ADDRESS)Runner_PathString__desc,
+	0xd5873690, (ADDRESS)&Runner_currentDir, 323<<8 | 0x23, (ADDRESS)Runner_PathString__desc,
+	0xd5873690, (ADDRESS)&Runner_exeLocation, 334<<8 | 0x23, (ADDRESS)Runner_PathString__desc,
+	0xd5873690, (ADDRESS)&Runner_exeName, 346<<8 | 0x23, (ADDRESS)Runner_PathString__desc,
+	0xd5873690, (ADDRESS)&Runner_exePathName, 354<<8 | 0x23, (ADDRESS)Runner_PathString__desc,
+	0x8cff8310, (ADDRESS)&Runner_loadedAs, 366<<8 | 0x23, 6,
+	0xe10d733d, (ADDRESS)&Runner_loadedNames, 375<<8 | 0x23, (ADDRESS)Runner__1__desc,
+	0x8cff8310, (ADDRESS)&Runner_nOpVals, 387<<8 | 0x23, 6,
+	0x5457a85d, (ADDRESS)&Runner_opVals, 395<<8 | 0x23, (ADDRESS)Runner_OpVals__desc,
+	0xb1da4c08, (ADDRESS)&Runner_runProc, 402<<8 | 0x23, (ADDRESS)Runner_RunProc__desc,
+	0x8cff8310, (ADDRESS)&Runner_runResult, 410<<8 | 0x23, 6,
+	0x9ffbf5cc, (ADDRESS)&Runner_textTrapHandler, 420<<8 | 0x23, 1,
 };
 static char Runner__names[] = {
 	0,
@@ -600,15 +620,19 @@ static char Runner__names[] = {
 	'A','S','_','I','N','P','R','O','C','_','L','I','B',0,
 	'A','S','_','R','U','N','_','L','I','B',0,
 	'A','S','_','S','E','R','V','I','C','E',0,
+	'B','I','N','_','B','I','T','S',0,
 	'E','n','t','r','y','P','o','i','n','t',0,
+	'E','x','e','c','u','t','e',0,
 	'G','e','t','I','n','t','O','p','t',0,
 	'G','e','t','S','t','r','i','n','g','O','p','t',0,
+	'K','E','R','N','E','L','_','V','E','R','S','I','O','N',0,
 	'M','A','X','_','A','R','G','V',0,
 	'N','A','M','E','_','L','E','N',0,
 	'O','S','_','N','A','M','E',0,
 	'P','A','T','H','_','L','E','N',0,
 	'P','r','i','n','t','V','a','r','s',0,
 	'R','U','N','_','T','I','M','E',0,
+	'S','N','a','m','e',0,
 	'S','e','t','R','e','s','u','l','t',0,
 	'S','e','t','R','u','n',0,
 	'a','r','g','C',0,
@@ -632,7 +656,7 @@ static ADDRESS Runner__ptrs[] = {
 };
 struct SYSTEM_MODDESC Runner__desc = {
 	0, 13, 0, /* next, opts, refcnt */ 
-	{2019, 7, 17, 16, 46, 1}, /* compTime */ 
+	{2019, 10, 8, 13, 48, 11}, /* compTime */ 
 	{0, 0, 0, 0, 0, 0}, /* loadTime */ 
 	Runner__body,
 	0,

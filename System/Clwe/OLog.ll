@@ -4,7 +4,7 @@ source_filename = "OLog"
 %SYSTEM_MODDESC = type { %SYSTEM_MODDESC*, i32, i32, [6 x i16], [6 x i16], void ()*, void ()*, i32, i32, i32, i32, i32, i32, i32, i32, i32, i32, [571 x i8]*, [1 x i32]*, [2 x %SYSTEM_MODDESC*]*, %SYSTEM_DIRECTORY*, [256 x i8] }
 %SYSTEM_DIRECTORY = type { i32, [43 x %SYSTEM_OBJDESC] }
 %SYSTEM_OBJDESC = type { i32, i32, i32, i32 }
-%SYSTEM_DLINK = type { %SYSTEM_DLINK*, %SYSTEM_MODDESC*, i32 }
+%SYSTEM_DLINK = type { %SYSTEM_DLINK*, %SYSTEM_MODDESC*, [0 x i8]* }
 
 @OLog__names = private global [571 x i8] c"\00Adr\00AdrProc\00Beep\00Bool\00BoolProc\00Char\00CharProc\00ClearBuf\00Empty\00FlushBuf\00Init\00Int\00IntForm\00IntFormProc\00IntProc\00Ln\00OStrings\00Proc\00Real\00RealForm\00RealFormProc\00RealProc\00SString\00SStringProc\00SYSTEM\00Set\00SetProc\00SetProcs\00SpecChar\00StdAdr\00StdBeep\00StdBool\00StdLInt\00StdLIntForm\00StdLn\00StdReal\00StdRealForm\00StdSString\00StdSet\00StdString\00StdTab\00StdUSString\00String\00StringProc\00Tab\00USString\00USStringProc\00p_adr\00p_beep\00p_bool\00p_char\00p_clear\00p_flush\00p_int\00p_intform\00p_ln\00p_real\00p_realform\00p_set\00p_sstring\00p_string\00p_tab\00p_usstring\00ch\00x\00n\00s\00base\00fill_ch\00min_width\00show_base\00exp_w\00min_w\00precision\00j\00str\00"
 @OLog__imp = private global [2 x %SYSTEM_MODDESC*] [%SYSTEM_MODDESC* @OStrings__desc, %SYSTEM_MODDESC* null]
@@ -12,7 +12,7 @@ source_filename = "OLog"
 @OLog__inames = global [15 x i8] c"OLog\00OStrings\00\00"
 @OLog__ptrs = private global [1 x i32] zeroinitializer
 @OLog__exp = private global %SYSTEM_DIRECTORY { i32 43, [43 x %SYSTEM_OBJDESC] [%SYSTEM_OBJDESC { i32 174515201, i32 ptrtoint (void ({}*)** @OLog_Adr to i32), i32 291, i32 ptrtoint ([21 x i32]* @OLog_AdrProc__desc to i32) }, %SYSTEM_OBJDESC { i32 1968764991, i32 1968764991, i32 1346, i32 ptrtoint ([21 x i32]* @OLog_AdrProc__desc to i32) }, %SYSTEM_OBJDESC { i32 1074746252, i32 ptrtoint (void ()** @OLog_Beep to i32), i32 3363, i32 ptrtoint ([21 x i32]* @OLog_Proc__desc to i32) }, %SYSTEM_OBJDESC { i32 -1817410887, i32 ptrtoint (void (i1)** @OLog_Bool to i32), i32 4643, i32 ptrtoint ([21 x i32]* @OLog_BoolProc__desc to i32) }, %SYSTEM_OBJDESC { i32 -831177077, i32 -831177077, i32 5954, i32 ptrtoint ([21 x i32]* @OLog_BoolProc__desc to i32) }, %SYSTEM_OBJDESC { i32 -39221704, i32 ptrtoint (void (i16)** @OLog_Char to i32), i32 8227, i32 ptrtoint ([21 x i32]* @OLog_CharProc__desc to i32) }, %SYSTEM_OBJDESC { i32 569149279, i32 569149279, i32 9538, i32 ptrtoint ([21 x i32]* @OLog_CharProc__desc to i32) }, %SYSTEM_OBJDESC { i32 1074746252, i32 ptrtoint (void ()** @OLog_ClearBuf to i32), i32 11811, i32 ptrtoint ([21 x i32]* @OLog_Proc__desc to i32) }, %SYSTEM_OBJDESC { i32 1477768406, i32 ptrtoint (void ()* @OLog_Empty to i32), i32 14148, i32 0 }, %SYSTEM_OBJDESC { i32 1074746252, i32 ptrtoint (void ()** @OLog_FlushBuf to i32), i32 15651, i32 ptrtoint ([21 x i32]* @OLog_Proc__desc to i32) }, %SYSTEM_OBJDESC { i32 783534141, i32 ptrtoint (void (i64)** @OLog_Int to i32), i32 19235, i32 ptrtoint ([21 x i32]* @OLog_IntProc__desc to i32) }, %SYSTEM_OBJDESC { i32 -1121836384, i32 ptrtoint (void (i64, i32, i32, i16, i1)** @OLog_IntForm to i32), i32 20259, i32 ptrtoint ([21 x i32]* @OLog_IntFormProc__desc to i32) }, %SYSTEM_OBJDESC { i32 -110957355, i32 -110957355, i32 22338, i32 ptrtoint ([21 x i32]* @OLog_IntFormProc__desc to i32) }, %SYSTEM_OBJDESC { i32 -3229511, i32 -3229511, i32 25410, i32 ptrtoint ([21 x i32]* @OLog_IntProc__desc to i32) }, %SYSTEM_OBJDESC { i32 1074746252, i32 ptrtoint (void ()** @OLog_Ln to i32), i32 27427, i32 ptrtoint ([21 x i32]* @OLog_Proc__desc to i32) }, %SYSTEM_OBJDESC { i32 -2142490253, i32 -2142490253, i32 30530, i32 ptrtoint ([21 x i32]* @OLog_Proc__desc to i32) }, %SYSTEM_OBJDESC { i32 -957827167, i32 ptrtoint (void (double)** @OLog_Real to i32), i32 31779, i32 ptrtoint ([21 x i32]* @OLog_RealProc__desc to i32) }, %SYSTEM_OBJDESC { i32 -1021820079, i32 ptrtoint (void (double, i32, i32, i32, i16)** @OLog_RealForm to i32), i32 33059, i32 ptrtoint ([21 x i32]* @OLog_RealFormProc__desc to i32) }, %SYSTEM_OBJDESC { i32 73397780, i32 73397780, i32 35394, i32 ptrtoint ([21 x i32]* @OLog_RealFormProc__desc to i32) }, %SYSTEM_OBJDESC { i32 -695759203, i32 -695759203, i32 38722, i32 ptrtoint ([21 x i32]* @OLog_RealProc__desc to i32) }, %SYSTEM_OBJDESC { i32 1452858845, i32 ptrtoint (void ([0 x i8]*, i32)** @OLog_SString to i32), i32 40995, i32 ptrtoint ([21 x i32]* @OLog_SStringProc__desc to i32) }, %SYSTEM_OBJDESC { i32 -1428746986, i32 -1428746986, i32 43074, i32 ptrtoint ([21 x i32]* @OLog_SStringProc__desc to i32) }, %SYSTEM_OBJDESC { i32 -532083735, i32 ptrtoint (void (i32)** @OLog_Set to i32), i32 47907, i32 ptrtoint ([21 x i32]* @OLog_SetProc__desc to i32) }, %SYSTEM_OBJDESC { i32 1918216482, i32 1918216482, i32 48962, i32 ptrtoint ([21 x i32]* @OLog_SetProc__desc to i32) }, %SYSTEM_OBJDESC { i32 -887635667, i32 ptrtoint (void (void ()*, void ()*, void ()*, void (i16)*, void (i64)*, void (double)*, void ([0 x i16]*, i32)*, void ([0 x i8]*, i32)*, void ([0 x i8]*)*, void (i1)*, void (i32)*, void (i64, i32, i32, i16, i1)*, void (double, i32, i32, i32, i16)*, void ()*, void ()*, void ({}*)*)* @OLog_SetProcs to i32), i32 51012, i32 0 }, %SYSTEM_OBJDESC { i32 200157544, i32 ptrtoint (void ({}*)* @OLog_StdAdr to i32), i32 55620, i32 0 }, %SYSTEM_OBJDESC { i32 1477768406, i32 ptrtoint (void ()* @OLog_StdBeep to i32), i32 57412, i32 0 }, %SYSTEM_OBJDESC { i32 866227413, i32 ptrtoint (void (i1)* @OLog_StdBool to i32), i32 59460, i32 0 }, %SYSTEM_OBJDESC { i32 2142261157, i32 ptrtoint (void (i64)* @OLog_StdLInt to i32), i32 61508, i32 0 }, %SYSTEM_OBJDESC { i32 1598688703, i32 ptrtoint (void (i64, i32, i32, i16, i1)* @OLog_StdLIntForm to i32), i32 63556, i32 0 }, %SYSTEM_OBJDESC { i32 1477768406, i32 ptrtoint (void ()* @OLog_StdLn to i32), i32 66628, i32 0 }, %SYSTEM_OBJDESC { i32 472596995, i32 ptrtoint (void (double)* @OLog_StdReal to i32), i32 68164, i32 0 }, %SYSTEM_OBJDESC { i32 -1558431904, i32 ptrtoint (void (double, i32, i32, i32, i16)* @OLog_StdRealForm to i32), i32 70212, i32 0 }, %SYSTEM_OBJDESC { i32 -1471716646, i32 ptrtoint (void ([0 x i8]*, i32)* @OLog_StdSString to i32), i32 73284, i32 0 }, %SYSTEM_OBJDESC { i32 418013108, i32 ptrtoint (void (i32)* @OLog_StdSet to i32), i32 76100, i32 0 }, %SYSTEM_OBJDESC { i32 -259865535, i32 ptrtoint (void ([0 x i16]*, i32)* @OLog_StdString to i32), i32 77892, i32 0 }, %SYSTEM_OBJDESC { i32 1477768406, i32 ptrtoint (void ()* @OLog_StdTab to i32), i32 80452, i32 0 }, %SYSTEM_OBJDESC { i32 515586985, i32 ptrtoint (void ([0 x i8]*)* @OLog_StdUSString to i32), i32 82244, i32 0 }, %SYSTEM_OBJDESC { i32 -1177498813, i32 ptrtoint (void ([0 x i16]*, i32)** @OLog_String to i32), i32 85283, i32 ptrtoint ([21 x i32]* @OLog_StringProc__desc to i32) }, %SYSTEM_OBJDESC { i32 -1898353821, i32 -1898353821, i32 87106, i32 ptrtoint ([21 x i32]* @OLog_StringProc__desc to i32) }, %SYSTEM_OBJDESC { i32 1074746252, i32 ptrtoint (void ()** @OLog_Tab to i32), i32 89891, i32 ptrtoint ([21 x i32]* @OLog_Proc__desc to i32) }, %SYSTEM_OBJDESC { i32 1943096067, i32 ptrtoint (void ([0 x i8]*)** @OLog_USString to i32), i32 90915, i32 ptrtoint ([21 x i32]* @OLog_USStringProc__desc to i32) }, %SYSTEM_OBJDESC { i32 1975591061, i32 1975591061, i32 93250, i32 ptrtoint ([21 x i32]* @OLog_USStringProc__desc to i32) }] }
-@OLog__desc = global %SYSTEM_MODDESC { %SYSTEM_MODDESC* null, i32 3, i32 0, [6 x i16] [i16 2019, i16 7, i16 17, i16 16, i16 46, i16 9], [6 x i16] zeroinitializer, void ()* @OLog__body, void ()* null, i32 1, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, [571 x i8]* @OLog__names, [1 x i32]* @OLog__ptrs, [2 x %SYSTEM_MODDESC*]* @OLog__imp, %SYSTEM_DIRECTORY* @OLog__exp, [256 x i8] c"OLog\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00" }
+@OLog__desc = global %SYSTEM_MODDESC { %SYSTEM_MODDESC* null, i32 3, i32 0, [6 x i16] [i16 2019, i16 11, i16 14, i16 16, i16 2, i16 41], [6 x i16] zeroinitializer, void ()* @OLog__body, void ()* null, i32 1, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, [571 x i8]* @OLog__names, [1 x i32]* @OLog__ptrs, [2 x %SYSTEM_MODDESC*]* @OLog__imp, %SYSTEM_DIRECTORY* @OLog__exp, [256 x i8] c"OLog\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00" }
 @OLog_Proc__desc = global [21 x i32] [i32 0, i32 ptrtoint (%SYSTEM_MODDESC* @OLog__desc to i32), i32 30464, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0]
 @OLog_ClearBuf = global void ()* null
 @OLog_FlushBuf = global void ()* null
@@ -39,19 +39,39 @@ source_filename = "OLog"
 @OLog_RealForm = global void (double, i32, i32, i32, i16)* null
 @OLog_Tab = global void ()* null
 @OLog_Ln = global void ()* null
+@OLog_PTR__desc = global [21 x i32] [i32 0, i32 ptrtoint (%SYSTEM_MODDESC* @OLog__desc to i32), i32 146179, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0]
 @OLog_AdrProc__desc = global [21 x i32] [i32 0, i32 ptrtoint (%SYSTEM_MODDESC* @OLog__desc to i32), i32 1280, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0, i32 0]
 @OLog_Adr = global void ({}*)* null
 @Kernel_dLink = external global %SYSTEM_DLINK*
+@n_OLog_Empty = private global [6 x i8] c"Empty\00"
+@n_OLog_SetProcs = private global [9 x i8] c"SetProcs\00"
+@n_OLog_StdLInt = private global [8 x i8] c"StdLInt\00"
 @OStrings_IntToStringProc__desc = external global [21 x i32]
 @OStrings_IntToString = external global void (i64, [0 x i16]*, i32)*
+@n_OLog_StdLIntForm = private global [12 x i8] c"StdLIntForm\00"
 @OStrings_IntToStringFormProc__desc = external global [21 x i32]
 @OStrings_IntToStringForm = external global void (i64, i32, i32, i16, i1, [0 x i16]*, i32)*
+@n_OLog_StdReal = private global [8 x i8] c"StdReal\00"
 @OStrings_RealToStringProc__desc = external global [21 x i32]
 @OStrings_RealToString = external global void (double, [0 x i16]*, i32)*
+@n_OLog_StdRealForm = private global [12 x i8] c"StdRealForm\00"
 @OStrings_RealToStringFormProc__desc = external global [21 x i32]
 @OStrings_RealToStringForm = external global void (double, i32, i32, i32, i16, [0 x i16]*, i32)*
+@n_OLog_StdBeep = private global [8 x i8] c"StdBeep\00"
+@n_OLog_StdTab = private global [7 x i8] c"StdTab\00"
+@n_OLog_StdBool = private global [8 x i8] c"StdBool\00"
+@n_OLog_StdSet = private global [7 x i8] c"StdSet\00"
 @OStrings_SetToStringProc__desc = external global [21 x i32]
 @OStrings_SetToString = external global void (i32, [0 x i16]*, i32)*
+@n_OLog_StdSString = private global [11 x i8] c"StdSString\00"
+@n_OLog_StdUSString = private global [12 x i8] c"StdUSString\00"
+@n_OLog_StdString = private global [10 x i8] c"StdString\00"
+@n_OLog_StdLn = private global [6 x i8] c"StdLn\00"
+@n_OLog_StdAdr = private global [7 x i8] c"StdAdr\00"
+@n_OLog_SpecChar = private global [9 x i8] c"SpecChar\00"
+@n_OLog_Init = private global [5 x i8] c"Init\00"
+@n_OLog__reg = private global [5 x i8] c"_reg\00"
+@n_OLog__body = private global [6 x i8] c"_body\00"
 
 define void @OLog__reg() {
 entry:
@@ -61,8 +81,8 @@ entry:
   store %SYSTEM_DLINK* %lda, %SYSTEM_DLINK** %next
   %mod = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 1
   store %SYSTEM_MODDESC* @OLog__desc, %SYSTEM_MODDESC** %mod
-  %nidx = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 2
-  store i32 -1, i32* %nidx
+  %procname = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 2
+  store [0 x i8]* bitcast ([5 x i8]* @n_OLog__reg to [0 x i8]*), [0 x i8]** %procname
   store %SYSTEM_DLINK* %dlink, %SYSTEM_DLINK** @Kernel_dLink
   %lda1 = load i32, i32* getelementptr inbounds (%SYSTEM_MODDESC, %SYSTEM_MODDESC* @OLog__desc, i32 0, i32 1)
   %AND = and i32 %lda1, 262144
@@ -97,8 +117,8 @@ entry:
   store %SYSTEM_DLINK* %lda, %SYSTEM_DLINK** %next
   %mod = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 1
   store %SYSTEM_MODDESC* @OLog__desc, %SYSTEM_MODDESC** %mod
-  %nidx = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 2
-  store i32 -2, i32* %nidx
+  %procname = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 2
+  store [0 x i8]* bitcast ([6 x i8]* @n_OLog__body to [0 x i8]*), [0 x i8]** %procname
   store %SYSTEM_DLINK* %dlink, %SYSTEM_DLINK** @Kernel_dLink
   %lda1 = load i32, i32* getelementptr inbounds (%SYSTEM_MODDESC, %SYSTEM_MODDESC* @OLog__desc, i32 0, i32 1)
   %AND = and i32 %lda1, 65536
@@ -133,8 +153,8 @@ entry:
   store %SYSTEM_DLINK* %lda, %SYSTEM_DLINK** %next
   %mod = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 1
   store %SYSTEM_MODDESC* @OLog__desc, %SYSTEM_MODDESC** %mod
-  %nidx = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 2
-  store i32 55, i32* %nidx
+  %procname = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 2
+  store [0 x i8]* bitcast ([6 x i8]* @n_OLog_Empty to [0 x i8]*), [0 x i8]** %procname
   store %SYSTEM_DLINK* %dlink, %SYSTEM_DLINK** @Kernel_dLink
   %lda1 = load %SYSTEM_DLINK*, %SYSTEM_DLINK** @Kernel_dLink
   %next2 = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %lda1, i32 0, i32 0
@@ -151,8 +171,8 @@ entry:
   store %SYSTEM_DLINK* %lda, %SYSTEM_DLINK** %next
   %mod = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 1
   store %SYSTEM_MODDESC* @OLog__desc, %SYSTEM_MODDESC** %mod
-  %nidx = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 2
-  store i32 199, i32* %nidx
+  %procname = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 2
+  store [0 x i8]* bitcast ([9 x i8]* @n_OLog_SetProcs to [0 x i8]*), [0 x i8]** %procname
   store %SYSTEM_DLINK* %dlink, %SYSTEM_DLINK** @Kernel_dLink
   %p_clear1 = alloca void ()*
   store void ()* %p_clear, void ()** %p_clear1
@@ -478,8 +498,8 @@ entry:
   store %SYSTEM_DLINK* %lda, %SYSTEM_DLINK** %next
   %mod = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 1
   store %SYSTEM_MODDESC* @OLog__desc, %SYSTEM_MODDESC** %mod
-  %nidx = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 2
-  store i32 240, i32* %nidx
+  %procname = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 2
+  store [0 x i8]* bitcast ([8 x i8]* @n_OLog_StdLInt to [0 x i8]*), [0 x i8]** %procname
   store %SYSTEM_DLINK* %dlink, %SYSTEM_DLINK** @Kernel_dLink
   %n1 = alloca i64
   store i64 %n, i64* %n1
@@ -508,8 +528,8 @@ entry:
   store %SYSTEM_DLINK* %lda, %SYSTEM_DLINK** %next
   %mod = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 1
   store %SYSTEM_MODDESC* @OLog__desc, %SYSTEM_MODDESC** %mod
-  %nidx = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 2
-  store i32 248, i32* %nidx
+  %procname = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 2
+  store [0 x i8]* bitcast ([12 x i8]* @n_OLog_StdLIntForm to [0 x i8]*), [0 x i8]** %procname
   store %SYSTEM_DLINK* %dlink, %SYSTEM_DLINK** @Kernel_dLink
   %n1 = alloca i64
   store i64 %n, i64* %n1
@@ -548,8 +568,8 @@ entry:
   store %SYSTEM_DLINK* %lda, %SYSTEM_DLINK** %next
   %mod = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 1
   store %SYSTEM_MODDESC* @OLog__desc, %SYSTEM_MODDESC** %mod
-  %nidx = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 2
-  store i32 266, i32* %nidx
+  %procname = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 2
+  store [0 x i8]* bitcast ([8 x i8]* @n_OLog_StdReal to [0 x i8]*), [0 x i8]** %procname
   store %SYSTEM_DLINK* %dlink, %SYSTEM_DLINK** @Kernel_dLink
   %x1 = alloca double
   store double %x, double* %x1
@@ -578,8 +598,8 @@ entry:
   store %SYSTEM_DLINK* %lda, %SYSTEM_DLINK** %next
   %mod = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 1
   store %SYSTEM_MODDESC* @OLog__desc, %SYSTEM_MODDESC** %mod
-  %nidx = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 2
-  store i32 274, i32* %nidx
+  %procname = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 2
+  store [0 x i8]* bitcast ([12 x i8]* @n_OLog_StdRealForm to [0 x i8]*), [0 x i8]** %procname
   store %SYSTEM_DLINK* %dlink, %SYSTEM_DLINK** @Kernel_dLink
   %x1 = alloca double
   store double %x, double* %x1
@@ -620,8 +640,8 @@ entry:
   store %SYSTEM_DLINK* %lda, %SYSTEM_DLINK** %next
   %mod = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 1
   store %SYSTEM_MODDESC* @OLog__desc, %SYSTEM_MODDESC** %mod
-  %nidx = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 2
-  store i32 224, i32* %nidx
+  %procname = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 2
+  store [0 x i8]* bitcast ([8 x i8]* @n_OLog_StdBeep to [0 x i8]*), [0 x i8]** %procname
   store %SYSTEM_DLINK* %dlink, %SYSTEM_DLINK** @Kernel_dLink
   %lda1 = load void (i16)*, void (i16)** @OLog_Char
   call void %lda1(i16 7)
@@ -640,8 +660,8 @@ entry:
   store %SYSTEM_DLINK* %lda, %SYSTEM_DLINK** %next
   %mod = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 1
   store %SYSTEM_MODDESC* @OLog__desc, %SYSTEM_MODDESC** %mod
-  %nidx = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 2
-  store i32 314, i32* %nidx
+  %procname = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 2
+  store [0 x i8]* bitcast ([7 x i8]* @n_OLog_StdTab to [0 x i8]*), [0 x i8]** %procname
   store %SYSTEM_DLINK* %dlink, %SYSTEM_DLINK** @Kernel_dLink
   %lda1 = load void (i16)*, void (i16)** @OLog_Char
   call void %lda1(i16 9)
@@ -660,8 +680,8 @@ entry:
   store %SYSTEM_DLINK* %lda, %SYSTEM_DLINK** %next
   %mod = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 1
   store %SYSTEM_MODDESC* @OLog__desc, %SYSTEM_MODDESC** %mod
-  %nidx = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 2
-  store i32 232, i32* %nidx
+  %procname = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 2
+  store [0 x i8]* bitcast ([8 x i8]* @n_OLog_StdBool to [0 x i8]*), [0 x i8]** %procname
   store %SYSTEM_DLINK* %dlink, %SYSTEM_DLINK** @Kernel_dLink
   %x1 = alloca i1
   store i1 %x, i1* %x1
@@ -700,8 +720,8 @@ entry:
   store %SYSTEM_DLINK* %lda, %SYSTEM_DLINK** %next
   %mod = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 1
   store %SYSTEM_MODDESC* @OLog__desc, %SYSTEM_MODDESC** %mod
-  %nidx = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 2
-  store i32 297, i32* %nidx
+  %procname = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 2
+  store [0 x i8]* bitcast ([7 x i8]* @n_OLog_StdSet to [0 x i8]*), [0 x i8]** %procname
   store %SYSTEM_DLINK* %dlink, %SYSTEM_DLINK** @Kernel_dLink
   %x1 = alloca i32
   store i32 %x, i32* %x1
@@ -730,8 +750,8 @@ entry:
   store %SYSTEM_DLINK* %lda, %SYSTEM_DLINK** %next
   %mod = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 1
   store %SYSTEM_MODDESC* @OLog__desc, %SYSTEM_MODDESC** %mod
-  %nidx = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 2
-  store i32 286, i32* %nidx
+  %procname = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 2
+  store [0 x i8]* bitcast ([11 x i8]* @n_OLog_StdSString to [0 x i8]*), [0 x i8]** %procname
   store %SYSTEM_DLINK* %dlink, %SYSTEM_DLINK** @Kernel_dLink
   %str1 = alloca i8, i32 %str__len
   %PCAST = bitcast [0 x i8]* %str to i8*
@@ -784,8 +804,8 @@ entry:
   store %SYSTEM_DLINK* %lda, %SYSTEM_DLINK** %next
   %mod = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 1
   store %SYSTEM_MODDESC* @OLog__desc, %SYSTEM_MODDESC** %mod
-  %nidx = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 2
-  store i32 321, i32* %nidx
+  %procname = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 2
+  store [0 x i8]* bitcast ([12 x i8]* @n_OLog_StdUSString to [0 x i8]*), [0 x i8]** %procname
   store %SYSTEM_DLINK* %dlink, %SYSTEM_DLINK** @Kernel_dLink
   %j = alloca i32
   %PCAST = bitcast i32* %j to i8*
@@ -828,8 +848,8 @@ entry:
   store %SYSTEM_DLINK* %lda, %SYSTEM_DLINK** %next
   %mod = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 1
   store %SYSTEM_MODDESC* @OLog__desc, %SYSTEM_MODDESC** %mod
-  %nidx = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 2
-  store i32 304, i32* %nidx
+  %procname = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 2
+  store [0 x i8]* bitcast ([10 x i8]* @n_OLog_StdString to [0 x i8]*), [0 x i8]** %procname
   store %SYSTEM_DLINK* %dlink, %SYSTEM_DLINK** @Kernel_dLink
   %str1 = alloca i16, i32 %str__len
   %TIMES = mul i32 %str__len, 2
@@ -877,8 +897,8 @@ entry:
   store %SYSTEM_DLINK* %lda, %SYSTEM_DLINK** %next
   %mod = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 1
   store %SYSTEM_MODDESC* @OLog__desc, %SYSTEM_MODDESC** %mod
-  %nidx = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 2
-  store i32 260, i32* %nidx
+  %procname = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 2
+  store [0 x i8]* bitcast ([6 x i8]* @n_OLog_StdLn to [0 x i8]*), [0 x i8]** %procname
   store %SYSTEM_DLINK* %dlink, %SYSTEM_DLINK** @Kernel_dLink
   %lda1 = load void (i16)*, void (i16)** @OLog_Char
   call void %lda1(i16 13)
@@ -899,8 +919,8 @@ entry:
   store %SYSTEM_DLINK* %lda, %SYSTEM_DLINK** %next
   %mod = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 1
   store %SYSTEM_MODDESC* @OLog__desc, %SYSTEM_MODDESC** %mod
-  %nidx = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 2
-  store i32 217, i32* %nidx
+  %procname = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 2
+  store [0 x i8]* bitcast ([7 x i8]* @n_OLog_StdAdr to [0 x i8]*), [0 x i8]** %procname
   store %SYSTEM_DLINK* %dlink, %SYSTEM_DLINK** @Kernel_dLink
   %x1 = alloca {}*
   store {}* %x, {}** %x1
@@ -937,8 +957,8 @@ entry:
   store %SYSTEM_DLINK* %lda, %SYSTEM_DLINK** %next
   %mod = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 1
   store %SYSTEM_MODDESC* @OLog__desc, %SYSTEM_MODDESC** %mod
-  %nidx = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 2
-  store i32 208, i32* %nidx
+  %procname = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 2
+  store [0 x i8]* bitcast ([9 x i8]* @n_OLog_SpecChar to [0 x i8]*), [0 x i8]** %procname
   store %SYSTEM_DLINK* %dlink, %SYSTEM_DLINK** @Kernel_dLink
   %ch1 = alloca i16
   store i16 %ch, i16* %ch1
@@ -957,8 +977,8 @@ entry:
   store %SYSTEM_DLINK* %lda, %SYSTEM_DLINK** %next
   %mod = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 1
   store %SYSTEM_MODDESC* @OLog__desc, %SYSTEM_MODDESC** %mod
-  %nidx = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 2
-  store i32 70, i32* %nidx
+  %procname = getelementptr inbounds %SYSTEM_DLINK, %SYSTEM_DLINK* %dlink, i32 0, i32 2
+  store [0 x i8]* bitcast ([5 x i8]* @n_OLog_Init to [0 x i8]*), [0 x i8]** %procname
   store %SYSTEM_DLINK* %dlink, %SYSTEM_DLINK** @Kernel_dLink
   call void @OLog_SetProcs(void ()* @OLog_Empty, void ()* @OLog_Empty, void ()* @OLog_StdBeep, void (i16)* @OLog_SpecChar, void (i64)* @OLog_StdLInt, void (double)* @OLog_StdReal, void ([0 x i16]*, i32)* @OLog_StdString, void ([0 x i8]*, i32)* @OLog_StdSString, void ([0 x i8]*)* @OLog_StdUSString, void (i1)* @OLog_StdBool, void (i32)* @OLog_StdSet, void (i64, i32, i32, i16, i1)* @OLog_StdLIntForm, void (double, i32, i32, i32, i16)* @OLog_StdRealForm, void ()* @OLog_StdTab, void ()* @OLog_StdLn, void ({}*)* @OLog_StdAdr)
   %lda1 = load %SYSTEM_DLINK*, %SYSTEM_DLINK** @Kernel_dLink

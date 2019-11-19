@@ -5,5 +5,4 @@ llc -filetype=obj OLog.ll -o OLog.o
 llc -filetype=obj Runner.ll -o Runner.o
 llc -filetype=obj Times.ll -o Times.o
 llc -filetype=obj Files.ll -o Files.o
-llc -filetype=obj Cfgfile.ll -o Cfgfile.o
-ar rcs System.lib Math.o OStrings.o OLog.o Kernel.o Runner.o Times.o Files.o Cfgfile.o
+ar rcs System.lib Math.o OStrings.o OLog.o Kernel.o Runner.o Times.o Files.o

@@ -27,6 +27,7 @@ export void Times_Hook_FromLocalTime (Times_Hook h, Times_SystemTime *lt, SYSTEM
 export void Times_Hook_FromSystemTime (Times_Hook h, Times_SystemTime *st, SYSTEM_TYPEDESC *st__typ, Times_Time \
 *t, INTEGER *res);
 export Times_Time Times_Hook_GetTime (Times_Hook h);
+export void Times_Hook_GetUTCBias (Times_Hook h, INTEGER *bias);
 export void Times_Hook_Sleep (Times_Hook h, Times_Time tp);
 export void Times_Hook_ToLocalTime (Times_Hook h, Times_Time t, Times_SystemTime *lt, SYSTEM_TYPEDESC \
 *lt__typ, INTEGER *res);
@@ -37,10 +38,11 @@ Times_SystemTime*, SYSTEM_TYPEDESC *, Times_Time*, INTEGER*), (h, lt, lt__typ, t
 #define __Times_Hook_FromSystemTime(h, st, st__typ, t, res) __SEND(__TYPEOF(h), 2, void(*)(Times_Hook, \
 Times_SystemTime*, SYSTEM_TYPEDESC *, Times_Time*, INTEGER*), (h, st, st__typ, t, res))
 #define __Times_Hook_GetTime(h) __SEND(__TYPEOF(h), 3, Times_Time(*)(Times_Hook), (h))
-#define __Times_Hook_Sleep(h, tp) __SEND(__TYPEOF(h), 4, void(*)(Times_Hook, Times_Time), (h, tp))
-#define __Times_Hook_ToLocalTime(h, t, lt, lt__typ, res) __SEND(__TYPEOF(h), 5, void(*)(Times_Hook, Times_Time, \
+#define __Times_Hook_GetUTCBias(h, bias) __SEND(__TYPEOF(h), 4, void(*)(Times_Hook, INTEGER*), (h, bias))
+#define __Times_Hook_Sleep(h, tp) __SEND(__TYPEOF(h), 5, void(*)(Times_Hook, Times_Time), (h, tp))
+#define __Times_Hook_ToLocalTime(h, t, lt, lt__typ, res) __SEND(__TYPEOF(h), 6, void(*)(Times_Hook, Times_Time, \
 Times_SystemTime*, SYSTEM_TYPEDESC *, INTEGER*), (h, t, lt, lt__typ, res))
-#define __Times_Hook_ToSystemTime(h, t, st, st__typ, res) __SEND(__TYPEOF(h), 6, void(*)(Times_Hook, Times_Time, \
+#define __Times_Hook_ToSystemTime(h, t, st, st__typ, res) __SEND(__TYPEOF(h), 7, void(*)(Times_Hook, Times_Time, \
 Times_SystemTime*, SYSTEM_TYPEDESC *, INTEGER*), (h, t, st, st__typ, res))
 
 typedef
@@ -61,7 +63,7 @@ export Times_SystemTime Times_zeroSysTime;
 export ADDRESS Times_SystemTime__desc[];
 export SYSTEM_TYPEDESC *Times_SystemTime__typ = (SYSTEM_TYPEDESC*)(Times_SystemTime__desc + 2);
 export ADDRESS Times_Hook__rec__desc[];
-export SYSTEM_TYPEDESC *Times_Hook__rec__typ = (SYSTEM_TYPEDESC*)(Times_Hook__rec__desc + 8);
+export SYSTEM_TYPEDESC *Times_Hook__rec__typ = (SYSTEM_TYPEDESC*)(Times_Hook__rec__desc + 9);
 export ADDRESS Times_Hook__desc[];
 export SYSTEM_TYPEDESC *Times_Hook__typ = (SYSTEM_TYPEDESC*)Times_Hook__desc;
 export ADDRESS Times_MonName__desc[];
@@ -75,6 +77,7 @@ export Times_Time Times_FromSecMcs (Times_Sec sec, Times_Mcs mcs, _BOOLEAN from1
 export void Times_FromSystemTime (Times_SystemTime *st, SYSTEM_TYPEDESC *st__typ, Times_Time *t, INTEGER \
 *res);
 export Times_Time Times_GetTime (void);
+export void Times_GetUTCBias (INTEGER *bias);
 static void Times_Init (void);
 export void Times_SetDelimeters (_CHAR d_date, _CHAR d_time, _CHAR d_dat, _CHAR d_mcs);
 export void Times_SetHook (Times_Hook h);
@@ -131,6 +134,14 @@ void Times_FromLocalTime (Times_SystemTime *lt, SYSTEM_TYPEDESC *lt__typ, Times_
 	__ENTER("Times.FromLocalTime");
 	__ASSERT(Times_pHook != NIL, 100);
 	__Times_Hook_FromLocalTime(Times_pHook, lt, lt__typ, t, res);
+	__EXIT;
+}
+
+void Times_GetUTCBias (INTEGER *bias)
+{
+	__ENTER("Times.GetUTCBias");
+	__ASSERT(Times_pHook != NIL, 100);
+	__Times_Hook_GetUTCBias(Times_pHook, bias);
 	__EXIT;
 }
 
@@ -346,10 +357,11 @@ export ADDRESS Times_Hook__rec__desc[] = {
 	0, 
 	0, 
 	0, 
+	0, 
 	1,
 	(ADDRESS)&Times__desc,
 	55<<8 | 0x0d,
-	(ADDRESS)(Times_Hook__rec__desc + 8),
+	(ADDRESS)(Times_Hook__rec__desc + 9),
 	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
 	(ADDRESS)Times_Hook__rec__flds, 
 	-8
@@ -358,7 +370,7 @@ export ADDRESS Times_Hook__desc[] = {
 	0,
 	(ADDRESS)&Times__desc,
 	61<<8 | 0x03,
-	(ADDRESS)(Times_Hook__rec__desc + 8)
+	(ADDRESS)(Times_Hook__rec__desc + 9)
 };
 export ADDRESS Times_MonName__desc[] = {
 	32,
@@ -376,47 +388,48 @@ static SYSTEM_MODDESC *Times__imp[] = {
 	&OStrings__desc,
 };
 static ADDRESS Times__exp[] = {
-	40, 
+	41, 
 	0xf70a3af8, (ADDRESS)Times_FromLocalTime, 83<<8 | 0x44, 0,
 	0x9507938e, (ADDRESS)Times_FromSecMcs, 97<<8 | 0x44, 0,
 	0xf70a3af8, (ADDRESS)Times_FromSystemTime, 108<<8 | 0x44, 0,
 	0x288b8fac, (ADDRESS)Times_GetTime, 123<<8 | 0x44, 0,
+	0x637dd0bd, (ADDRESS)Times_GetUTCBias, 131<<8 | 0x44, 0,
 	0xf1cd2171, 0xf1cd2171, 61<<8 | 0x42, (ADDRESS)Times_Hook__desc,
-	0x4ddaa567, 0xfaf607eb, 55<<8 | 0x12, (ADDRESS)(Times_Hook__rec__desc + 8),
-	0x00000006, 0x00000006, 131<<8 | 0x42, 6,
+	0x89031cd1, 0xaebe26d9, 55<<8 | 0x12, (ADDRESS)(Times_Hook__rec__desc + 9),
+	0x00000006, 0x00000006, 142<<8 | 0x42, 6,
 	0x8164151a, 0x8164151a, 66<<8 | 0x42, (ADDRESS)Times_MonName__desc,
 	0xa3bbd75e, 0xa3bbd75e, 74<<8 | 0x42, (ADDRESS)Times_MonNames__desc,
-	0x00000012, 0x00000012, 135<<8 | 0x42, 10,
-	0x1019be9b, (ADDRESS)Times_SetDelimeters, 139<<8 | 0x44, 0,
-	0x088b1c5f, (ADDRESS)Times_SetHook, 153<<8 | 0x44, 0,
-	0xfdfdb8e3, (ADDRESS)Times_SetMonNames, 161<<8 | 0x44, 0,
-	0x7fb04fa5, (ADDRESS)Times_Sleep, 173<<8 | 0x44, 0,
+	0x00000012, 0x00000012, 146<<8 | 0x42, 10,
+	0x1019be9b, (ADDRESS)Times_SetDelimeters, 150<<8 | 0x44, 0,
+	0x088b1c5f, (ADDRESS)Times_SetHook, 164<<8 | 0x44, 0,
+	0xfdfdb8e3, (ADDRESS)Times_SetMonNames, 172<<8 | 0x44, 0,
+	0x7fb04fa5, (ADDRESS)Times_Sleep, 184<<8 | 0x44, 0,
 	0xab0b1ec5, 0xdf6402aa, 44<<8 | 0x42, (ADDRESS)(Times_SystemTime__desc + 2),
-	0xe950eac5, (ADDRESS)Times_SystemTimeToString, 179<<8 | 0x44, 0,
-	0x00000012, 0x00000012, 198<<8 | 0x42, 10,
-	0xc3d8135e, (ADDRESS)Times_ToLocalTime, 203<<8 | 0x44, 0,
-	0x113205eb, (ADDRESS)Times_ToMcs, 215<<8 | 0x44, 0,
-	0xcc369177, (ADDRESS)Times_ToSec, 221<<8 | 0x44, 0,
-	0xeb76fc1a, (ADDRESS)Times_ToString, 227<<8 | 0x44, 0,
-	0xc3d8135e, (ADDRESS)Times_ToSystemTime, 236<<8 | 0x44, 0,
-	0xdc29d731, (ADDRESS)&Times_monNames, 249<<8 | 0x23, (ADDRESS)Times_MonNames__desc,
-	0x45497286, 0, 258<<8 | 0x41, 0,
-	0xbad0be8a, 0, 262<<8 | 0x41, 0,
-	0x95b171c0, 0, 268<<8 | 0x41, 0,
-	0x4ccb49e8, 0, 278<<8 | 0x41, 0,
-	0x79c7d28c, 0, 282<<8 | 0x41, 0,
-	0x480a545f, 0, 287<<8 | 0x41, 0,
-	0x5fcf3f34, 0, 291<<8 | 0x41, 0,
-	0x5b0e2283, 0, 295<<8 | 0x41, 0,
-	0x7484f455, 0, 300<<8 | 0x41, 0,
-	0x7045e9e2, 0, 304<<8 | 0x41, 0,
-	0xc326e702, 0, 308<<8 | 0x41, 0,
-	0x26f058a4, 0, 314<<8 | 0x41, 0,
-	0x7d06cf3b, 0, 321<<8 | 0x41, 0,
-	0x41886f31, 0, 326<<8 | 0x41, 0,
-	0x528c19ed, 0, 330<<8 | 0x41, 0,
-	0x564d045a, 0, 336<<8 | 0x41, 0,
-	0x7ac7928e, (ADDRESS)&Times_zeroSysTime, 340<<8 | 0x23, (ADDRESS)(Times_SystemTime__desc + 2),
+	0xe950eac5, (ADDRESS)Times_SystemTimeToString, 190<<8 | 0x44, 0,
+	0x00000012, 0x00000012, 209<<8 | 0x42, 10,
+	0xc3d8135e, (ADDRESS)Times_ToLocalTime, 214<<8 | 0x44, 0,
+	0x113205eb, (ADDRESS)Times_ToMcs, 226<<8 | 0x44, 0,
+	0xcc369177, (ADDRESS)Times_ToSec, 232<<8 | 0x44, 0,
+	0xeb76fc1a, (ADDRESS)Times_ToString, 238<<8 | 0x44, 0,
+	0xc3d8135e, (ADDRESS)Times_ToSystemTime, 247<<8 | 0x44, 0,
+	0xdc29d731, (ADDRESS)&Times_monNames, 260<<8 | 0x23, (ADDRESS)Times_MonNames__desc,
+	0x45497286, 0, 269<<8 | 0x41, 0,
+	0xbad0be8a, 0, 273<<8 | 0x41, 0,
+	0x95b171c0, 0, 279<<8 | 0x41, 0,
+	0x4ccb49e8, 0, 289<<8 | 0x41, 0,
+	0x79c7d28c, 0, 293<<8 | 0x41, 0,
+	0x480a545f, 0, 298<<8 | 0x41, 0,
+	0x5fcf3f34, 0, 302<<8 | 0x41, 0,
+	0x5b0e2283, 0, 306<<8 | 0x41, 0,
+	0x7484f455, 0, 311<<8 | 0x41, 0,
+	0x7045e9e2, 0, 315<<8 | 0x41, 0,
+	0xc326e702, 0, 319<<8 | 0x41, 0,
+	0x26f058a4, 0, 325<<8 | 0x41, 0,
+	0x7d06cf3b, 0, 332<<8 | 0x41, 0,
+	0x41886f31, 0, 337<<8 | 0x41, 0,
+	0x528c19ed, 0, 341<<8 | 0x41, 0,
+	0x564d045a, 0, 347<<8 | 0x41, 0,
+	0x7ac7928e, (ADDRESS)&Times_zeroSysTime, 351<<8 | 0x23, (ADDRESS)(Times_SystemTime__desc + 2),
 };
 static char Times__names[] = {
 	0,
@@ -437,6 +450,7 @@ static char Times__names[] = {
 	'F','r','o','m','S','e','c','M','c','s',0,
 	'F','r','o','m','S','y','s','t','e','m','T','i','m','e',0,
 	'G','e','t','T','i','m','e',0,
+	'G','e','t','U','T','C','B','i','a','s',0,
 	'M','c','s',0,
 	'S','e','c',0,
 	'S','e','t','D','e','l','i','m','e','t','e','r','s',0,
@@ -474,7 +488,7 @@ static ADDRESS Times__ptrs[] = {
 };
 struct SYSTEM_MODDESC Times__desc = {
 	0, 13, 0, /* next, opts, refcnt */ 
-	{2019, 7, 17, 16, 46, 1}, /* compTime */ 
+	{2019, 10, 8, 13, 48, 11}, /* compTime */ 
 	{0, 0, 0, 0, 0, 0}, /* loadTime */ 
 	Times__body,
 	0,
