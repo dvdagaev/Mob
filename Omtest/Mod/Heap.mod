@@ -1,8 +1,8 @@
 MODULE OmtestHeap;
 (** 
-	project	= "Oberon-L Compiler"
+	project	= "MultiOberon Compiler"
 	contributors	= "Dmitry V.Dagaev"
-	license = "Public Domain"
+	license	=  "LGPL version 3"
 	narrative = "Test for Heap memory allocation"
 **)
 
@@ -79,6 +79,7 @@ MODULE OmtestHeap;
 		szo := SzAllocated(SIZE(ObjDesc));
 		szf := SzAllocated(SIZE(FinDesc)) + SzAllocated(SIZE(FListDesc));
 		Kernel.Collect;
+		Kernel.FastCollect;
 		allocExpected := Kernel.Allocated();
 		OLog.String("Allocate"); OLog.Int(SET_LEN); OLog.String(" objects of");
 		OLog.Int(SIZE(ObjDesc)); OLog.String(" size,"); OLog.Int(szo);
