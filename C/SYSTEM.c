@@ -152,14 +152,14 @@ LONGINT SYSTEM_ENTIERL(REAL x)
 INTEGER SYSTEM_DIV(INTEGER x, INTEGER y)
 {
 	if (y > 0) {
-		if (x < 0) return ~(~x / y);
-		else return x / y;
-	} else if (y < 0) {
-		if (x > 0) return ~((x - 1) / -y);
-		else return -x / -y;
-	} else {
-		__HALT(-5);
+		if (x < 0) return -1 - (-1 - x) / y;
+		else       return x / y;
 	}
+	if (y < 0) {
+		if (x > 0) return -1 + (x - 1) / y;
+		else       return x / y;
+	}
+	__HALT(-5);
 }
 
 LONGINT SYSTEM_DIVL(LONGINT x, LONGINT y)
