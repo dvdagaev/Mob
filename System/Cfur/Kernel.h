@@ -22,13 +22,15 @@ typedef
 
 typedef
 	struct Kernel_ObjDesc {
-		INTEGER fprint, offs, id;
+		INTEGER fprint;
+		LONGINT offs;
+		INTEGER id;
 		Kernel_Type struct_;
 	} Kernel_ObjDesc;
 
 typedef
 	struct Kernel_Directory__rec {
-		INTEGER num;
+		LONGINT num;
 		Kernel_ObjDesc obj[1000];
 	} Kernel_Directory__rec;
 
@@ -45,7 +47,7 @@ typedef
 
 typedef
 	struct Kernel_Identifier {
-		INTEGER typ;
+		LONGINT typ;
 		ANYPTR obj;
 	} Kernel_Identifier;
 
@@ -79,9 +81,10 @@ typedef
 		INTEGER refcnt;
 		SHORTINT compTime[6], loadTime[6];
 		Kernel_Command body, term;
-		INTEGER nofimps, nofptrs, csize, dsize, rsize, code, data, refs, procBase, varBase;
+		INTEGER nofimps, nofptrs;
+		LONGINT csize, dsize, rsize, code, data, refs, procBase, varBase;
 		SHORTCHAR *names;
-		INTEGER *ptrs;
+		LONGINT *ptrs;
 		Kernel_Module *imports;
 		Kernel_Directory export_;
 		Kernel_Utf8Name name;
@@ -95,7 +98,7 @@ typedef
 
 typedef
 	struct Kernel_Reducer__rec {
-		INTEGER _prvt0;
+		LONGINT _prvt0;
 	} Kernel_Reducer__rec;
 
 import void Kernel_Reducer_Reduce (Kernel_Reducer r, _BOOLEAN full);
@@ -104,12 +107,12 @@ full))
 
 typedef
 	struct Kernel_Type__rec {
-		INTEGER size;
+		LONGINT size;
 		Kernel_Module mod;
-		INTEGER id;
+		LONGINT id;
 		Kernel_Type base[16];
 		Kernel_Directory fields;
-		INTEGER ptroffs[1000];
+		LONGINT ptroffs[1000];
 	} Kernel_Type__rec;
 
 
@@ -231,23 +234,23 @@ import SYSTEM_TYPEDESC *Kernel_PString__typ;
 import ADDRESS Kernel__16__desc[];
 import SYSTEM_TYPEDESC *Kernel__16__typ;
 
-import INTEGER Kernel_Allocated (void);
+import LONGINT Kernel_Allocated (void);
 import void Kernel_Cleanup (void);
 import void Kernel_Collect (void);
 import void Kernel_FastCollect (void);
 import void Kernel_InstallTrapViewer (Kernel_Handler h);
 import void Kernel_LoadMod (_CHAR *name, INTEGER name__len);
-import void Kernel_Main (INTEGER in_dll, INTEGER argc, INTEGER *argv, INTEGER argv__len, INTEGER pargc);
-import INTEGER Kernel_NewArr (INTEGER eltyp, INTEGER nofelem, INTEGER nofdim);
-import INTEGER Kernel_NewRec (INTEGER typ);
-import INTEGER Kernel_Root (void);
+import void Kernel_Main (INTEGER in_dll, INTEGER argc, LONGINT *argv, INTEGER argv__len, LONGINT pargc);
+import LONGINT Kernel_NewArr (LONGINT eltyp, INTEGER nofelem, INTEGER nofdim);
+import LONGINT Kernel_NewRec (LONGINT typ);
+import LONGINT Kernel_Root (void);
 import void Kernel_SetLoaderHook (Kernel_LoaderHook h);
-import INTEGER Kernel_SetModList (INTEGER ml);
+import LONGINT Kernel_SetModList (LONGINT ml);
 import ANYPTR Kernel_ThisFinObj (Kernel_Identifier *id, SYSTEM_TYPEDESC *id__typ);
 import Kernel_Module Kernel_ThisLoadedMod (_CHAR *name, INTEGER name__len);
 import Kernel_Module Kernel_ThisMod (_CHAR *name, INTEGER name__len);
-import INTEGER Kernel_Total (void);
-import INTEGER Kernel_Used (void);
+import LONGINT Kernel_Total (void);
+import LONGINT Kernel_Used (void);
 
 import void Kernel__reg();
 import void Kernel__body();

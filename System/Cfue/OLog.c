@@ -510,7 +510,7 @@ static ADDRESS OLog__ptrs[] = {
 };
 struct SYSTEM_MODDESC OLog__desc = {
 	0, 13, 0, /* next, opts, refcnt */ 
-	{2019, 11, 14, 14, 12, 29}, /* compTime */ 
+	{2019, 10, 8, 13, 43, 18}, /* compTime */ 
 	{0, 0, 0, 0, 0, 0}, /* loadTime */ 
 	OLog__body,
 	0,

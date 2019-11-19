@@ -5,7 +5,7 @@
 
 typedef
 	struct Kernel_AddrRange {
-		INTEGER astart, abase;
+		LONGINT astart, abase;
 	} Kernel_AddrRange;
 
 typedef
@@ -23,7 +23,7 @@ typedef
 typedef
 	struct Kernel_Block__rec {
 		Kernel_Type tag;
-		INTEGER last, actual, first;
+		LONGINT last, actual, first;
 	} Kernel_Block__rec;
 
 typedef
@@ -46,9 +46,9 @@ typedef
 
 typedef
 	struct Kernel_Cluster__rec {
-		INTEGER size;
+		LONGINT size;
 		Kernel_Cluster next;
-		INTEGER max;
+		LONGINT max;
 	} Kernel_Cluster__rec;
 
 typedef
@@ -59,13 +59,15 @@ typedef
 
 typedef
 	struct Kernel_ObjDesc {
-		INTEGER fprint, offs, id;
+		INTEGER fprint;
+		LONGINT offs;
+		INTEGER id;
 		Kernel_Type struct_;
 	} Kernel_ObjDesc;
 
 typedef
 	struct Kernel_Directory__rec {
-		INTEGER num;
+		LONGINT num;
 		Kernel_ObjDesc obj[1000];
 	} Kernel_Directory__rec;
 
@@ -85,7 +87,7 @@ typedef
 typedef
 	struct Kernel_FreeDesc {
 		Kernel_Type tag;
-		INTEGER size;
+		LONGINT size;
 		Kernel_FreeBlock next;
 	} Kernel_FreeDesc;
 
@@ -102,7 +104,7 @@ typedef
 
 typedef
 	struct Kernel_Identifier {
-		INTEGER typ;
+		LONGINT typ;
 		ANYPTR obj;
 	} Kernel_Identifier;
 
@@ -156,9 +158,10 @@ typedef
 		INTEGER refcnt;
 		SHORTINT compTime[6], loadTime[6];
 		Kernel_Command body, term;
-		INTEGER nofimps, nofptrs, csize, dsize, rsize, code, data, refs, procBase, varBase;
+		INTEGER nofimps, nofptrs;
+		LONGINT csize, dsize, rsize, code, data, refs, procBase, varBase;
 		SHORTCHAR *names;
-		INTEGER *ptrs;
+		LONGINT *ptrs;
 		Kernel_Module *imports;
 		Kernel_Directory export_;
 		Kernel_Utf8Name name;
@@ -206,12 +209,12 @@ typedef
 
 typedef
 	struct Kernel_Type__rec {
-		INTEGER size;
+		LONGINT size;
 		Kernel_Module mod;
-		INTEGER id;
+		LONGINT id;
 		Kernel_Type base[16];
 		Kernel_Directory fields;
-		INTEGER ptroffs[1000];
+		LONGINT ptroffs[1000];
 	} Kernel_Type__rec;
 
 typedef
@@ -236,8 +239,9 @@ export void (*Kernel_pWatcher)(INTEGER);
 static Kernel_FreeBlock Kernel_freeArr[8];
 static Kernel_FreeDesc Kernel_sentinelBlock;
 static Kernel_FreeBlock Kernel_pSentinel;
-static INTEGER Kernel_pCandidates[1024];
-static INTEGER Kernel_nofCand, Kernel_nAllocated, Kernel_nTotal, Kernel_nUsed, Kernel_hHeap;
+static LONGINT Kernel_pCandidates[1024];
+static INTEGER Kernel_nofCand;
+static LONGINT Kernel_nAllocated, Kernel_nTotal, Kernel_nUsed, Kernel_hHeap;
 export INTEGER Kernel_err;
 static Kernel_Handler Kernel_trapViewer;
 static Kernel_LoaderHook Kernel_loaderHook;
@@ -355,43 +359,43 @@ export SYSTEM_TYPEDESC *Kernel_PString__typ = (SYSTEM_TYPEDESC*)Kernel_PString__
 export ADDRESS Kernel__16__desc[];
 export SYSTEM_TYPEDESC *Kernel__16__typ = (SYSTEM_TYPEDESC*)Kernel__16__desc;
 
-static void Kernel_AllocHeapMem (INTEGER size, Kernel_Cluster *c);
-export INTEGER Kernel_Allocated (void);
+static void Kernel_AllocHeapMem (LONGINT size, Kernel_Cluster *c);
+export LONGINT Kernel_Allocated (void);
 static void Kernel_CallFinalizers (void);
 static void Kernel_CheckCandidates (void);
 static void Kernel_CheckFinalizers (void);
 export void Kernel_Cleanup (void);
 export void Kernel_Collect (void);
-static void Kernel_ExecFinalizer (INTEGER a, INTEGER b, INTEGER c);
+static void Kernel_ExecFinalizer (LONGINT a, LONGINT b, LONGINT c);
 export void Kernel_FastCollect (void);
 static void Kernel_FreeHeapMem (Kernel_Cluster c);
-static void Kernel_GrowHeapMem (INTEGER size, Kernel_Cluster *c);
-static _BOOLEAN Kernel_HeapFull (INTEGER size);
+static void Kernel_GrowHeapMem (LONGINT size, Kernel_Cluster *c);
+static _BOOLEAN Kernel_HeapFull (LONGINT size);
 static void Kernel_InitModule (Kernel_Module mod);
 static void Kernel_Initialize (void);
-static void Kernel_Insert (Kernel_FreeBlock blk, INTEGER size);
+static void Kernel_Insert (Kernel_FreeBlock blk, LONGINT size);
 export void Kernel_InstallTrapViewer (Kernel_Handler h);
-static Kernel_FreeBlock Kernel_LastBlock (INTEGER limit);
+static Kernel_FreeBlock Kernel_LastBlock (LONGINT limit);
 export void Kernel_LoadMod (_CHAR *name, INTEGER name__len);
-export void Kernel_Main (INTEGER in_dll, INTEGER argc, INTEGER *argv, INTEGER argv__len, INTEGER pargc);
+export void Kernel_Main (INTEGER in_dll, INTEGER argc, LONGINT *argv, INTEGER argv__len, LONGINT pargc);
 static void Kernel_Mark (Kernel_Block this);
 static void Kernel_MarkFinObj (void);
 static void Kernel_MarkGlobals (void);
-static void Kernel_MarkLocals (INTEGER astart, INTEGER abase);
-export INTEGER Kernel_NewArr (INTEGER eltyp, INTEGER nofelem, INTEGER nofdim);
-static Kernel_Block Kernel_NewBlock (INTEGER size);
-export INTEGER Kernel_NewRec (INTEGER typ);
+static void Kernel_MarkLocals (LONGINT astart, LONGINT abase);
+export LONGINT Kernel_NewArr (LONGINT eltyp, INTEGER nofelem, INTEGER nofdim);
+static Kernel_Block Kernel_NewBlock (LONGINT size);
+export LONGINT Kernel_NewRec (LONGINT typ);
 static Kernel_Block Kernel_Next (Kernel_Block b);
-static Kernel_FreeBlock Kernel_OldBlock (INTEGER size);
-export INTEGER Kernel_Root (void);
+static Kernel_FreeBlock Kernel_OldBlock (LONGINT size);
+export LONGINT Kernel_Root (void);
 export void Kernel_SetLoaderHook (Kernel_LoaderHook h);
-export INTEGER Kernel_SetModList (INTEGER ml);
+export LONGINT Kernel_SetModList (LONGINT ml);
 static void Kernel_Sweep (_BOOLEAN dealloc);
 export ANYPTR Kernel_ThisFinObj (Kernel_Identifier *id, SYSTEM_TYPEDESC *id__typ);
 export Kernel_Module Kernel_ThisLoadedMod (_CHAR *name, INTEGER name__len);
 export Kernel_Module Kernel_ThisMod (_CHAR *name, INTEGER name__len);
-export INTEGER Kernel_Total (void);
-export INTEGER Kernel_Used (void);
+export LONGINT Kernel_Total (void);
+export LONGINT Kernel_Used (void);
 
 #define Kernel_Erase(adr, bytes)	memset((void* )adr, 0, (size_t)bytes)
 export void Kernel__reg();
@@ -458,9 +462,9 @@ void Kernel_LoadMod (_CHAR *name, INTEGER name__len)
 	__EXIT;
 }
 
-INTEGER Kernel_NewRec (INTEGER typ)
+LONGINT Kernel_NewRec (LONGINT typ)
 {
-	INTEGER size;
+	LONGINT size;
 	Kernel_Block b = NIL;
 	Kernel_Type tag = NIL;
 	Kernel_FList l = NIL;
@@ -468,7 +472,7 @@ INTEGER Kernel_NewRec (INTEGER typ)
 	__ASSERT(Kernel_isInitialized, 119);
 	if (__ODD(typ)) {
 		tag = (Kernel_Type)(typ - 1);
-		__ASSERT(__MASK((INTEGER)tag, -4) == 0, 101);
+		__ASSERT(__MOD((LONGINT)tag, 8) == 0, 101);
 		b = Kernel_NewBlock(tag->size);
 		if (b == NIL) {
 			__EXIT;
@@ -483,14 +487,14 @@ INTEGER Kernel_NewRec (INTEGER typ)
 		Kernel_lFinalizers = l;
 	} else {
 		tag = (Kernel_Type)typ;
-		__ASSERT(__MASK((INTEGER)tag, -4) == 0, 102);
+		__ASSERT(__MOD((LONGINT)tag, 8) == 0, 102);
 		b = Kernel_NewBlock(tag->size);
 		if (b == NIL) {
 			__EXIT;
 			return 0;
 		}
 		b->tag = tag;
-		__GET(typ - 4, size, INTEGER);
+		__GET(typ - 8, size, LONGINT);
 		if (size != 0 && typ != (ADDRESS)Kernel_FList__rec__typ) {
 			l = (Kernel_FList)((ADDRESS)&b->last);
 			l = (Kernel_FList)Kernel_NewRec((ADDRESS)Kernel_FList__rec__typ);
@@ -503,18 +507,18 @@ INTEGER Kernel_NewRec (INTEGER typ)
 	return (ADDRESS)&b->last;
 }
 
-INTEGER Kernel_NewArr (INTEGER eltyp, INTEGER nofelem, INTEGER nofdim)
+LONGINT Kernel_NewArr (LONGINT eltyp, INTEGER nofelem, INTEGER nofdim)
 {
 	Kernel_Block b = NIL;
-	INTEGER size, head_size;
+	LONGINT size, head_size;
 	Kernel_Type t = NIL;
 	_BOOLEAN fin;
 	Kernel_FList l = NIL;
 	__ENTER("Kernel.NewArr");
 	__ASSERT(Kernel_isInitialized, 119);
-	head_size = __ASHL(nofdim, 2, INTEGER) + 12;
+	head_size = __ASHL(nofdim, 3, INTEGER) + 24;
 	fin = 0;
-	switch (eltyp) {
+	switch ((INTEGER)eltyp) {
 		case 0: 
 			eltyp = (ADDRESS)Kernel_PtrType__typ;
 			break;
@@ -562,8 +566,8 @@ INTEGER Kernel_NewArr (INTEGER eltyp, INTEGER nofelem, INTEGER nofdim)
 			break;
 	}
 	t = (Kernel_Type)eltyp;
-	__ASSERT(__MASK((INTEGER)t, -4) == 0, 103);
-	size = head_size + nofelem * t->size;
+	__ASSERT(__MOD((LONGINT)t, 8) == 0, 103);
+	size = head_size + (LONGINT)nofelem * t->size;
 	b = Kernel_NewBlock(size);
 	if (b == NIL) {
 		__EXIT;
@@ -598,7 +602,7 @@ ANYPTR Kernel_ThisFinObj (Kernel_Identifier *id, SYSTEM_TYPEDESC *id__typ)
 	__ASSERT((*id).typ != 0, 100);
 	l = Kernel_lFinalizers;
 	while (l != NIL) {
-		if ((INTEGER)l->blk->tag == (*id).typ) {
+		if ((LONGINT)((INTEGER)l->blk->tag) == (*id).typ) {
 			(*id).obj = (ANYPTR)((ADDRESS)&l->blk->last);
 			if (__Kernel_Identifier_Identified(id, id__typ)) {
 				__EXIT;
@@ -618,15 +622,15 @@ void Kernel_InstallTrapViewer (Kernel_Handler h)
 	__EXIT;
 }
 
-static void Kernel_GrowHeapMem (INTEGER size, Kernel_Cluster *c)
+static void Kernel_GrowHeapMem (LONGINT size, Kernel_Cluster *c)
 {
-	INTEGER adr, s;
+	LONGINT adr, s;
 	__ENTER("Kernel.GrowHeapMem");
 	__ASSERT(size >= (*c)->size, 110);
 	if (size <= (*c)->max) {
-		s = __ASHL(__ASHR(size + 262143, 18, INTEGER), 18, INTEGER);
-		adr = Api_VirtualAlloc((INTEGER)*c, s, 0x1000, 0x40);
-		if (adr != 0) {
+		s = __DIVFL(size + 262143, 262144) * 262144;
+		adr = Api_mprotect((LONGINT)*c, s, 0x03);
+		if (adr == 0) {
 			Kernel_nUsed += s - (*c)->size;
 			Kernel_nTotal += s - (*c)->size;
 			(*c)->size = s;
@@ -635,26 +639,28 @@ static void Kernel_GrowHeapMem (INTEGER size, Kernel_Cluster *c)
 	__EXIT;
 }
 
-static void Kernel_AllocHeapMem (INTEGER size, Kernel_Cluster *c)
+static void Kernel_AllocHeapMem (LONGINT size, Kernel_Cluster *c)
 {
-	INTEGER adr, s;
+	LONGINT adr, s;
 	__ENTER("Kernel.AllocHeapMem");
 	if (Kernel_dllMem) {
 		size += 16;
 		__ASSERT(size > 0, 110);
 		adr = 0;
 		if (size < 65536) {
-			adr = Api_HeapAlloc(Kernel_hHeap, 0x09, 65536);
+			adr = Api_calloc(1L, 65536L);
 		}
 		if (adr == 0) {
-			adr = Api_HeapAlloc(Kernel_hHeap, 0x09, size);
+			adr = Api_calloc(1L, size);
+		} else {
+			size = 65536;
 		}
 		if (adr == 0) {
 			*c = NIL;
 		} else {
-			*c = (Kernel_Cluster)__ASHL(__ASHR(adr + 15, 4, INTEGER), 4, INTEGER);
+			*c = (Kernel_Cluster)(__DIV(adr + 15, 16) * 16);
 			(*c)->max = adr;
-			(*c)->size = Api_HeapSize(Kernel_hHeap, 0x01, adr) - ((INTEGER)*c - adr);
+			(*c)->size = size - ((LONGINT)*c - adr);
 			Kernel_nUsed += (*c)->size;
 			Kernel_nTotal += (*c)->size;
 		}
@@ -662,19 +668,21 @@ static void Kernel_AllocHeapMem (INTEGER size, Kernel_Cluster *c)
 		adr = 0;
 		s = 1610612736;
 		do {
-			adr = Api_VirtualAlloc(16777216, s, 0x2000, 0x40);
+			adr = Api_mmap(16777216L, s, 0x0, 0x22, -1, 0L);
 			if (adr == 0) {
-				adr = Api_VirtualAlloc(0, s, 0x2000, 0x40);
+				adr = Api_mmap(0L, s, 0x0, 0x22, -1, 0L);
 			}
-			s = __ASHR(s, 1, INTEGER);
+			s = __DIV(s, 2);
 		} while (!(adr != 0 || s == 0));
 		if (adr == 0) {
 			*c = NIL;
 		} else {
-			adr = Api_VirtualAlloc(adr, 1024, 0x1000, 0x40);
+			if (Api_mprotect(adr, 1024L, 0x03) < 0) {
+				adr = 0;
+			}
 			__ASSERT(adr != 0, 111);
 			*c = (Kernel_Cluster)adr;
-			(*c)->max = __ASHL(s, 1, INTEGER);
+			(*c)->max = s * 2;
 			(*c)->size = 0;
 			(*c)->next = NIL;
 			Kernel_GrowHeapMem(size, c);
@@ -693,39 +701,35 @@ static void Kernel_FreeHeapMem (Kernel_Cluster c)
 	Kernel_nUsed -= c->size;
 	Kernel_nTotal -= c->size;
 	if (Kernel_dllMem) {
-		res = Api_HeapFree(Kernel_hHeap, 0x01, c->max);
+		Api_free((void*)c);
 	}
 	__EXIT;
 }
 
-static _BOOLEAN Kernel_HeapFull (INTEGER size)
+static _BOOLEAN Kernel_HeapFull (LONGINT size)
 {
-	Api_MEMORYSTATUS ms;
 	__ENTER("Kernel.HeapFull");
-	ms.dwLength = sizeof (Api_MEMORYSTATUS);
-	ms.dwMemoryLoad = -1;
-	Api_GlobalMemoryStatus(&ms);
 	__EXIT;
-	return Kernel_nUsed + size > ms.dwTotalPhys;
+	return Kernel_nUsed + size > 4000000;
 }
 
 static void Kernel_Mark (Kernel_Block this)
 {
 	Kernel_Block father = NIL, son = NIL;
 	Kernel_Type tag = NIL;
-	INTEGER flag, offset, actual, j;
+	LONGINT flag, offset, actual, j;
 	__ENTER("Kernel.Mark");
 	__ASSERT(this != NIL, 114);
-	__ASSERT(!__ODD((INTEGER)this), 115);
+	__ASSERT(!__ODD((LONGINT)this), 115);
 	__ASSERT(this->tag != NIL, 116);
-	if (!__ODD((INTEGER)this->tag)) {
+	if (!__ODD((LONGINT)this->tag)) {
 		father = NIL;
 		for (;;) {
-			j = (INTEGER)this->tag;
+			j = (LONGINT)this->tag;
 			j += 1;
 			this->tag = (Kernel_Type)j;
-			flag = __MASK((INTEGER)this->tag, -4);
-			tag = (Kernel_Type)((INTEGER)this->tag - flag);
+			flag = __MOD((LONGINT)this->tag, 8);
+			tag = (Kernel_Type)((LONGINT)this->tag - flag);
 			if (flag >= 2) {
 				actual = this->first;
 				this->actual = actual;
@@ -735,23 +739,23 @@ static void Kernel_Mark (Kernel_Block this)
 			for (;;) {
 				offset = tag->ptroffs[0];
 				if (offset < 0) {
-					j = (INTEGER)tag;
-					j += offset + 4;
+					j = (LONGINT)tag;
+					j += offset + 8;
 					tag = (Kernel_Type)j;
-					__ASSERT(__MASK((INTEGER)tag, -4) == 0, 104);
-					if ((flag >= 2 && actual < this->last) && offset < -4) {
+					__ASSERT(__MOD((LONGINT)tag, 8) == 0, 104);
+					if ((flag >= 2 && actual < this->last) && offset < -8) {
 						actual += tag->size;
 						this->actual = actual;
 					} else {
-						this->tag = (Kernel_Type)((INTEGER)tag + flag);
+						this->tag = (Kernel_Type)((LONGINT)tag + flag);
 						if (father == NIL) {
 							__EXIT;
 							return;
 						}
 						son = this;
 						this = father;
-						flag = __MASK((INTEGER)this->tag, -4);
-						tag = (Kernel_Type)((INTEGER)this->tag - flag);
+						flag = __MOD((LONGINT)this->tag, 8);
+						tag = (Kernel_Type)((LONGINT)this->tag - flag);
 						offset = tag->ptroffs[0];
 						if (flag >= 2) {
 							actual = this->actual;
@@ -759,27 +763,27 @@ static void Kernel_Mark (Kernel_Block this)
 							actual = (ADDRESS)&this->last;
 						}
 						__GET(actual + offset, father, Kernel_Block);
-						__PUT(actual + offset, (ADDRESS)&son->last, INTEGER);
-						j = (INTEGER)tag;
-						j += 4;
+						__PUT(actual + offset, (ADDRESS)&son->last, LONGINT);
+						j = (LONGINT)tag;
+						j += 8;
 						tag = (Kernel_Type)j;
 					}
 				} else {
 					__GET(actual + offset, son, Kernel_Block);
 					if (son != NIL) {
-						j = (INTEGER)son;
-						j -= 4;
+						j = (LONGINT)son;
+						j -= 8;
 						son = (Kernel_Block)j;
-						if (!__ODD((INTEGER)son->tag)) {
-							this->tag = (Kernel_Type)((INTEGER)tag + flag);
+						if (!__ODD((LONGINT)son->tag)) {
+							this->tag = (Kernel_Type)((LONGINT)tag + flag);
 							__PUT(actual + offset, father, Kernel_Block);
 							father = this;
 							this = son;
 							break;
 						}
 					}
-					j = (INTEGER)tag;
-					j += 4;
+					j = (LONGINT)tag;
+					j += 8;
 					tag = (Kernel_Type)j;
 				}
 			}
@@ -791,17 +795,18 @@ static void Kernel_Mark (Kernel_Block this)
 static void Kernel_MarkGlobals (void)
 {
 	Kernel_Module m = NIL;
-	INTEGER i, p;
+	INTEGER i;
+	LONGINT p;
 	__ENTER("Kernel.MarkGlobals");
 	m = Kernel_modList;
 	while (m != NIL) {
 		if (m->refcnt >= 0) {
 			i = 0;
 			while (i < m->nofptrs) {
-				__GET(m->varBase + (m->ptrs)[i], p, INTEGER);
+				__GET(m->varBase + (m->ptrs)[i], p, LONGINT);
 				i += 1;
 				if (p != 0) {
-					Kernel_Mark((Kernel_Block)(p - 4));
+					Kernel_Mark((Kernel_Block)(p - 8));
 				}
 			}
 		}
@@ -812,19 +817,20 @@ static void Kernel_MarkGlobals (void)
 
 static Kernel_Block Kernel_Next (Kernel_Block b)
 {
-	INTEGER size;
+	LONGINT size;
 	__ENTER("Kernel.Next");
-	__GET(__ASHL(__ASHR((INTEGER)b->tag, 2, INTEGER), 2, INTEGER), size, INTEGER);
-	if (__ODD(__ASHR((INTEGER)b->tag, 1, INTEGER))) {
+	__GET(__DIV((LONGINT)b->tag, 8) * 8, size, LONGINT);
+	if (__ODD(__DIV((LONGINT)b->tag, 2))) {
 		size += b->last - (ADDRESS)&b->last;
 	}
 	__EXIT;
-	return (Kernel_Block)((INTEGER)b + __ASHL(__ASHR(size + 19, 4, INTEGER), 4, INTEGER));
+	return (Kernel_Block)((LONGINT)b + __DIV(size + 39, 32) * 32);
 }
 
 static void Kernel_CheckCandidates (void)
 {
-	INTEGER i, j, h, p, end;
+	INTEGER i, j, h;
+	LONGINT p, end;
 	Kernel_Cluster c = NIL;
 	Kernel_Block blk = NIL, next = NIL;
 	__ENTER("Kernel.CheckCandidates");
@@ -849,19 +855,19 @@ static void Kernel_CheckCandidates (void)
 	c = Kernel_cRoot;
 	i = 0;
 	while (c != NIL) {
-		blk = (Kernel_Block)((INTEGER)c + 12);
-		end = (INTEGER)blk + __ASHL(__ASHR(c->size - 12, 4, INTEGER), 4, INTEGER);
-		while (Kernel_pCandidates[__X(i, 1024)] < (INTEGER)blk) {
+		blk = (Kernel_Block)((LONGINT)c + 24);
+		end = (LONGINT)blk + __DIV(c->size - 24, 16) * 16;
+		while (Kernel_pCandidates[__X(i, 1024)] < (LONGINT)blk) {
 			i += 1;
 			if (i == Kernel_nofCand) {
 				__EXIT;
 				return;
 			}
 		}
-		while ((INTEGER)blk < end) {
+		while ((LONGINT)blk < end) {
 			next = Kernel_Next(blk);
-			if (Kernel_pCandidates[__X(i, 1024)] < (INTEGER)next) {
-				if ((INTEGER)blk->tag != (ADDRESS)&blk->last && Kernel_pCandidates[__X(i, 1024)] == (ADDRESS)&blk->last) \
+			if (Kernel_pCandidates[__X(i, 1024)] < (LONGINT)next) {
+				if ((LONGINT)blk->tag != (ADDRESS)&blk->last && Kernel_pCandidates[__X(i, 1024)] == (ADDRESS)&blk->last) \
 {
 					Kernel_Mark(blk);
 				}
@@ -871,9 +877,9 @@ static void Kernel_CheckCandidates (void)
 						__EXIT;
 						return;
 					}
-				} while (!(Kernel_pCandidates[__X(i, 1024)] >= (INTEGER)next));
+				} while (!(Kernel_pCandidates[__X(i, 1024)] >= (LONGINT)next));
 			}
-			if (((__MASK((INTEGER)blk->tag, -4) == 0 && (INTEGER)blk->tag != (ADDRESS)&blk->last) && blk->tag->base[0] \
+			if (((__MOD((LONGINT)blk->tag, 8) == 0 && (LONGINT)blk->tag != (ADDRESS)&blk->last) && blk->tag->base[0] \
 == NIL) && blk->actual > 0) {
 				Kernel_Mark(blk);
 			}
@@ -884,9 +890,9 @@ static void Kernel_CheckCandidates (void)
 	__EXIT;
 }
 
-static void Kernel_MarkLocals (INTEGER astart, INTEGER abase)
+static void Kernel_MarkLocals (LONGINT astart, LONGINT abase)
 {
-	INTEGER sp, p, min, max;
+	LONGINT sp, p, min, max;
 	Kernel_Cluster c = NIL;
 	__ENTER("Kernel.MarkLocals");
 	sp = astart;
@@ -895,11 +901,11 @@ static void Kernel_MarkLocals (INTEGER astart, INTEGER abase)
 	while (c->next != NIL) {
 		c = c->next;
 	}
-	min = (INTEGER)Kernel_cRoot;
-	max = (INTEGER)c + c->size;
+	min = (LONGINT)Kernel_cRoot;
+	max = (LONGINT)c + c->size;
 	while (sp < abase) {
-		__GET(sp, p, INTEGER);
-		if ((p > min && p < max) && __MASK(p, -16) == 0) {
+		__GET(sp, p, LONGINT);
+		if ((p > min && p < max) && __MOD(p, 16) == 0) {
 			Kernel_pCandidates[__X(Kernel_nofCand, 1024)] = p;
 			Kernel_nofCand += 1;
 			if (Kernel_nofCand == 1023) {
@@ -907,7 +913,7 @@ static void Kernel_MarkLocals (INTEGER astart, INTEGER abase)
 				Kernel_nofCand = 0;
 			}
 		}
-		sp += 4;
+		sp += 8;
 	}
 	Kernel_pCandidates[__X(Kernel_nofCand, 1024)] = max;
 	Kernel_nofCand += 1;
@@ -924,7 +930,7 @@ static void Kernel_MarkFinObj (void)
 	Kernel_wouldFinalize = 0;
 	f = Kernel_lFinalizers;
 	while (f != NIL) {
-		if (!__ODD((INTEGER)f->blk->tag)) {
+		if (!__ODD((LONGINT)f->blk->tag)) {
 			Kernel_wouldFinalize = 1;
 		}
 		Kernel_Mark(f->blk);
@@ -932,7 +938,7 @@ static void Kernel_MarkFinObj (void)
 	}
 	f = Kernel_hotFinalizers;
 	while (f != NIL) {
-		if (!__ODD((INTEGER)f->blk->tag)) {
+		if (!__ODD((LONGINT)f->blk->tag)) {
 			Kernel_wouldFinalize = 1;
 		}
 		Kernel_Mark(f->blk);
@@ -958,7 +964,7 @@ static void Kernel_CheckFinalizers (void)
 	while (f != NIL) {
 		h = f;
 		f = f->next;
-		if (!__ODD((INTEGER)h->blk->tag)) {
+		if (!__ODD((LONGINT)h->blk->tag)) {
 			if (g == NIL) {
 				Kernel_lFinalizers = f;
 			} else {
@@ -983,14 +989,14 @@ static void Kernel_CheckFinalizers (void)
 	__EXIT;
 }
 
-static void Kernel_ExecFinalizer (INTEGER a, INTEGER b, INTEGER c)
+static void Kernel_ExecFinalizer (LONGINT a, LONGINT b, LONGINT c)
 {
 	Kernel_FList f = NIL;
 	void (*fin)(ANYPTR) = NIL;
 	__ENTER("Kernel.ExecFinalizer");
 	f = (Kernel_FList)a;
 	if (!f->aiptr) {
-		__GET((INTEGER)f->blk->tag - 4, fin, void*);
+		__GET((LONGINT)f->blk->tag - 8, fin, void*);
 		if (fin != NIL && f->blk->tag->mod->refcnt >= 0) {
 			(*fin)((ANYPTR)((ADDRESS)&f->blk->last));
 		}
@@ -1005,23 +1011,23 @@ static void Kernel_CallFinalizers (void)
 	while (Kernel_hotFinalizers != NIL) {
 		f = Kernel_hotFinalizers;
 		Kernel_hotFinalizers = Kernel_hotFinalizers->next;
-		Kernel_ExecFinalizer((INTEGER)f, 0, 0);
+		Kernel_ExecFinalizer((LONGINT)f, 0L, 0L);
 	}
 	Kernel_wouldFinalize = 0;
 	__EXIT;
 }
 
-static void Kernel_Insert (Kernel_FreeBlock blk, INTEGER size)
+static void Kernel_Insert (Kernel_FreeBlock blk, LONGINT size)
 {
-	INTEGER i;
+	LONGINT i;
 	__ENTER("Kernel.Insert");
-	blk->size = size - 4;
+	blk->size = size - 8;
 	blk->tag = (Kernel_Type)((ADDRESS)&blk->size);
-	__ASSERT(blk->size >= sizeof (Kernel_FreeDesc), 104);
-	__ASSERT(__MASK((INTEGER)blk->tag, -4) == 0, 105);
-	i = __MIN(7, __ASHR(blk->size, 4, INTEGER));
-	blk->next = Kernel_freeArr[__X(i, 8)];
-	Kernel_freeArr[__X(i, 8)] = blk;
+	__ASSERT(blk->size >= (LONGINT)(sizeof (Kernel_FreeDesc)), 104);
+	__ASSERT(__MOD((LONGINT)blk->tag, 8) == 0, 105);
+	i = __MIN(7, __DIV(blk->size, 16));
+	blk->next = Kernel_freeArr[__X((INTEGER)i, 8)];
+	Kernel_freeArr[__X((INTEGER)i, 8)] = blk;
 	__EXIT;
 }
 
@@ -1030,7 +1036,8 @@ static void Kernel_Sweep (_BOOLEAN dealloc)
 	Kernel_Cluster cluster = NIL, last = NIL, c = NIL;
 	Kernel_Block blk = NIL, next = NIL;
 	Kernel_FreeBlock fblk = NIL, b = NIL, t = NIL;
-	INTEGER end, i;
+	LONGINT end;
+	INTEGER i;
 	__ENTER("Kernel.Sweep");
 	cluster = Kernel_cRoot;
 	last = NIL;
@@ -1041,24 +1048,24 @@ static void Kernel_Sweep (_BOOLEAN dealloc)
 		Kernel_freeArr[__X(i, 8)] = Kernel_pSentinel;
 	} while (!(i == 0));
 	while (cluster != NIL) {
-		blk = (Kernel_Block)((INTEGER)cluster + 12);
-		end = (INTEGER)blk + __ASHL(__ASHR(cluster->size - 12, 4, INTEGER), 4, INTEGER);
+		blk = (Kernel_Block)((LONGINT)cluster + 24);
+		end = (LONGINT)blk + __DIV(cluster->size - 24, 16) * 16;
 		fblk = NIL;
-		while ((INTEGER)blk < end) {
+		while ((LONGINT)blk < end) {
 			next = Kernel_Next(blk);
-			if (__ODD((INTEGER)blk->tag)) {
+			if (__ODD((LONGINT)blk->tag)) {
 				if (fblk != NIL) {
-					Kernel_Insert(fblk, (INTEGER)blk - (INTEGER)fblk);
+					Kernel_Insert(fblk, (LONGINT)blk - (LONGINT)fblk);
 					fblk = NIL;
 				}
-				blk->tag = (Kernel_Type)((INTEGER)blk->tag - 1);
-				Kernel_nAllocated += (INTEGER)next - (INTEGER)blk;
+				blk->tag = (Kernel_Type)((LONGINT)blk->tag - 1);
+				Kernel_nAllocated += (LONGINT)next - (LONGINT)blk;
 			} else if (fblk == NIL) {
 				fblk = (Kernel_FreeBlock)blk;
 			}
 			blk = next;
 		}
-		if ((dealloc && Kernel_dllMem) && (INTEGER)fblk == (INTEGER)cluster + 12) {
+		if ((dealloc && Kernel_dllMem) && (LONGINT)fblk == (LONGINT)cluster + 24) {
 			c = cluster;
 			cluster = cluster->next;
 			if (last == NIL) {
@@ -1069,7 +1076,7 @@ static void Kernel_Sweep (_BOOLEAN dealloc)
 			Kernel_FreeHeapMem(c);
 		} else {
 			if (fblk != NIL) {
-				Kernel_Insert(fblk, end - (INTEGER)fblk);
+				Kernel_Insert(fblk, end - (LONGINT)fblk);
 			}
 			last = cluster;
 			cluster = cluster->next;
@@ -1093,7 +1100,7 @@ static void Kernel_Sweep (_BOOLEAN dealloc)
 
 void Kernel_Collect (void)
 {
-	INTEGER dummy;
+	LONGINT dummy;
 	__ENTER("Kernel.Collect");
 	if (Kernel_cRoot != NIL) {
 		Kernel_CallFinalizers();
@@ -1108,7 +1115,7 @@ void Kernel_Collect (void)
 
 void Kernel_FastCollect (void)
 {
-	INTEGER dummy;
+	LONGINT dummy;
 	__ENTER("Kernel.FastCollect");
 	if (Kernel_cRoot != NIL) {
 		Kernel_MarkGlobals();
@@ -1119,17 +1126,17 @@ void Kernel_FastCollect (void)
 	__EXIT;
 }
 
-static Kernel_FreeBlock Kernel_OldBlock (INTEGER size)
+static Kernel_FreeBlock Kernel_OldBlock (LONGINT size)
 {
 	Kernel_FreeBlock b = NIL, l = NIL;
-	INTEGER s, i;
+	LONGINT s, i;
 	__ENTER("Kernel.OldBlock");
-	s = size - 4;
-	i = __MIN(7, __ASHR(s, 4, INTEGER));
-	while (i != 7 && Kernel_freeArr[__X(i, 8)] == Kernel_pSentinel) {
+	s = size - 8;
+	i = __MIN(7, __DIV(s, 16));
+	while (i != 7 && Kernel_freeArr[__X((INTEGER)i, 8)] == Kernel_pSentinel) {
 		i += 1;
 	}
-	b = Kernel_freeArr[__X(i, 8)];
+	b = Kernel_freeArr[__X((INTEGER)i, 8)];
 	l = NIL;
 	while (b->size < s) {
 		l = b;
@@ -1137,7 +1144,7 @@ static Kernel_FreeBlock Kernel_OldBlock (INTEGER size)
 	}
 	if (b != Kernel_pSentinel) {
 		if (l == NIL) {
-			Kernel_freeArr[__X(i, 8)] = b->next;
+			Kernel_freeArr[__X((INTEGER)i, 8)] = b->next;
 		} else {
 			l->next = b->next;
 		}
@@ -1148,17 +1155,18 @@ static Kernel_FreeBlock Kernel_OldBlock (INTEGER size)
 	return b;
 }
 
-static Kernel_FreeBlock Kernel_LastBlock (INTEGER limit)
+static Kernel_FreeBlock Kernel_LastBlock (LONGINT limit)
 {
 	Kernel_FreeBlock b = NIL, l = NIL;
-	INTEGER s, i;
+	LONGINT s;
+	INTEGER i;
 	__ENTER("Kernel.LastBlock");
-	s = limit - 4;
+	s = limit - 8;
 	i = 0;
 	do {
 		b = Kernel_freeArr[__X(i, 8)];
 		l = NIL;
-		while (b != Kernel_pSentinel && (INTEGER)b + b->size != s) {
+		while (b != Kernel_pSentinel && (LONGINT)b + b->size != s) {
 			l = b;
 			b = b->next;
 		}
@@ -1177,19 +1185,19 @@ static Kernel_FreeBlock Kernel_LastBlock (INTEGER limit)
 	return b;
 }
 
-static Kernel_Block Kernel_NewBlock (INTEGER size)
+static Kernel_Block Kernel_NewBlock (LONGINT size)
 {
-	INTEGER tsize, a, s;
+	LONGINT tsize, a, s;
 	Kernel_FreeBlock b = NIL;
 	Kernel_Cluster new = NIL, c = NIL;
 	Kernel_Reducer r = NIL;
 	__ENTER("Kernel.NewBlock");
 	__ASSERT(size >= 0, 20);
-	if (size > 2147483628) {
+	if (size > 2147483608) {
 		__EXIT;
 		return NIL;
 	}
-	tsize = __ASHL(__ASHR(size + 19, 4, INTEGER), 4, INTEGER);
+	tsize = __DIV(size + 39, 32) * 32;
 	b = Kernel_OldBlock(tsize);
 	if (b == NIL) {
 		if (Kernel_dllMem) {
@@ -1200,21 +1208,21 @@ static Kernel_Block Kernel_NewBlock (INTEGER size)
 				b = Kernel_OldBlock(tsize);
 			}
 			if (b == NIL) {
-				Kernel_AllocHeapMem(tsize + 12, &new);
+				Kernel_AllocHeapMem(tsize + 24, &new);
 				if (new != NIL) {
-					if (Kernel_cRoot == NIL || (INTEGER)new < (INTEGER)Kernel_cRoot) {
+					if (Kernel_cRoot == NIL || (LONGINT)new < (LONGINT)Kernel_cRoot) {
 						new->next = Kernel_cRoot;
 						Kernel_cRoot = new;
 					} else {
 						c = Kernel_cRoot;
-						while (c->next != NIL && (INTEGER)new > (INTEGER)c->next) {
+						while (c->next != NIL && (LONGINT)new > (LONGINT)c->next) {
 							c = c->next;
 						}
 						new->next = c->next;
 						c->next = new;
 					}
-					b = (Kernel_FreeBlock)((INTEGER)new + 12);
-					b->size = __ASHL(__ASHR(new->size - 12, 4, INTEGER), 4, INTEGER) - 4;
+					b = (Kernel_FreeBlock)((LONGINT)new + 24);
+					b->size = __DIV(new->size - 24, 16) * 16 - 8;
 				} else {
 					__EXIT;
 					return NIL;
@@ -1238,14 +1246,14 @@ static Kernel_Block Kernel_NewBlock (INTEGER size)
 			}
 			if (b == NIL) {
 				if (tsize <= 1431655764 - Kernel_nAllocated) {
-					s = __ASHR(tsize + Kernel_nAllocated, 1, INTEGER) * 3;
+					s = __DIV(tsize + Kernel_nAllocated, 2) * 3;
 				} else if (tsize <= Kernel_cRoot->max - Kernel_nAllocated) {
 					s = Kernel_cRoot->max;
 				} else {
 					__EXIT;
 					return NIL;
 				}
-				a = 12 + __ASHL(__ASHR(Kernel_cRoot->size - 12, 4, INTEGER), 4, INTEGER);
+				a = 24 + __DIV(Kernel_cRoot->size - 24, 16) * 16;
 				if (s <= Kernel_nTotal) {
 					b = Kernel_OldBlock(tsize);
 					if (b == NIL) {
@@ -1257,12 +1265,12 @@ static Kernel_Block Kernel_NewBlock (INTEGER size)
 				if (b == NIL && Kernel_nTotal < s) {
 					Kernel_GrowHeapMem(s, &Kernel_cRoot);
 					if (Kernel_cRoot->size >= s) {
-						b = Kernel_LastBlock((INTEGER)Kernel_cRoot + a);
+						b = Kernel_LastBlock((LONGINT)Kernel_cRoot + a);
 						if (b != NIL) {
-							b->size = __ASHL(__ASHR(((Kernel_cRoot->size - a) + b->size) + 4, 4, INTEGER), 4, INTEGER) - 4;
+							b->size = __DIV(((Kernel_cRoot->size - a) + b->size) + 8, 16) * 16 - 8;
 						} else {
-							b = (Kernel_FreeBlock)((INTEGER)Kernel_cRoot + a);
-							b->size = __ASHL(__ASHR(Kernel_cRoot->size - a, 4, INTEGER), 4, INTEGER) - 4;
+							b = (Kernel_FreeBlock)((LONGINT)Kernel_cRoot + a);
+							b->size = __DIV(Kernel_cRoot->size - a, 16) * 16 - 8;
 						}
 					} else if (Kernel_lReducers != NIL) {
 						r = Kernel_lReducers;
@@ -1284,48 +1292,48 @@ static Kernel_Block Kernel_NewBlock (INTEGER size)
 			}
 		}
 	}
-	a = (b->size + 4) - tsize;
+	a = (b->size + 8) - tsize;
 	if (a > 0) {
-		Kernel_Insert((Kernel_FreeBlock)((INTEGER)b + tsize), a);
+		Kernel_Insert((Kernel_FreeBlock)((LONGINT)b + tsize), a);
 	}
 	if (size > 0) {
-		Api_Memset((ADDRESS)&b->size, 0, __ASHL(__ASHR((size + 4) - 1, 2, INTEGER), 2, INTEGER));
+		Api_Memset((ADDRESS)&b->size, 0, __DIV((size + 8) - 1, 8) * 8);
 	}
 	Kernel_nAllocated += tsize;
-	__ASSERT(!__ODD((INTEGER)b), 112);
+	__ASSERT(!__ODD((LONGINT)b), 112);
 	__EXIT;
 	return (Kernel_Block)b;
 }
 
-INTEGER Kernel_Allocated (void)
+LONGINT Kernel_Allocated (void)
 {
 	__ENTER("Kernel.Allocated");
 	__EXIT;
 	return Kernel_nAllocated;
 }
 
-INTEGER Kernel_Used (void)
+LONGINT Kernel_Used (void)
 {
 	__ENTER("Kernel.Used");
 	__EXIT;
 	return Kernel_nUsed;
 }
 
-INTEGER Kernel_Total (void)
+LONGINT Kernel_Total (void)
 {
 	__ENTER("Kernel.Total");
 	__EXIT;
 	return Kernel_nTotal;
 }
 
-INTEGER Kernel_Root (void)
+LONGINT Kernel_Root (void)
 {
 	__ENTER("Kernel.Root");
 	__EXIT;
-	return (INTEGER)Kernel_cRoot;
+	return (LONGINT)Kernel_cRoot;
 }
 
-INTEGER Kernel_SetModList (INTEGER ml)
+LONGINT Kernel_SetModList (LONGINT ml)
 {
 	Kernel_Module mod = NIL, m = NIL;
 	INTEGER j;
@@ -1351,7 +1359,7 @@ INTEGER Kernel_SetModList (INTEGER ml)
 		}
 	}
 	__EXIT;
-	return (INTEGER)Kernel_modList;
+	return (LONGINT)Kernel_modList;
 }
 
 static void Kernel_Initialize (void)
@@ -1375,23 +1383,21 @@ static void Kernel_Initialize (void)
 		Kernel_freeArr[__X(i, 8)] = Kernel_pSentinel;
 	} while (!(i == 0));
 	if (Kernel_dllMem) {
-		Kernel_hHeap = Api_GetProcessHeap();
 		Kernel_cRoot = NIL;
 	} else {
-		Kernel_AllocHeapMem(1, &Kernel_cRoot);
+		Kernel_AllocHeapMem(1L, &Kernel_cRoot);
 		__ASSERT(Kernel_cRoot != NIL, 110);
-		i = __MIN(7, __ASHR(Kernel_cRoot->size - 12, 4, INTEGER) - 1);
-		Kernel_freeArr[__X(i, 8)] = (Kernel_FreeBlock)((INTEGER)Kernel_cRoot + 12);
+		i = __MIN(7, __ASHR((INTEGER)Kernel_cRoot->size - 24, 4, INTEGER) - 1);
+		Kernel_freeArr[__X(i, 8)] = (Kernel_FreeBlock)((LONGINT)Kernel_cRoot + 24);
 		Kernel_freeArr[__X(i, 8)]->next = Kernel_pSentinel;
-		Kernel_freeArr[__X(i, 8)]->size = __ASHL(__ASHR(Kernel_cRoot->size - 12, 4, INTEGER), 4, INTEGER) - \
-4;
+		Kernel_freeArr[__X(i, 8)]->size = __DIV(Kernel_cRoot->size - 24, 16) * 16 - 8;
 		Kernel_freeArr[__X(i, 8)]->tag = (Kernel_Type)((ADDRESS)&Kernel_freeArr[__X(i, 8)]->size);
-		__ASSERT(__MASK((INTEGER)Kernel_freeArr[__X(i, 8)]->tag, -4) == 0, 106);
+		__ASSERT(__MOD((LONGINT)Kernel_freeArr[__X(i, 8)]->tag, 8) == 0, 106);
 	}
 	__EXIT;
 }
 
-void Kernel_Main (INTEGER in_dll, INTEGER argc, INTEGER *argv, INTEGER argv__len, INTEGER pargc)
+void Kernel_Main (INTEGER in_dll, INTEGER argc, LONGINT *argv, INTEGER argv__len, LONGINT pargc)
 {
 	INTEGER j, _for__24;
 	__ENTER("Kernel.Main");
@@ -1415,37 +1421,37 @@ void Kernel_Main (INTEGER in_dll, INTEGER argc, INTEGER *argv, INTEGER argv__len
 static ADDRESS Kernel_Module__rec__flds[] = {
 	22, 
 	0, 0, 1<<8 | 0x25, 13,
-	0, 4, 6<<8 | 0x25, 9,
-	0, 8, 11<<8 | 0x25, 6,
-	0, 12, 18<<8 | 0x25, (ADDRESS)Kernel__2__desc,
-	0, 24, 27<<8 | 0x25, (ADDRESS)Kernel__2__desc,
-	0, 36, 36<<8 | 0x25, (ADDRESS)Kernel_Command__desc,
-	0, 40, 41<<8 | 0x25, (ADDRESS)Kernel_Command__desc,
-	0, 44, 46<<8 | 0x25, 6,
-	0, 48, 54<<8 | 0x25, 6,
-	0, 52, 62<<8 | 0x25, 6,
-	0, 56, 68<<8 | 0x25, 6,
-	0, 60, 74<<8 | 0x25, 6,
-	0, 64, 80<<8 | 0x25, 6,
-	0, 68, 85<<8 | 0x25, 6,
-	0, 72, 90<<8 | 0x25, 6,
-	0, 76, 95<<8 | 0x25, 6,
-	0, 80, 104<<8 | 0x25, 6,
-	0, 84, 112<<8 | 0x25, 13,
-	0, 88, 118<<8 | 0x25, 13,
-	0, 92, 123<<8 | 0x25, 13,
-	0, 96, 131<<8 | 0x25, 13,
-	0, 100, 138<<8 | 0x25, (ADDRESS)Kernel_Utf8Name__desc,
+	0, 8, 6<<8 | 0x25, 9,
+	0, 12, 11<<8 | 0x25, 6,
+	0, 16, 18<<8 | 0x25, (ADDRESS)Kernel__2__desc,
+	0, 28, 27<<8 | 0x25, (ADDRESS)Kernel__2__desc,
+	0, 40, 36<<8 | 0x25, (ADDRESS)Kernel_Command__desc,
+	0, 48, 41<<8 | 0x25, (ADDRESS)Kernel_Command__desc,
+	0, 56, 46<<8 | 0x25, 6,
+	0, 60, 54<<8 | 0x25, 6,
+	0, 64, 62<<8 | 0x25, 10,
+	0, 72, 68<<8 | 0x25, 10,
+	0, 80, 74<<8 | 0x25, 10,
+	0, 88, 80<<8 | 0x25, 10,
+	0, 96, 85<<8 | 0x25, 10,
+	0, 104, 90<<8 | 0x25, 10,
+	0, 112, 95<<8 | 0x25, 10,
+	0, 120, 104<<8 | 0x25, 10,
+	0, 128, 112<<8 | 0x25, 13,
+	0, 136, 118<<8 | 0x25, 13,
+	0, 144, 123<<8 | 0x25, 13,
+	0, 152, 131<<8 | 0x25, 13,
+	0, 160, 138<<8 | 0x25, (ADDRESS)Kernel_Utf8Name__desc,
 };
 export ADDRESS Kernel_Module__rec__desc[] = {
 	-1, 
-	356,
+	416,
 	(ADDRESS)&Kernel__desc,
 	143<<8 | 0x01,
 	0,
 	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
 	(ADDRESS)Kernel_Module__rec__flds, 
-	-4
+	-8
 };
 export ADDRESS Kernel_Module__desc[] = {
 	0,
@@ -1480,7 +1486,7 @@ export ADDRESS Kernel__5__desc[] = {
 	0,
 	(ADDRESS)&Kernel__desc,
 	0<<8 | 0x12,
-	6
+	10
 };
 export ADDRESS Kernel__6__desc[] = {
 	0,
@@ -1502,18 +1508,18 @@ export ADDRESS Kernel__8__desc[] = {
 };
 static ADDRESS Kernel_Directory__rec__flds[] = {
 	2, 
-	0, 0, 166<<8 | 0x25, 6,
-	0, 4, 170<<8 | 0x25, (ADDRESS)Kernel__11__desc,
+	0, 0, 166<<8 | 0x25, 10,
+	0, 8, 170<<8 | 0x25, (ADDRESS)Kernel__11__desc,
 };
 export ADDRESS Kernel_Directory__rec__desc[] = {
 	-1, 
-	16004,
+	32008,
 	(ADDRESS)&Kernel__desc,
 	174<<8 | 0x01,
 	0,
 	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
 	(ADDRESS)Kernel_Directory__rec__flds, 
-	-4
+	-8
 };
 export ADDRESS Kernel_Directory__desc[] = {
 	0,
@@ -1529,22 +1535,22 @@ export ADDRESS Kernel_Utf8Name__desc[] = {
 };
 static ADDRESS Kernel_Type__rec__flds[] = {
 	6, 
-	0, 0, 204<<8 | 0x25, 6,
-	0, 4, 209<<8 | 0x25, 13,
-	0, 8, 213<<8 | 0x25, 6,
-	0, 12, 216<<8 | 0x25, (ADDRESS)Kernel__9__desc,
-	0, 76, 221<<8 | 0x25, 13,
-	0, 80, 228<<8 | 0x25, (ADDRESS)Kernel__10__desc,
+	0, 0, 204<<8 | 0x25, 10,
+	0, 8, 209<<8 | 0x25, 13,
+	0, 16, 213<<8 | 0x25, 10,
+	0, 24, 216<<8 | 0x25, (ADDRESS)Kernel__9__desc,
+	0, 152, 221<<8 | 0x25, 13,
+	0, 160, 228<<8 | 0x25, (ADDRESS)Kernel__10__desc,
 };
 export ADDRESS Kernel_Type__rec__desc[] = {
 	-1, 
-	4080,
+	8160,
 	(ADDRESS)&Kernel__desc,
 	236<<8 | 0x01,
 	0,
 	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
 	(ADDRESS)Kernel_Type__rec__flds, 
-	-4
+	-8
 };
 export ADDRESS Kernel_Type__desc[] = {
 	0,
@@ -1562,24 +1568,24 @@ export ADDRESS Kernel__10__desc[] = {
 	1000,
 	(ADDRESS)&Kernel__desc,
 	0<<8 | 0x02,
-	6
+	10
 };
 static ADDRESS Kernel_ObjDesc__flds[] = {
 	4, 
 	0, 0, 247<<8 | 0x25, 6,
-	0, 4, 254<<8 | 0x25, 6,
-	0, 8, 213<<8 | 0x25, 6,
-	0, 12, 259<<8 | 0x25, 13,
+	0, 8, 254<<8 | 0x25, 10,
+	0, 16, 213<<8 | 0x25, 6,
+	0, 24, 259<<8 | 0x25, 13,
 };
 export ADDRESS Kernel_ObjDesc__desc[] = {
 	-1, 
-	16,
+	32,
 	(ADDRESS)&Kernel__desc,
 	266<<8 | 0x01,
 	0,
 	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
 	(ADDRESS)Kernel_ObjDesc__flds, 
-	-4
+	-8
 };
 export ADDRESS Kernel__11__desc[] = {
 	1000,
@@ -1599,7 +1605,7 @@ export ADDRESS Kernel_Hook__rec__desc[] = {
 	(ADDRESS)(Kernel_Hook__rec__desc + 2),
 	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
 	(ADDRESS)Kernel_Hook__rec__flds, 
-	-4
+	-8
 };
 static ADDRESS Kernel_LoaderHook__rec__flds[] = {
 	4, 
@@ -1619,7 +1625,7 @@ export ADDRESS Kernel_LoaderHook__rec__desc[] = {
 	(ADDRESS)(Kernel_LoaderHook__rec__desc + 3),
 	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
 	(ADDRESS)Kernel_LoaderHook__rec__flds, 
-	-4
+	-8
 };
 export ADDRESS Kernel__12__desc[] = {
 	256,
@@ -1635,13 +1641,13 @@ export ADDRESS Kernel_Reducer__rec__desc[] = {
 	-1, 
 	0, 
 	0, 
-	4,
+	8,
 	(ADDRESS)&Kernel__desc,
 	322<<8 | 0x0d,
 	(ADDRESS)(Kernel_Reducer__rec__desc + 3),
 	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
 	(ADDRESS)Kernel_Reducer__rec__flds, 
-	0, -8
+	0, -16
 };
 export ADDRESS Kernel_Reducer__desc[] = {
 	0,
@@ -1651,53 +1657,53 @@ export ADDRESS Kernel_Reducer__desc[] = {
 };
 static ADDRESS Kernel_Identifier__flds[] = {
 	2, 
-	0, 0, 339<<8 | 0x45, 6,
-	0, 4, 170<<8 | 0x25, 12,
+	0, 0, 339<<8 | 0x45, 10,
+	0, 8, 170<<8 | 0x25, 12,
 };
 export ADDRESS Kernel_Identifier__desc[] = {
 	-1, 
 	0, 
 	0, 
-	8,
+	16,
 	(ADDRESS)&Kernel__desc,
 	343<<8 | 0x0d,
 	(ADDRESS)(Kernel_Identifier__desc + 3),
 	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
 	(ADDRESS)Kernel_Identifier__flds, 
-	4, -8
+	8, -16
 };
 static ADDRESS Kernel_Block__rec__flds[] = {
 	4, 
 	0, 0, 354<<8 | 0x15, 13,
-	0, 4, 358<<8 | 0x15, 6,
-	0, 8, 363<<8 | 0x15, 6,
-	0, 12, 370<<8 | 0x15, 6,
+	0, 8, 358<<8 | 0x15, 10,
+	0, 16, 363<<8 | 0x15, 10,
+	0, 24, 370<<8 | 0x15, 10,
 };
 export ADDRESS Kernel_Block__rec__desc[] = {
 	-1, 
-	16,
+	32,
 	(ADDRESS)&Kernel__desc,
 	376<<8 | 0x01,
 	0,
 	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
 	(ADDRESS)Kernel_Block__rec__flds, 
-	-4
+	-8
 };
 static ADDRESS Kernel_FreeDesc__flds[] = {
 	3, 
 	0, 0, 354<<8 | 0x15, 13,
-	0, 4, 204<<8 | 0x15, 6,
-	0, 8, 1<<8 | 0x15, 13,
+	0, 8, 204<<8 | 0x15, 10,
+	0, 16, 1<<8 | 0x15, 13,
 };
 export ADDRESS Kernel_FreeDesc__desc[] = {
 	-1, 
-	12,
+	24,
 	(ADDRESS)&Kernel__desc,
 	383<<8 | 0x01,
 	0,
 	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
 	(ADDRESS)Kernel_FreeDesc__flds, 
-	-4
+	-8
 };
 export ADDRESS Kernel_FreeBlock__desc[] = {
 	0,
@@ -1707,19 +1713,19 @@ export ADDRESS Kernel_FreeBlock__desc[] = {
 };
 static ADDRESS Kernel_Cluster__rec__flds[] = {
 	3, 
-	0, 0, 204<<8 | 0x15, 6,
-	0, 4, 1<<8 | 0x15, 13,
-	0, 8, 402<<8 | 0x15, 6,
+	0, 0, 204<<8 | 0x15, 10,
+	0, 8, 1<<8 | 0x15, 13,
+	0, 16, 402<<8 | 0x15, 10,
 };
 export ADDRESS Kernel_Cluster__rec__desc[] = {
 	-1, 
-	12,
+	24,
 	(ADDRESS)&Kernel__desc,
 	406<<8 | 0x01,
 	0,
 	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
 	(ADDRESS)Kernel_Cluster__rec__flds, 
-	-4
+	-8
 };
 export ADDRESS Kernel_Cluster__desc[] = {
 	0,
@@ -1730,20 +1736,20 @@ export ADDRESS Kernel_Cluster__desc[] = {
 static ADDRESS Kernel_FList__rec__flds[] = {
 	4, 
 	0, 0, 1<<8 | 0x15, (ADDRESS)Kernel_FList__desc,
-	0, 4, 423<<8 | 0x15, 13,
-	0, 8, 427<<8 | 0x15, 1,
-	0, 9, 432<<8 | 0x15, 1,
+	0, 8, 423<<8 | 0x15, 13,
+	0, 16, 427<<8 | 0x15, 1,
+	0, 17, 432<<8 | 0x15, 1,
 };
 export ADDRESS Kernel_FList__rec__desc[] = {
 	-1, 
 	0, 
-	12,
+	24,
 	(ADDRESS)&Kernel__desc,
 	438<<8 | 0x01,
 	(ADDRESS)(Kernel_FList__rec__desc + 2),
 	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
 	(ADDRESS)Kernel_FList__rec__flds, 
-	0, -8
+	0, -16
 };
 export ADDRESS Kernel_FList__desc[] = {
 	0,
@@ -1770,7 +1776,7 @@ export ADDRESS Kernel_PtrType__desc[] = {
 	(ADDRESS)(Kernel_PtrType__desc + 2),
 	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
 	(ADDRESS)Kernel_PtrType__flds, 
-	0, -8
+	0, -16
 };
 static ADDRESS Kernel_Char8Type__flds[] = {
 	1, 
@@ -1785,7 +1791,7 @@ export ADDRESS Kernel_Char8Type__desc[] = {
 	(ADDRESS)(Kernel_Char8Type__desc + 2),
 	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
 	(ADDRESS)Kernel_Char8Type__flds, 
-	-4
+	-8
 };
 static ADDRESS Kernel_Char16Type__flds[] = {
 	1, 
@@ -1800,7 +1806,7 @@ export ADDRESS Kernel_Char16Type__desc[] = {
 	(ADDRESS)(Kernel_Char16Type__desc + 2),
 	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
 	(ADDRESS)Kernel_Char16Type__flds, 
-	-4
+	-8
 };
 static ADDRESS Kernel_Int8Type__flds[] = {
 	1, 
@@ -1815,7 +1821,7 @@ export ADDRESS Kernel_Int8Type__desc[] = {
 	(ADDRESS)(Kernel_Int8Type__desc + 2),
 	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
 	(ADDRESS)Kernel_Int8Type__flds, 
-	-4
+	-8
 };
 static ADDRESS Kernel_Int16Type__flds[] = {
 	1, 
@@ -1830,7 +1836,7 @@ export ADDRESS Kernel_Int16Type__desc[] = {
 	(ADDRESS)(Kernel_Int16Type__desc + 2),
 	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
 	(ADDRESS)Kernel_Int16Type__flds, 
-	-4
+	-8
 };
 static ADDRESS Kernel_Int32Type__flds[] = {
 	1, 
@@ -1845,7 +1851,7 @@ export ADDRESS Kernel_Int32Type__desc[] = {
 	(ADDRESS)(Kernel_Int32Type__desc + 2),
 	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
 	(ADDRESS)Kernel_Int32Type__flds, 
-	-4
+	-8
 };
 static ADDRESS Kernel_Int64Type__flds[] = {
 	1, 
@@ -1860,7 +1866,7 @@ export ADDRESS Kernel_Int64Type__desc[] = {
 	(ADDRESS)(Kernel_Int64Type__desc + 2),
 	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
 	(ADDRESS)Kernel_Int64Type__flds, 
-	-4
+	-8
 };
 static ADDRESS Kernel_BoolType__flds[] = {
 	1, 
@@ -1875,7 +1881,7 @@ export ADDRESS Kernel_BoolType__desc[] = {
 	(ADDRESS)(Kernel_BoolType__desc + 2),
 	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
 	(ADDRESS)Kernel_BoolType__flds, 
-	-4
+	-8
 };
 static ADDRESS Kernel_SetType__flds[] = {
 	1, 
@@ -1890,7 +1896,7 @@ export ADDRESS Kernel_SetType__desc[] = {
 	(ADDRESS)(Kernel_SetType__desc + 2),
 	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
 	(ADDRESS)Kernel_SetType__flds, 
-	-4
+	-8
 };
 static ADDRESS Kernel_Real32Type__flds[] = {
 	1, 
@@ -1905,7 +1911,7 @@ export ADDRESS Kernel_Real32Type__desc[] = {
 	(ADDRESS)(Kernel_Real32Type__desc + 2),
 	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
 	(ADDRESS)Kernel_Real32Type__flds, 
-	-4
+	-8
 };
 static ADDRESS Kernel_Real64Type__flds[] = {
 	1, 
@@ -1920,7 +1926,7 @@ export ADDRESS Kernel_Real64Type__desc[] = {
 	(ADDRESS)(Kernel_Real64Type__desc + 2),
 	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
 	(ADDRESS)Kernel_Real64Type__flds, 
-	-4
+	-8
 };
 static ADDRESS Kernel_ProcType__flds[] = {
 	1, 
@@ -1929,13 +1935,13 @@ static ADDRESS Kernel_ProcType__flds[] = {
 export ADDRESS Kernel_ProcType__desc[] = {
 	-1, 
 	0, 
-	4,
+	8,
 	(ADDRESS)&Kernel__desc,
 	566<<8 | 0x01,
 	(ADDRESS)(Kernel_ProcType__desc + 2),
 	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
 	(ADDRESS)Kernel_ProcType__flds, 
-	-4
+	-8
 };
 export ADDRESS Kernel__20__desc[] = {
 	1477768406,
@@ -1955,23 +1961,23 @@ export ADDRESS Kernel_UPtrType__desc[] = {
 	(ADDRESS)(Kernel_UPtrType__desc + 2),
 	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
 	(ADDRESS)Kernel_UPtrType__flds, 
-	-4
+	-8
 };
 static ADDRESS Kernel_AddrRange__flds[] = {
 	2, 
-	0, 0, 584<<8 | 0x15, 6,
-	0, 4, 591<<8 | 0x15, 6,
+	0, 0, 584<<8 | 0x15, 10,
+	0, 8, 591<<8 | 0x15, 10,
 };
 export ADDRESS Kernel_AddrRange__desc[] = {
 	-1, 
 	0, 
-	8,
+	16,
 	(ADDRESS)&Kernel__desc,
 	597<<8 | 0x01,
 	(ADDRESS)(Kernel_AddrRange__desc + 2),
 	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
 	(ADDRESS)Kernel_AddrRange__flds, 
-	-4
+	-8
 };
 export ADDRESS Kernel__1__desc[] = {
 	0,
@@ -2025,26 +2031,26 @@ static SYSTEM_MODDESC *Kernel__imp[] = {
 };
 static ADDRESS Kernel__exp[] = {
 	71, 
-	0x7e3f9b47, 0xa9415040, 597<<8 | 0x12, (ADDRESS)(Kernel_AddrRange__desc + 2),
-	0x779e2200, (ADDRESS)Kernel_Allocated, 649<<8 | 0x44, 0,
+	0x7e3f9b47, 0x5e5bcc2d, 597<<8 | 0x12, (ADDRESS)(Kernel_AddrRange__desc + 2),
+	0x288b8fac, (ADDRESS)Kernel_Allocated, 649<<8 | 0x44, 0,
 	0x7e2b5e91, 0x7e2b5e91, 615<<8 | 0x42, (ADDRESS)Kernel_Argv__desc,
-	0x12ac22be, 0x1b8f6bee, 376<<8 | 0x12, 0,
+	0x12ac22be, 0x49eaf49e, 376<<8 | 0x12, 0,
 	0x53241eea, 0xa60ba57c, 527<<8 | 0x12, (ADDRESS)(Kernel_BoolType__desc + 2),
 	0x7f872f78, 0x36577564, 477<<8 | 0x12, (ADDRESS)(Kernel_Char16Type__desc + 2),
 	0x3f73eff6, 0x27113341, 467<<8 | 0x12, (ADDRESS)(Kernel_Char8Type__desc + 2),
 	0x5814f4d6, (ADDRESS)Kernel_Cleanup, 659<<8 | 0x44, 0,
-	0xb3c62b2c, 0xb8f34fd5, 406<<8 | 0x12, 0,
+	0xb3c62b2c, 0x4d0fd881, 406<<8 | 0x12, 0,
 	0x5814f4d6, (ADDRESS)Kernel_Collect, 667<<8 | 0x44, 0,
 	0x8a1a3627, 0x8a1a3627, 158<<8 | 0x42, (ADDRESS)Kernel_Command__desc,
 	0x66ab5d9c, 0x66ab5d9c, 185<<8 | 0x42, 13,
-	0x7e65311e, 0x9badea15, 174<<8 | 0x12, 0,
-	0xa905014a, 0x58fd60a7, 438<<8 | 0x12, (ADDRESS)(Kernel_FList__rec__desc + 2),
+	0xf495f38a, 0x090b4ccd, 174<<8 | 0x12, 0,
+	0xa905014a, 0x91645021, 438<<8 | 0x12, (ADDRESS)(Kernel_FList__rec__desc + 2),
 	0x5814f4d6, (ADDRESS)Kernel_FastCollect, 675<<8 | 0x44, 0,
-	0x286ce031, 0x89306cce, 383<<8 | 0x12, 0,
+	0x286ce031, 0x068331ee, 383<<8 | 0x12, 0,
 	0xaa011608, 0xaa011608, 620<<8 | 0x42, (ADDRESS)Kernel_Handler__desc,
 	0x8e696a26, 0x8e696a26, 628<<8 | 0x42, (ADDRESS)Kernel_Hook__desc,
 	0xac8caf49, 0x0eb0c70a, 274<<8 | 0x12, (ADDRESS)(Kernel_Hook__rec__desc + 2),
-	0x03a3c9c9, 0x157e20bb, 343<<8 | 0x42, (ADDRESS)(Kernel_Identifier__desc + 3),
+	0x77a1059d, 0xa6932794, 343<<8 | 0x42, (ADDRESS)(Kernel_Identifier__desc + 3),
 	0xe18b010e, (ADDRESS)Kernel_InstallTrapViewer, 687<<8 | 0x44, 0,
 	0xb28850ce, 0xb33b2df0, 497<<8 | 0x12, (ADDRESS)(Kernel_Int16Type__desc + 2),
 	0x6734fff0, 0xacd2b103, 507<<8 | 0x12, (ADDRESS)(Kernel_Int32Type__desc + 2),
@@ -2053,32 +2059,32 @@ static ADDRESS Kernel__exp[] = {
 	0x143ec369, (ADDRESS)Kernel_LoadMod, 705<<8 | 0x44, 0,
 	0xc4a3a4bd, 0xc4a3a4bd, 633<<8 | 0x42, (ADDRESS)Kernel_LoaderHook__desc,
 	0xe57bd156, 0xdc3b2ed3, 310<<8 | 0x12, (ADDRESS)(Kernel_LoaderHook__rec__desc + 3),
-	0x2e96a04d, (ADDRESS)Kernel_Main, 713<<8 | 0x44, 0,
+	0x573dc0f2, (ADDRESS)Kernel_Main, 713<<8 | 0x44, 0,
 	0xd95d10d4, 0xd95d10d4, 151<<8 | 0x42, 13,
-	0x08304b6c, 0xc46060a5, 143<<8 | 0x12, 0,
+	0x97b08761, 0x4db718d0, 143<<8 | 0x12, 0,
 	0x2a8133b6, 0x2a8133b6, 644<<8 | 0x42, (ADDRESS)Kernel_Name__desc,
-	0x76068c78, (ADDRESS)Kernel_NewArr, 718<<8 | 0x44, 0,
-	0x4e27a847, (ADDRESS)Kernel_NewRec, 725<<8 | 0x44, 0,
-	0xa2646fa4, 0x4bc1d4f4, 266<<8 | 0x42, 0,
+	0x8603e552, (ADDRESS)Kernel_NewArr, 718<<8 | 0x44, 0,
+	0xcc369177, (ADDRESS)Kernel_NewRec, 725<<8 | 0x44, 0,
+	0xdafcf6b5, 0x1189d84e, 266<<8 | 0x42, 0,
 	0x9fc66595, 0x9fc66595, 607<<8 | 0x42, 13,
-	0xa5e8a12e, 0x85389aca, 566<<8 | 0x12, (ADDRESS)(Kernel_ProcType__desc + 2),
+	0xa5e8a12e, 0x905a4bb6, 566<<8 | 0x12, (ADDRESS)(Kernel_ProcType__desc + 2),
 	0xde12be39, 0xca5da1fa, 459<<8 | 0x12, (ADDRESS)(Kernel_PtrType__desc + 2),
 	0xeae177c7, 0xd9df2f97, 544<<8 | 0x12, (ADDRESS)(Kernel_Real32Type__desc + 2),
 	0x6420c9c1, 0x62493b16, 555<<8 | 0x12, (ADDRESS)(Kernel_Real64Type__desc + 2),
 	0x93949e0f, 0x93949e0f, 331<<8 | 0x42, (ADDRESS)Kernel_Reducer__desc,
-	0x1eeb84c7, 0x0afffa11, 322<<8 | 0x12, (ADDRESS)(Kernel_Reducer__rec__desc + 3),
-	0x779e2200, (ADDRESS)Kernel_Root, 732<<8 | 0x44, 0,
+	0x1eeb84c7, 0xc7c681b6, 322<<8 | 0x12, (ADDRESS)(Kernel_Reducer__rec__desc + 3),
+	0x288b8fac, (ADDRESS)Kernel_Root, 732<<8 | 0x44, 0,
 	0x8ff1aca5, (ADDRESS)Kernel_SetLoaderHook, 737<<8 | 0x44, 0,
-	0x4e27a847, (ADDRESS)Kernel_SetModList, 751<<8 | 0x44, 0,
+	0xcc369177, (ADDRESS)Kernel_SetModList, 751<<8 | 0x44, 0,
 	0x58d91840, 0xff4ed3cb, 536<<8 | 0x12, (ADDRESS)(Kernel_SetType__desc + 2),
 	0x3985febe, (ADDRESS)Kernel_ThisFinObj, 762<<8 | 0x44, 0,
 	0xada625a8, (ADDRESS)Kernel_ThisLoadedMod, 773<<8 | 0x44, 0,
 	0xada625a8, (ADDRESS)Kernel_ThisMod, 787<<8 | 0x44, 0,
-	0x779e2200, (ADDRESS)Kernel_Total, 795<<8 | 0x44, 0,
+	0x288b8fac, (ADDRESS)Kernel_Total, 795<<8 | 0x44, 0,
 	0x4bf97443, 0x4bf97443, 242<<8 | 0x42, 13,
-	0x281603d7, 0x88c7bc14, 236<<8 | 0x12, 0,
+	0xa866953e, 0x68328f8b, 236<<8 | 0x12, 0,
 	0x68a9b79a, 0x7031ab41, 575<<8 | 0x12, (ADDRESS)(Kernel_UPtrType__desc + 2),
-	0x779e2200, (ADDRESS)Kernel_Used, 801<<8 | 0x44, 0,
+	0x288b8fac, (ADDRESS)Kernel_Used, 801<<8 | 0x44, 0,
 	0x4e58a11d, 0x4e58a11d, 195<<8 | 0x42, (ADDRESS)Kernel_Utf8Name__desc,
 	0x8cff8310, (ADDRESS)&Kernel_argC, 806<<8 | 0x23, 6,
 	0x4b7ee5a0, (ADDRESS)&Kernel_argV, 811<<8 | 0x23, (ADDRESS)Kernel_Argv__desc,
@@ -2232,7 +2238,7 @@ static ADDRESS Kernel__ptrs[] = {
 };
 struct SYSTEM_MODDESC Kernel__desc = {
 	0, 13, 0, /* next, opts, refcnt */ 
-	{2019, 10, 8, 13, 47, 53}, /* compTime */ 
+	{2019, 10, 8, 13, 46, 37}, /* compTime */ 
 	{0, 0, 0, 0, 0, 0}, /* loadTime */ 
 	Kernel__body,
 	0,

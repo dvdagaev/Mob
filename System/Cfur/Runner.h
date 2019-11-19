@@ -62,7 +62,7 @@ import SYSTEM_TYPEDESC *Runner_RunProc__typ;
 import ADDRESS Runner__1__desc[];
 import SYSTEM_TYPEDESC *Runner__1__typ;
 
-import INTEGER Runner_EntryPoint (INTEGER *argv, INTEGER argv__len, INTEGER pargc, INTEGER p_reg, INTEGER \
+import INTEGER Runner_EntryPoint (LONGINT *argv, INTEGER argv__len, LONGINT pargc, LONGINT p_reg, LONGINT \
 p_body);
 import void Runner_Execute (SHORTCHAR *command, INTEGER command__len, SHORTCHAR *out, INTEGER out__len, \
 INTEGER *result);

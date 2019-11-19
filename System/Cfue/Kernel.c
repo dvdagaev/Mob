@@ -625,8 +625,8 @@ static void Kernel_GrowHeapMem (INTEGER size, Kernel_Cluster *c)
 	__ASSERT(size >= (*c)->size, 110);
 	if (size <= (*c)->max) {
 		s = __ASHL(__ASHR(size + 262143, 18, INTEGER), 18, INTEGER);
-		adr = Api_VirtualAlloc((INTEGER)*c, s, 0x1000, 0x40);
-		if (adr != 0) {
+		adr = Api_mprotect((INTEGER)*c, s, 0x03);
+		if (adr == 0) {
 			Kernel_nUsed += s - (*c)->size;
 			Kernel_nTotal += s - (*c)->size;
 			(*c)->size = s;
@@ -644,17 +644,19 @@ static void Kernel_AllocHeapMem (INTEGER size, Kernel_Cluster *c)
 		__ASSERT(size > 0, 110);
 		adr = 0;
 		if (size < 65536) {
-			adr = Api_HeapAlloc(Kernel_hHeap, 0x09, 65536);
+			adr = Api_calloc(1, 65536);
 		}
 		if (adr == 0) {
-			adr = Api_HeapAlloc(Kernel_hHeap, 0x09, size);
+			adr = Api_calloc(1, size);
+		} else {
+			size = 65536;
 		}
 		if (adr == 0) {
 			*c = NIL;
 		} else {
 			*c = (Kernel_Cluster)__ASHL(__ASHR(adr + 15, 4, INTEGER), 4, INTEGER);
 			(*c)->max = adr;
-			(*c)->size = Api_HeapSize(Kernel_hHeap, 0x01, adr) - ((INTEGER)*c - adr);
+			(*c)->size = size - ((INTEGER)*c - adr);
 			Kernel_nUsed += (*c)->size;
 			Kernel_nTotal += (*c)->size;
 		}
@@ -662,16 +664,18 @@ static void Kernel_AllocHeapMem (INTEGER size, Kernel_Cluster *c)
 		adr = 0;
 		s = 1610612736;
 		do {
-			adr = Api_VirtualAlloc(16777216, s, 0x2000, 0x40);
+			adr = Api_mmap(16777216, s, 0x0, 0x22, -1, 0L);
 			if (adr == 0) {
-				adr = Api_VirtualAlloc(0, s, 0x2000, 0x40);
+				adr = Api_mmap(0, s, 0x0, 0x22, -1, 0L);
 			}
 			s = __ASHR(s, 1, INTEGER);
 		} while (!(adr != 0 || s == 0));
 		if (adr == 0) {
 			*c = NIL;
 		} else {
-			adr = Api_VirtualAlloc(adr, 1024, 0x1000, 0x40);
+			if (Api_mprotect(adr, 1024, 0x03) < 0) {
+				adr = 0;
+			}
 			__ASSERT(adr != 0, 111);
 			*c = (Kernel_Cluster)adr;
 			(*c)->max = __ASHL(s, 1, INTEGER);
@@ -693,20 +697,16 @@ static void Kernel_FreeHeapMem (Kernel_Cluster c)
 	Kernel_nUsed -= c->size;
 	Kernel_nTotal -= c->size;
 	if (Kernel_dllMem) {
-		res = Api_HeapFree(Kernel_hHeap, 0x01, c->max);
+		Api_free((void*)c);
 	}
 	__EXIT;
 }
 
 static _BOOLEAN Kernel_HeapFull (INTEGER size)
 {
-	Api_MEMORYSTATUS ms;
 	__ENTER("Kernel.HeapFull");
-	ms.dwLength = sizeof (Api_MEMORYSTATUS);
-	ms.dwMemoryLoad = -1;
-	Api_GlobalMemoryStatus(&ms);
 	__EXIT;
-	return Kernel_nUsed + size > ms.dwTotalPhys;
+	return Kernel_nUsed + size > 4000000;
 }
 
 static void Kernel_Mark (Kernel_Block this)
@@ -1375,7 +1375,6 @@ static void Kernel_Initialize (void)
 		Kernel_freeArr[__X(i, 8)] = Kernel_pSentinel;
 	} while (!(i == 0));
 	if (Kernel_dllMem) {
-		Kernel_hHeap = Api_GetProcessHeap();
 		Kernel_cRoot = NIL;
 	} else {
 		Kernel_AllocHeapMem(1, &Kernel_cRoot);
@@ -2232,7 +2231,7 @@ static ADDRESS Kernel__ptrs[] = {
 };
 struct SYSTEM_MODDESC Kernel__desc = {
 	0, 13, 0, /* next, opts, refcnt */ 
-	{2019, 10, 8, 13, 47, 53}, /* compTime */ 
+	{2019, 10, 8, 13, 43, 18}, /* compTime */ 
 	{0, 0, 0, 0, 0, 0}, /* loadTime */ 
 	Kernel__body,
 	0,

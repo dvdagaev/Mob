@@ -8,6 +8,12 @@ dwAvailVirtual;
 	} Api_MEMORYSTATUS;
 
 typedef
+	INTEGER Api_PtrFILE;
+
+typedef
+	SHORTCHAR *Api_PtrSTR;
+
+typedef
 	void (*Api_SignalHandler)(INTEGER);
 
 typedef
@@ -17,6 +23,8 @@ typedef
 
 export ADDRESS Api_MEMORYSTATUS__desc[];
 export SYSTEM_TYPEDESC *Api_MEMORYSTATUS__typ = (SYSTEM_TYPEDESC*)(Api_MEMORYSTATUS__desc + 1);
+export ADDRESS Api_PtrSTR__desc[];
+export SYSTEM_TYPEDESC *Api_PtrSTR__typ = (SYSTEM_TYPEDESC*)Api_PtrSTR__desc;
 export ADDRESS Api_SignalHandler__desc[];
 export SYSTEM_TYPEDESC *Api_SignalHandler__typ = (SYSTEM_TYPEDESC*)Api_SignalHandler__desc;
 export ADDRESS Api_String__desc[];
@@ -66,45 +74,59 @@ export ADDRESS Api_MEMORYSTATUS__desc[] = {
 	(ADDRESS)Api_MEMORYSTATUS__flds, 
 	-4
 };
+export ADDRESS Api__1__desc[] = {
+	0,
+	(ADDRESS)&Api__desc,
+	0<<8 | 0x12,
+	2
+};
+export ADDRESS Api_PtrSTR__desc[] = {
+	0,
+	(ADDRESS)&Api__desc,
+	122<<8 | 0x03,
+	0
+};
 export ADDRESS Api_SignalHandler__desc[] = {
 	547742217,
 	(ADDRESS)&Api__desc,
-	122<<8 | 0x00,
+	129<<8 | 0x00,
 0};
 export ADDRESS Api_String__desc[] = {
 	0,
 	(ADDRESS)&Api__desc,
-	136<<8 | 0x12,
+	143<<8 | 0x12,
 	2
 };
 static SYSTEM_MODDESC *Api__imp[] = {
 	0
 };
 static ADDRESS Api__exp[] = {
-	23, 
-	0xc9fdab21, 0, 143<<8 | 0x41, 0,
-	0x90c16c4d, 0, 149<<8 | 0x41, 0,
-	0xdf46c664, 0, 170<<8 | 0x41, 0,
-	0x51876a2c, 0, 189<<8 | 0x41, 0,
-	0xa8149c1a, 0, 204<<8 | 0x41, 0,
-	0x564d045a, 0, 223<<8 | 0x41, 0,
-	0x5b0e2283, 0, 241<<8 | 0x41, 0,
-	0xc6b5dce7, 0, 258<<8 | 0x41, 0,
-	0xc525c28c, 0, 268<<8 | 0x41, 0,
-	0xbb7f0e01, 0, 277<<8 | 0x41, 0,
-	0x9753c83f, 0, 286<<8 | 0x41, 0,
-	0xa55e6bb7, 0, 295<<8 | 0x41, 0,
+	25, 
+	0xc9fdab21, 0, 150<<8 | 0x41, 0,
+	0x90c16c4d, 0, 156<<8 | 0x41, 0,
+	0xdf46c664, 0, 177<<8 | 0x41, 0,
+	0x51876a2c, 0, 196<<8 | 0x41, 0,
+	0xa8149c1a, 0, 211<<8 | 0x41, 0,
+	0x564d045a, 0, 230<<8 | 0x41, 0,
+	0x5b0e2283, 0, 248<<8 | 0x41, 0,
+	0xc6b5dce7, 0, 265<<8 | 0x41, 0,
+	0xc525c28c, 0, 275<<8 | 0x41, 0,
+	0xbb7f0e01, 0, 284<<8 | 0x41, 0,
+	0x9753c83f, 0, 293<<8 | 0x41, 0,
+	0xa55e6bb7, 0, 302<<8 | 0x41, 0,
 	0xddcadcf3, 0x8764f2ee, 109<<8 | 0x42, 0,
-	0x63419f3e, 0, 301<<8 | 0x41, 0,
-	0x67808289, 0, 312<<8 | 0x41, 0,
-	0xa6c1cc9a, 0, 324<<8 | 0x41, 0,
-	0x4ccb49e8, 0, 331<<8 | 0x41, 0,
-	0x7f1788dd, 0, 354<<8 | 0x41, 0,
-	0x5e1322d0, 0x5e1322d0, 122<<8 | 0x42, (ADDRESS)Api_SignalHandler__desc,
-	0x7180caab, 0x7180caab, 136<<8 | 0x42, 0,
-	0xda93337b, 0, 364<<8 | 0x41, 0,
-	0x464f90f3, 0, 377<<8 | 0x41, 0,
-	0x609620e6, 0, 382<<8 | 0x41, 0,
+	0x63419f3e, 0, 308<<8 | 0x41, 0,
+	0x67808289, 0, 319<<8 | 0x41, 0,
+	0xa6c1cc9a, 0, 331<<8 | 0x41, 0,
+	0x4ccb49e8, 0, 338<<8 | 0x41, 0,
+	0x00000006, 0x00000006, 361<<8 | 0x42, 6,
+	0x0ab5a3fa, 0x0ab5a3fa, 122<<8 | 0x42, 13,
+	0x7f1788dd, 0, 369<<8 | 0x41, 0,
+	0x5e1322d0, 0x5e1322d0, 129<<8 | 0x42, (ADDRESS)Api_SignalHandler__desc,
+	0x7180caab, 0x7180caab, 143<<8 | 0x42, 0,
+	0xda93337b, 0, 379<<8 | 0x41, 0,
+	0x464f90f3, 0, 392<<8 | 0x41, 0,
+	0x609620e6, 0, 397<<8 | 0x41, 0,
 };
 static char Api__names[] = {
 	0,
@@ -117,6 +139,7 @@ static char Api__names[] = {
 	'd','w','T','o','t','a','l','V','i','r','t','u','a','l',0,
 	'd','w','A','v','a','i','l','V','i','r','t','u','a','l',0,
 	'M','E','M','O','R','Y','S','T','A','T','U','S',0,
+	'P','t','r','S','T','R',0,
 	'S','i','g','n','a','l','H','a','n','d','l','e','r',0,
 	'S','t','r','i','n','g',0,
 	'F','r','E','x','p',0,
@@ -135,6 +158,7 @@ static char Api__names[] = {
 	'M','E','M','_','R','E','S','E','R','V','E',0,
 	'M','e','m','s','e','t',0,
 	'P','A','G','E','_','E','X','E','C','U','T','E','_','R','E','A','D','W','R','I','T','E',0,
+	'P','t','r','F','I','L','E',0,
 	'R','e','a','l','P','o','w','e','r',0,
 	'V','i','r','t','u','a','l','A','l','l','o','c',0,
 	'e','x','i','t',0,
@@ -145,7 +169,7 @@ static ADDRESS Api__ptrs[] = {
 };
 struct SYSTEM_MODDESC Api__desc = {
 	0, 13, 0, /* next, opts, refcnt */ 
-	{2019, 7, 17, 16, 45, 58}, /* compTime */ 
+	{2019, 11, 14, 14, 12, 29}, /* compTime */ 
 	{0, 0, 0, 0, 0, 0}, /* loadTime */ 
 	Api__body,
 	0,

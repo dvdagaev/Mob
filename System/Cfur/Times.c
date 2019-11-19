@@ -343,7 +343,7 @@ export ADDRESS Times_SystemTime__desc[] = {
 	(ADDRESS)(Times_SystemTime__desc + 2),
 	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
 	(ADDRESS)Times_SystemTime__flds, 
-	-4
+	-8
 };
 static ADDRESS Times_Hook__rec__flds[] = {
 	0, 
@@ -364,7 +364,7 @@ export ADDRESS Times_Hook__rec__desc[] = {
 	(ADDRESS)(Times_Hook__rec__desc + 9),
 	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
 	(ADDRESS)Times_Hook__rec__flds, 
-	-4
+	-8
 };
 export ADDRESS Times_Hook__desc[] = {
 	0,
@@ -488,7 +488,7 @@ static ADDRESS Times__ptrs[] = {
 };
 struct SYSTEM_MODDESC Times__desc = {
 	0, 13, 0, /* next, opts, refcnt */ 
-	{2019, 10, 8, 13, 47, 53}, /* compTime */ 
+	{2019, 10, 8, 13, 46, 37}, /* compTime */ 
 	{0, 0, 0, 0, 0, 0}, /* loadTime */ 
 	Times__body,
 	0,

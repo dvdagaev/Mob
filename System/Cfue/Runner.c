@@ -106,7 +106,7 @@ void Runner_PrintVars (void)
 	(*OLog_String)((_CHAR*)L" runtime=", 10);
 	(*OLog_String)((_CHAR*)L"OMF", 4);
 	(*OLog_String)((_CHAR*)L" os=", 5);
-	(*OLog_String)((_CHAR*)L"Windows", 8);
+	(*OLog_String)((_CHAR*)L"Unix", 5);
 	(*OLog_String)((_CHAR*)L" bits=", 7);
 	(*OLog_Int)(32L);
 	(*OLog_String)((_CHAR*)L" kernel=", 9);
@@ -432,36 +432,12 @@ static void Runner_Initialize (void)
 		h = Api_signal(j, Runner_TrapSignalHandler);
 		j += 1;
 	}
-	j = Api_GetModuleFileNameA(0, (void*)str, 260);
-	j = 0;
-	while (str[__X(j, 260)] != 0) {
-		Runner_exeLocation[__X(j, 260)] = (_CHAR)str[__X(j, 260)];
-		Runner_exePathName[__X(j, 260)] = Runner_exeLocation[__X(j, 260)];
-		j += 1;
-	}
-	Runner_exePathName[__X(j, 260)] = 0;
-	while (((j > 0 && str[__X(j, 260)] != (SHORTCHAR)'\\') && str[__X(j, 260)] != (SHORTCHAR)'/') && str[__X(j, \
-260)] != (SHORTCHAR)':') {
-		j -= 1;
-	}
-	Runner_exeLocation[__X(j, 260)] = 0;
-	k = 0;
-	if (j > 0) {
-		j += 1;
-	}
-	while (str[__X(j, 260)] != 0 && str[__X(j, 260)] != (SHORTCHAR)'.') {
-		Runner_exeName[__X(k, 260)] = (_CHAR)str[__X(j, 260)];
-		k += 1;
-		j += 1;
-	}
-	Runner_exeName[__X(k, 260)] = 0;
-	j = Api_GetCurrentDirectoryA(260, str);
-	j = 0;
-	while (str[__X(j, 260)] != 0) {
-		Runner_currentDir[__X(j, 260)] = (_CHAR)str[__X(j, 260)];
-		j += 1;
-	}
-	Runner_currentDir[__X(j, 260)] = 0;
+	__STRCOPYSL(Kernel_argV[0], Runner_exeName, 260);
+	__MOVE(L".", Runner_exeLocation, 4);
+	__STRCOPYLL(Runner_exeLocation, Runner_exePathName, 260);
+	__STRAPNDLL(L"/", Runner_exePathName, 260);
+	__STRAPNDLL(Runner_exeName, Runner_exePathName, 260);
+	__MOVE(L".", Runner_currentDir, 4);
 	_for__8 = Kernel_argC - 1;
 	j = 0;
 	while (j <= _for__8) {
@@ -573,7 +549,7 @@ static ADDRESS Runner__exp[] = {
 	0x8454c586, 0, 218<<8 | 0x41, 0,
 	0x62cb742d, 0, 227<<8 | 0x41, 0,
 	0x1a43ea23, 0x1a43ea23, 22<<8 | 0x42, (ADDRESS)Runner_Name__desc,
-	0x92c145e7, 0, 236<<8 | 0x41, 0,
+	0xdfa8fccf, 0, 236<<8 | 0x41, 0,
 	0xaee14afa, 0x8e155502, 16<<8 | 0x42, (ADDRESS)(Runner_OpVal__desc + 2),
 	0xf5755a90, 0xf5755a90, 43<<8 | 0x42, (ADDRESS)Runner_OpVals__desc,
 	0x9750b35a, 0, 244<<8 | 0x41, 0,
@@ -656,7 +632,7 @@ static ADDRESS Runner__ptrs[] = {
 };
 struct SYSTEM_MODDESC Runner__desc = {
 	0, 13, 0, /* next, opts, refcnt */ 
-	{2019, 10, 8, 13, 47, 53}, /* compTime */ 
+	{2019, 10, 8, 13, 43, 18}, /* compTime */ 
 	{0, 0, 0, 0, 0, 0}, /* loadTime */ 
 	Runner__body,
 	0,

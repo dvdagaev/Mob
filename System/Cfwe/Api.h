@@ -12,6 +12,12 @@ dwAvailVirtual;
 	} Api_MEMORYSTATUS;
 
 typedef
+	INTEGER Api_PtrFILE;
+
+typedef
+	SHORTCHAR *Api_PtrSTR;
+
+typedef
 	void (*Api_SignalHandler)(INTEGER);
 
 typedef
@@ -21,6 +27,8 @@ typedef
 
 import ADDRESS Api_MEMORYSTATUS__desc[];
 import SYSTEM_TYPEDESC *Api_MEMORYSTATUS__typ;
+import ADDRESS Api_PtrSTR__desc[];
+import SYSTEM_TYPEDESC *Api_PtrSTR__typ;
 import ADDRESS Api_SignalHandler__desc[];
 import SYSTEM_TYPEDESC *Api_SignalHandler__typ;
 import ADDRESS Api_String__desc[];
