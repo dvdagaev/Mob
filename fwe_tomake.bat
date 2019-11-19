@@ -1,3 +1,4 @@
+Bfwe\omfsh co +HostConLog OmtestHelloWorld: OmtestFormats: OmtestDateTime: OmtestMkTraps: OmtestHeap: 
 cd System/Cfwe
 call tomake
 cd ../..
