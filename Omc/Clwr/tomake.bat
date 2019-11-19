@@ -1,3 +1,4 @@
+llc -march=x86-64 -filetype=obj OmcCfgfile.ll -o OmcCfgfile.o
 llc -march=x86-64 -filetype=obj OmcTarget.ll -o OmcTarget.o
 llc -march=x86-64 -filetype=obj OmcCRuntime.ll -o OmcCRuntime.o
 llc -march=x86-64 -filetype=obj OmcDialog.ll -o OmcDialog.o
