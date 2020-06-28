@@ -1,0 +1,20 @@
+llc -filetype=obj OmcCfgfile.ll -o OmcCfgfile.o
+llc -filetype=obj OmcTarget.ll -o OmcTarget.o
+llc -filetype=obj OmcCRuntime.ll -o OmcCRuntime.o
+llc -filetype=obj OmcDialog.ll -o OmcDialog.o
+llc -filetype=obj OmcHooks.ll -o OmcHooks.o
+llc -filetype=obj OmcTimesDialog.ll -o OmcTimesDialog.o
+llc -filetype=obj OmcOdcSource.ll -o OmcOdcSource.o
+llc -filetype=obj OmcDialogConsole.ll -o OmcDialogConsole.o
+llc -filetype=obj OmcRuntimeStd.ll -o OmcRuntimeStd.o
+llc -filetype=obj OmcOPM.ll -o OmcOPM.o
+llc -filetype=obj OmcOPT.ll -o OmcOPT.o
+llc -filetype=obj OmcOPB.ll -o OmcOPB.o
+llc -filetype=obj OmcOPU.ll -o OmcOPU.o
+llc -filetype=obj OmcOPS.ll -o OmcOPS.o
+llc -filetype=obj OmcOPP.ll -o OmcOPP.o
+llc -filetype=obj OmcParams.ll -o OmcParams.o
+llc -filetype=obj OmcConsole.ll -o OmcConsole.o
+llc -filetype=obj OmcDump.ll -o OmcDump.o
+llc -filetype=obj OmcShell.ll -o OmcShell.o
+ar rcs Omc.lib OmcCfgfile.o OmcTarget.o OmcCRuntime.o OmcDialog.o OmcHooks.o OmcOdcSource.o OmcTimesDialog.o OmcDialogConsole.o OmcRuntimeStd.o OmcOPM.o OmcOPT.o OmcOPB.o OmcOPU.o OmcOPS.o OmcOPP.o OmcParams.o OmcConsole.o OmcDump.o OmcShell.o

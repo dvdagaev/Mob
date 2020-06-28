@@ -1,0 +1,125 @@
+OnModule name=OmtestHelloWorld dll= $FALSE kern= $FALSE main= $FALSE intf= $FALSE opts= {} settings= {}
+AddForInstall HostConLog
+---------- ReadHeader OmtestHelloWorld
+File Header rc= 0 magic=7F ELF e_class= 1 =32bit= e_byte_order= 1 e_curversion= 1 e_os_abi=00 e_abi_version= 0 e_type=01 e_machine=03 e_version= 1
+.And. e_entry= 0 e_phoff= 0 e_shoff= 216400 e_flags= {} e_ehsize= 52 e_phentsize= 0 e_phnum= 0 e_shentsize= 40 e_shnum= 11 e_shstrndx= 1
+Symbol Entry #0 st_name= 0 uname= st_info= 0 st_type= 0 st_bind= 0 st_other= 0 st_shndx= 0 st_value= 0 st_size= 0
+Symbol Entry #1 st_name= 323 uname=OmtestHelloWorld st_info= 4 st_type= 4 st_bind= 0 st_other= 0 st_shndx= 65521 st_value= 0 st_size= 0
+Symbol Entry #2 st_name= 0 uname= st_info= 3 st_type= 3 st_bind= 0 st_other= 0 st_shndx= 2 st_value= 0 st_size= 0
+Symbol Entry #3 st_name= 0 uname= st_info= 3 st_type= 3 st_bind= 0 st_other= 0 st_shndx= 4 st_value= 0 st_size= 0
+Symbol Entry #4 st_name= 0 uname= st_info= 3 st_type= 3 st_bind= 0 st_other= 0 st_shndx= 6 st_value= 0 st_size= 0
+Symbol Entry #5 st_name= 34 uname=HostConLog__body st_info= 16 st_type= 0 st_bind= 1 st_other= 0 st_shndx= 0 st_value= 0 st_size= 0
+Symbol Entry #6 st_name= 236 uname=HostConLog__reg st_info= 16 st_type= 0 st_bind= 1 st_other= 0 st_shndx= 0 st_value= 0 st_size= 0
+Symbol Entry #7 st_name= 151 uname=Kernel_Main st_info= 16 st_type= 0 st_bind= 1 st_other= 0 st_shndx= 0 st_value= 0 st_size= 0
+Symbol Entry #8 st_name= 298 uname=Kernel_RegisterStaticMod st_info= 16 st_type= 0 st_bind= 1 st_other= 0 st_shndx= 0 st_value= 0 st_size= 0
+Symbol Entry #9 st_name= 21 uname=Kernel__body st_info= 16 st_type= 0 st_bind= 1 st_other= 0 st_shndx= 0 st_value= 0 st_size= 0
+Symbol Entry #10 st_name= 385 uname=Kernel__desc st_info= 16 st_type= 0 st_bind= 1 st_other= 0 st_shndx= 0 st_value= 0 st_size= 0
+Symbol Entry #11 st_name= 224 uname=Kernel__reg st_info= 16 st_type= 0 st_bind= 1 st_other= 0 st_shndx= 0 st_value= 0 st_size= 0
+Symbol Entry #12 st_name= 171 uname=Kernel_dLink st_info= 16 st_type= 0 st_bind= 1 st_other= 0 st_shndx= 0 st_value= 0 st_size= 0
+Symbol Entry #13 st_name= 163 uname=OLog_Ln st_info= 16 st_type= 0 st_bind= 1 st_other= 0 st_shndx= 0 st_value= 0 st_size= 0
+Symbol Entry #14 st_name= 200 uname=OLog_String st_info= 16 st_type= 0 st_bind= 1 st_other= 0 st_shndx= 0 st_value= 0 st_size= 0
+Symbol Entry #15 st_name= 51 uname=OLog__body st_info= 16 st_type= 0 st_bind= 1 st_other= 0 st_shndx= 0 st_value= 0 st_size= 0
+Symbol Entry #16 st_name= 398 uname=OLog__desc st_info= 16 st_type= 0 st_bind= 1 st_other= 0 st_shndx= 0 st_value= 0 st_size= 0
+Symbol Entry #17 st_name= 252 uname=OLog__reg st_info= 16 st_type= 0 st_bind= 1 st_other= 0 st_shndx= 0 st_value= 0 st_size= 0
+Symbol Entry #18 st_name= 458 uname=OmtestHelloWorld_MAIN st_info= 18 st_type= 2 st_bind= 1 st_other= 0 st_shndx= 2 st_value= 107440 st_size= 106117
+Symbol Entry #19 st_name= 340 uname=OmtestHelloWorld_OpVal__recdesc st_info= 17 st_type= 1 st_bind= 1 st_other= 0 st_shndx= 4 st_value= 560 st_size= 92
+Symbol Entry #20 st_name= 62 uname=OmtestHelloWorld__body st_info= 18 st_type= 2 st_bind= 1 st_other= 0 st_shndx= 2 st_value= 160 st_size= 147
+Symbol Entry #21 st_name= 409 uname=OmtestHelloWorld__desc st_info= 17 st_type= 1 st_bind= 1 st_other= 0 st_shndx= 4 st_value= 192 st_size= 356
+Symbol Entry #22 st_name= 107 uname=OmtestHelloWorld__inames st_info= 17 st_type= 1 st_bind= 1 st_other= 0 st_shndx= 4 st_value= 96 st_size= 37
+Symbol Entry #23 st_name= 262 uname=OmtestHelloWorld__reg st_info= 18 st_type= 2 st_bind= 1 st_other= 0 st_shndx= 2 st_value= 0 st_size= 147
+Symbol Entry #24 st_name= 132 uname=Runner_SetRun st_info= 16 st_type= 0 st_bind= 1 st_other= 0 st_shndx= 0 st_value= 0 st_size= 0
+Symbol Entry #25 st_name= 8 uname=Runner__body st_info= 16 st_type= 0 st_bind= 1 st_other= 0 st_shndx= 0 st_value= 0 st_size= 0
+Symbol Entry #26 st_name= 372 uname=Runner__desc st_info= 16 st_type= 0 st_bind= 1 st_other= 0 st_shndx= 0 st_value= 0 st_size= 0
+Symbol Entry #27 st_name= 212 uname=Runner__reg st_info= 16 st_type= 0 st_bind= 1 st_other= 0 st_shndx= 0 st_value= 0 st_size= 0
+Symbol Entry #28 st_name= 146 uname=main st_info= 18 st_type= 2 st_bind= 1 st_other= 0 st_shndx= 2 st_value= 213568 st_size= 111
+Symbol Entry #29 st_name= 1 uname=memcpy st_info= 16 st_type= 0 st_bind= 1 st_other= 0 st_shndx= 0 st_value= 0 st_size= 0
+Symbol Entry #30 st_name= 95 uname=memset st_info= 16 st_type= 0 st_bind= 1 st_other= 0 st_shndx= 0 st_value= 0 st_size= 0
+Relocation #3.0 r_offset= 10 r_info= 769 r_type= 1 r_sym= 3 uname=
+Relocation #3.1 r_offset= 16 r_info= 5377 r_type= 1 r_sym= 21 uname=OmtestHelloWorld__desc
+Relocation #3.2 r_offset= 22 r_info= 3073 r_type= 1 r_sym= 12 uname=Kernel_dLink
+Relocation #3.3 r_offset= 39 r_info= 3073 r_type= 1 r_sym= 12 uname=Kernel_dLink
+Relocation #3.4 r_offset= 44 r_info= 5377 r_type= 1 r_sym= 21 uname=OmtestHelloWorld__desc
+Relocation #3.5 r_offset= 66 r_info= 3073 r_type= 1 r_sym= 12 uname=Kernel_dLink
+Relocation #3.6 r_offset= 73 r_info= 3073 r_type= 1 r_sym= 12 uname=Kernel_dLink
+Relocation #3.7 r_offset= 92 r_info= 5377 r_type= 1 r_sym= 21 uname=OmtestHelloWorld__desc
+Relocation #3.8 r_offset= 97 r_info= 2818 r_type= 2 r_sym= 11 uname=Kernel__reg
+Relocation #3.9 r_offset= 102 r_info= 6914 r_type= 2 r_sym= 27 uname=Runner__reg
+Relocation #3.10 r_offset= 107 r_info= 4354 r_type= 2 r_sym= 17 uname=OLog__reg
+Relocation #3.11 r_offset= 112 r_info= 1538 r_type= 2 r_sym= 6 uname=HostConLog__reg
+Relocation #3.12 r_offset= 118 r_info= 5377 r_type= 1 r_sym= 21 uname=OmtestHelloWorld__desc
+Relocation #3.13 r_offset= 126 r_info= 2050 r_type= 2 r_sym= 8 uname=Kernel_RegisterStaticMod
+Relocation #3.14 r_offset= 131 r_info= 3073 r_type= 1 r_sym= 12 uname=Kernel_dLink
+Relocation #3.15 r_offset= 138 r_info= 3073 r_type= 1 r_sym= 12 uname=Kernel_dLink
+Relocation #3.16 r_offset= 170 r_info= 769 r_type= 1 r_sym= 3 uname=
+Relocation #3.17 r_offset= 176 r_info= 5377 r_type= 1 r_sym= 21 uname=OmtestHelloWorld__desc
+Relocation #3.18 r_offset= 182 r_info= 3073 r_type= 1 r_sym= 12 uname=Kernel_dLink
+Relocation #3.19 r_offset= 199 r_info= 3073 r_type= 1 r_sym= 12 uname=Kernel_dLink
+Relocation #3.20 r_offset= 204 r_info= 5377 r_type= 1 r_sym= 21 uname=OmtestHelloWorld__desc
+Relocation #3.21 r_offset= 226 r_info= 3073 r_type= 1 r_sym= 12 uname=Kernel_dLink
+Relocation #3.22 r_offset= 233 r_info= 3073 r_type= 1 r_sym= 12 uname=Kernel_dLink
+Relocation #3.23 r_offset= 252 r_info= 5377 r_type= 1 r_sym= 21 uname=OmtestHelloWorld__desc
+Relocation #3.24 r_offset= 257 r_info= 2306 r_type= 2 r_sym= 9 uname=Kernel__body
+Relocation #3.25 r_offset= 262 r_info= 6402 r_type= 2 r_sym= 25 uname=Runner__body
+Relocation #3.26 r_offset= 267 r_info= 3842 r_type= 2 r_sym= 15 uname=OLog__body
+Relocation #3.27 r_offset= 272 r_info= 1282 r_type= 2 r_sym= 5 uname=HostConLog__body
+Relocation #3.28 r_offset= 278 r_info= 4609 r_type= 1 r_sym= 18 uname=OmtestHelloWorld_MAIN
+Relocation #3.29 r_offset= 286 r_info= 6146 r_type= 2 r_sym= 24 uname=Runner_SetRun
+Relocation #3.30 r_offset= 291 r_info= 3073 r_type= 1 r_sym= 12 uname=Kernel_dLink
+Relocation #3.31 r_offset= 298 r_info= 3073 r_type= 1 r_sym= 12 uname=Kernel_dLink
+Relocation #3.32 r_offset= 53850 r_info= 3073 r_type= 1 r_sym= 12 uname=Kernel_dLink
+Relocation #3.33 r_offset= 53868 r_info= 5377 r_type= 1 r_sym= 21 uname=OmtestHelloWorld__desc
+Relocation #3.34 r_offset= 53879 r_info= 769 r_type= 1 r_sym= 3 uname=
+Relocation #3.35 r_offset= 53892 r_info= 3073 r_type= 1 r_sym= 12 uname=Kernel_dLink
+Relocation #3.36 r_offset= 107416 r_info= 3073 r_type= 1 r_sym= 12 uname=Kernel_dLink
+Relocation #3.37 r_offset= 107424 r_info= 3073 r_type= 1 r_sym= 12 uname=Kernel_dLink
+Relocation #3.38 r_offset= 107464 r_info= 3073 r_type= 1 r_sym= 12 uname=Kernel_dLink
+Relocation #3.39 r_offset= 107482 r_info= 5377 r_type= 1 r_sym= 21 uname=OmtestHelloWorld__desc
+Relocation #3.40 r_offset= 107493 r_info= 769 r_type= 1 r_sym= 3 uname=
+Relocation #3.41 r_offset= 107506 r_info= 3073 r_type= 1 r_sym= 12 uname=Kernel_dLink
+Relocation #3.42 r_offset= 213096 r_info= 7682 r_type= 2 r_sym= 30 uname=memset
+Relocation #3.43 r_offset= 213229 r_info= 7426 r_type= 2 r_sym= 29 uname=memcpy
+Relocation #3.44 r_offset= 213466 r_info= 3585 r_type= 1 r_sym= 14 uname=OLog_String
+Relocation #3.45 r_offset= 213504 r_info= 3585 r_type= 1 r_sym= 14 uname=OLog_String
+Relocation #3.46 r_offset= 213530 r_info= 3329 r_type= 1 r_sym= 13 uname=OLog_Ln
+Relocation #3.47 r_offset= 213535 r_info= 3073 r_type= 1 r_sym= 12 uname=Kernel_dLink
+Relocation #3.48 r_offset= 213542 r_info= 3073 r_type= 1 r_sym= 12 uname=Kernel_dLink
+Relocation #3.49 r_offset= 213591 r_info= 769 r_type= 1 r_sym= 3 uname=
+Relocation #3.50 r_offset= 213597 r_info= 5377 r_type= 1 r_sym= 21 uname=OmtestHelloWorld__desc
+Relocation #3.51 r_offset= 213603 r_info= 3073 r_type= 1 r_sym= 12 uname=Kernel_dLink
+Relocation #3.52 r_offset= 213621 r_info= 3073 r_type= 1 r_sym= 12 uname=Kernel_dLink
+Relocation #3.53 r_offset= 213645 r_info= 1794 r_type= 2 r_sym= 7 uname=Kernel_Main
+Relocation #3.54 r_offset= 213660 r_info= 3073 r_type= 1 r_sym= 12 uname=Kernel_dLink
+Relocation #3.55 r_offset= 213667 r_info= 3073 r_type= 1 r_sym= 12 uname=Kernel_dLink
+Relocation #5.0 r_offset= 64 r_info= 6657 r_type= 1 r_sym= 26 uname=Runner__desc
+Relocation #5.1 r_offset= 68 r_info= 2561 r_type= 1 r_sym= 10 uname=Kernel__desc
+Relocation #5.2 r_offset= 72 r_info= 4097 r_type= 1 r_sym= 16 uname=OLog__desc
+Relocation #5.3 r_offset= 152 r_info= 4609 r_type= 1 r_sym= 18 uname=OmtestHelloWorld_MAIN
+Relocation #5.4 r_offset= 176 r_info= 4865 r_type= 1 r_sym= 19 uname=OmtestHelloWorld_OpVal__recdesc
+Relocation #5.5 r_offset= 228 r_info= 5121 r_type= 1 r_sym= 20 uname=OmtestHelloWorld__body
+Relocation #5.6 r_offset= 276 r_info= 769 r_type= 1 r_sym= 3 uname=
+Relocation #5.7 r_offset= 280 r_info= 1025 r_type= 1 r_sym= 4 uname=
+Relocation #5.8 r_offset= 284 r_info= 769 r_type= 1 r_sym= 3 uname=
+Relocation #5.9 r_offset= 288 r_info= 769 r_type= 1 r_sym= 3 uname=
+Relocation #5.10 r_offset= 572 r_info= 5377 r_type= 1 r_sym= 21 uname=OmtestHelloWorld__desc
+Relocation #5.11 r_offset= 580 r_info= 4865 r_type= 1 r_sym= 19 uname=OmtestHelloWorld_OpVal__recdesc
+Relocation #5.12 r_offset= 644 r_info= 769 r_type= 1 r_sym= 3 uname=
+Relocation #5.13 r_offset= 672 r_info= 769 r_type= 1 r_sym= 3 uname=
+Relocation #5.14 r_offset= 688 r_info= 769 r_type= 1 r_sym= 3 uname=
+Relocation #5.15 r_offset= 704 r_info= 769 r_type= 1 r_sym= 3 uname=
+Relocation #5.16 r_offset= 720 r_info= 769 r_type= 1 r_sym= 3 uname=
+Relocation #5.17 r_offset= 728 r_info= 5377 r_type= 1 r_sym= 21 uname=OmtestHelloWorld__desc
+Relocation #5.18 r_offset= 744 r_info= 5377 r_type= 1 r_sym= 21 uname=OmtestHelloWorld__desc
+Relocation #5.19 r_offset= 760 r_info= 5377 r_type= 1 r_sym= 21 uname=OmtestHelloWorld__desc
+Relocation #5.20 r_offset= 776 r_info= 5377 r_type= 1 r_sym= 21 uname=OmtestHelloWorld__desc
+Relocation #9.0 r_offset= 32 r_info= 514 r_type= 2 r_sym= 2 uname=
+Relocation #9.1 r_offset= 60 r_info= 514 r_type= 2 r_sym= 2 uname=
+Relocation #9.2 r_offset= 88 r_info= 514 r_type= 2 r_sym= 2 uname=
+Relocation #9.3 r_offset= 132 r_info= 514 r_type= 2 r_sym= 2 uname=
+Relocation #9.4 r_offset= 176 r_info= 514 r_type= 2 r_sym= 2 uname=
+---------- end-of-ReadHeader OmtestHelloWorld 0
+++++++++++ ReadModule OmtestHelloWorld
+Section Header #0 sh_name= 0 uname= sh_type=0 sh_flags=0 shc_flags= {} sh_addr= 0 sh_offset= 0 sh_size= 0 sh_link= 0 sh_info= 0 sh_addralign= 0 sh_entsize= 0 size_aligned= 0
+Section Header #1 sh_name= 432 uname=.strtab sh_type=3 sh_flags=0 shc_flags= {} sh_addr= 0 sh_offset= 215920 sh_size= 480 sh_link= 0 sh_info= 0 sh_addralign= 1 sh_entsize= 0 size_aligned= 0
+Section Header #2 sh_name= 89 uname=.text sh_type=1 sh_flags=6 shc_flags= {1, 2} sh_addr= 0 sh_offset= 64 sh_size= 213679 sh_link= 0 sh_info= 0 sh_addralign= 16 sh_entsize= 0 size_aligned= 213680
+Section Header #3 sh_name= 85 uname=.rel.text sh_type=9 sh_flags=0 shc_flags= {} sh_addr= 0 sh_offset= 215264 sh_size= 448 sh_link= 10 sh_info= 2 sh_addralign= 4 sh_entsize= 8 size_aligned= 0
+Section Header #4 sh_name= 452 uname=.data sh_type=1 sh_fla
