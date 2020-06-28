@@ -1,9 +1,1 @@
-cd System/Clue
-toclean.sh
-cd ../..
-cd Host/Clue
-toclean.sh
-cd ../..
-cd Omtest/Clue
-toclean.sh
-cd ../..
+Blue/omlsh clear -n -r OmtestHelloWorld OmtestFormats OmtestDateTime OmtestMkTraps OmtestHeap

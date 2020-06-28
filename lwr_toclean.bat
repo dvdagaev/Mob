@@ -1,9 +1,2 @@
-cd System/Clwr
-call toclean
-cd ../..
-cd Host/Clwr
-call toclean
-cd ../..
-cd Omtest/Clwr
-call toclean
-cd ../..
+Blwr\omlsh clear -64 -n -r OmtestHelloWorld OmtestFormats OmtestDateTime OmtestMkTraps OmtestHeap
+

@@ -1,0 +1,3 @@
+Bfwe\omfsh co -odc OmtestOmcSimpleTest OmtestOmcStringsTest OmtestOmcSystemTest OmtestOmcImportsTest OmtestOmcExtensionsTest OmtestOmcBoundTest OmtestOmcAdvancedTest OmcTester OmtestOmcCompiler
+Bfwe\omfsh build -r OmtestOmcCompiler
+Bfwe\omfsh link -r OmtestOmcCompiler

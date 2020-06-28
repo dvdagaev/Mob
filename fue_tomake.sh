@@ -1,10 +1,11 @@
-Bfue/omfsh co +HostConLog OmtestHelloWorld: OmtestFormats: OmtestDateTime: OmtestMkTraps: OmtestHeap:
-cd System/Cfue
-tomake.sh
-cd ../..
-cd Host/Cfue
-tomake.sh
-cd ../..
-cd Omtest/Cfue
-tomake.sh
-cd ../..
+Bfue/omfsh co :OmtestHelloWorld :OmtestFormats :OmtestDateTime :OmtestMkTraps :OmtestHeap
+Bfue/omfsh build -r OmtestDateTime
+Bfue/omfsh build OmtestHelloWorld
+Bfue/omfsh build OmtestFormats
+Bfue/omfsh build OmtestMkTraps
+Bfue/omfsh build OmtestHeap
+Bfue/omfsh link -r OmtestDateTime
+Bfue/omfsh link -r OmtestHelloWorld
+Bfue/omfsh link -r OmtestFormats
+Bfue/omfsh link -r OmtestMkTraps
+Bfue/omfsh link -r OmtestHeap

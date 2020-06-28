@@ -1,0 +1,4 @@
+Blur/omlsh co -64 -odc SystemOStringsTest
+Blur/omlsh build -64 SystemOStringsTest
+Blur/omlsh co -64 -odc OmtestOmcSimpleTest OmtestOmcStringsTest OmtestOmcSystemTest OmtestOmcImportsTest OmtestOmcExtensionsTest OmtestOmcBoundTest OmtestOmcAdvancedTest
+Blur/omlsh build -64 OmtestOmcSimpleTest OmtestOmcStringsTest OmtestOmcSystemTest OmtestOmcImportsTest OmtestOmcExtensionsTest OmtestOmcBoundTest OmtestOmcAdvancedTest

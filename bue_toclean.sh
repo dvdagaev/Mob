@@ -1,3 +1,2 @@
-cd Omtest/Code
-toclean.sh
-cd ../..
+Bbue/ombsh clear OmtestHelloWorld OmtestFormats OmtestDateTime OmtestMkTraps OmtestHeap
+

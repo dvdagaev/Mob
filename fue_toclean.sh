@@ -1,9 +1,1 @@
-cd System/Cfue
-toclean.sh
-cd ../..
-cd Host/Cfue
-toclean.sh
-cd ../..
-cd Omtest/Cfue
-toclean.sh
-cd ../..
+Bfue/omfsh clear -n -r OmtestHelloWorld OmtestFormats OmtestDateTime OmtestMkTraps OmtestHeap

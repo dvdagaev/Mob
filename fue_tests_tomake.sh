@@ -1,0 +1,4 @@
+Bfue/omfsh co -odc OmtestOmcSimpleTest OmtestOmcStringsTest OmtestOmcSystemTest OmtestOmcImportsTest OmtestOmcExtensionsTest OmtestOmcBoundTest OmtestOmcAdvancedTest OmcTester OmtestOmcCompiler
+#Bfue/omfsh build OmtestOmcSimpleTest OmtestOmcStringsTest
+Bfue/omfsh build -r OmtestOmcCompiler
+Bfue/omfsh link -r OmtestOmcCompiler

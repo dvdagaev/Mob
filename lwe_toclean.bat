@@ -1,9 +1,1 @@
-cd System/Clwe
-call toclean
-cd ../..
-cd Host/Clwe
-call toclean
-cd ../..
-cd Omtest/Clwe
-call toclean
-cd ../..
+Blwe\omlsh clear -n -r OmtestHelloWorld OmtestFormats OmtestDateTime OmtestMkTraps OmtestHeap

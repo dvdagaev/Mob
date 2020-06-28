@@ -1,10 +1,11 @@
-Bfwe\omfsh co -64 +HostConLog OmtestHelloWorld: OmtestFormats: OmtestDateTime: OmtestMkTraps: OmtestHeap: 
-cd System/Cfwr
-call tomake
-cd ../..
-cd Host/Cfwr
-call tomake
-cd ../..
-cd Omtest/Cfwr
-call tomake
-cd ../..
+Bfwe\omfsh co -64 -odc :OmtestHelloWorld :OmtestFormats :OmtestDateTime :OmtestMkTraps :OmtestHeap
+Bfwe\omfsh build -64 -r OmtestDateTime
+Bfwe\omfsh build -64 OmtestHelloWorld
+Bfwe\omfsh build -64 OmtestFormats
+Bfwe\omfsh build -64 OmtestMkTraps
+Bfwe\omfsh build -64 OmtestHeap
+Bfwe\omfsh link -r -64 OmtestDateTime
+Bfwe\omfsh link -r -64 OmtestHelloWorld
+Bfwe\omfsh link -r -64 OmtestFormats
+Bfwe\omfsh link -r -64 OmtestMkTraps
+Bfwe\omfsh link -r -64 OmtestHeap

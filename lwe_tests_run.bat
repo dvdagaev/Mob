@@ -1,0 +1,2 @@
+Blwe\omlsh test -pl 2 OmtestOmcSimpleTest OmtestOmcStringsTest OmtestOmcSystemTest OmtestOmcImportsTest OmtestOmcExtensionsTest OmtestOmcBoundTest OmtestOmcAdvancedTest
+rem Blwe\omlsh test -pl 3 OStrings

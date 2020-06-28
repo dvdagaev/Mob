@@ -1,0 +1,4 @@
+Blwr\omlsh co -64 -odc SystemOStringsTest
+Blwr\omlsh build -64 OStringsTest
+Blwr\omlsh co -64 -odc OmtestOmcSimpleTest OmtestOmcStringsTest OmtestOmcSystemTest OmtestOmcImportsTest OmtestOmcExtensionsTest OmtestOmcBoundTest OmtestOmcAdvancedTest
+Blwr\omlsh build -64 OmtestOmcSimpleTest OmtestOmcStringsTest OmtestOmcSystemTest OmtestOmcImportsTest OmtestOmcExtensionsTest OmtestOmcBoundTest OmtestOmcAdvancedTest

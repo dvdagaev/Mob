@@ -1,6 +1,8 @@
 ' MultiOberon by Dmitry V. Dagaev installation
-blackBoxPath = "c:\BlackBox Component Builder 1.6"
-version = "16"
+'version = "16"
+'blackBoxPath = "c:\BlackBox Component Builder 1.6"
+version = "17"
+blackBoxPath = "c:\BBPrj171"
 ' get BlackBox path
 Set ArgObj = WScript.Arguments
 If (Wscript.Arguments.Count > 0) Then
@@ -80,20 +82,59 @@ Extract "Blwe"
 Extract "Blwr"
 
 ' Create Omb.cfg, Omf.cfg, Oml.cfg files
+Set objFileToWrite = Nothing
+Set fsoCrt = Nothing
 Sub MkCfg(ByVal func, ByVal somedata, ByVal spath)
-    Set fso = CreateObject("Scripting.FileSystemObject")
-    Set objFileToWrite = fso.OpenTextFile(func,2,true)
+    Set fsoCrt = CreateObject("Scripting.FileSystemObject")
+    Set objFileToWrite = fsoCrt.OpenTextFile(func,2,true)
     objFileToWrite.WriteLine(somedata)
     objFileToWrite.WriteLine(spath)
+End Sub
+Sub WriteCfg(ByVal somedata)
+    objFileToWrite.WriteLine(somedata)
+End Sub
+Sub CloseCfg()
     objFileToWrite.Close
     Set objFileToWrite = Nothing
-    Set fso = Nothing
+    Set fsoCrt = Nothing
 End Sub
 spath = "spath=" + blackBoxPath
 MkCfg "Bbwe\Omb.cfg", "#path=c:\MultiOberon", spath
+CloseCfg
 MkCfg "Bfwe\Omf.cfg", "#options=xatp", spath
+WriteCfg "#cc=gcc"
+WriteCfg "#lnk=gcc"
+WriteCfg "gcc_opt=-O2"
+WriteCfg "gcc_lnkopt=-O2"
+WriteCfg "cc=clang"
+WriteCfg "#lnk=clang"
+WriteCfg "clang_opt=-O2"
+WriteCfg "clang_lnkopt=-O2 -luser32"
+CloseCfg
 MkCfg "Blwe\Oml.cfg", "#options=lb", spath
+WriteCfg "llc_opt=-O2"
+WriteCfg "gcc_opt=-O2"
+WriteCfg "gcc_lnkopt=-O2"
+WriteCfg "lnk=clang"
+WriteCfg "clang_opt=-O2"
+WriteCfg "clang_lnkopt=-O2 -luser32"
+CloseCfg
 MkCfg "Blwr\Oml.cfg", "#options=lb", spath
+WriteCfg "llc_opt=-O2"
+WriteCfg "gcc_opt=-O2"
+WriteCfg "gcc_lnkopt=-O2"
+WriteCfg "lnk=clang"
+WriteCfg "clang_opt=-O2"
+WriteCfg "clang_lnkopt=-O2 -luser32"
+CloseCfg
+
+Sub Exec(ByVal cmd)
+    Set fso = CreateObject("Scripting.FileSystemObject")
+    set wshShell = WScript.CreateObject("WSCript.shell")
+    wshShell.Run (cmd)
+    set wshShell = Nothing
+    Set fso = Nothing
+End Sub
 
 Sub Copy(ByVal src, ByVal dst)
     Set fso = CreateObject("Scripting.FileSystemObject")
@@ -104,59 +145,8 @@ Sub Copy(ByVal src, ByVal dst)
     Set fso = Nothing
 End Sub
 IF version = "16" Then
-    Copy "System\Mbwe\Kernel16.odc", "System\Mbwe\Kernel.odc"
-    Copy "System\Cbwe\Kernel16.ocf", "System\Cbwe\Kernel.ocf"
-    Copy "System\Sbwe\Kernel16.osf", "System\Sbwe\Kernel.osf"
-    Copy "System\Mbwe\Runner16.odc", "System\Mbwe\Runner.odc"
-    Copy "System\Cbwe\Runner16.ocf", "System\Cbwe\Runner.ocf"
-    Copy "System\Sbwe\Runner16.osf", "System\Sbwe\Runner.osf"
-    Copy "System\Mbwe\Runner16.odc", "System\Mod\Runner.odc"
-    Copy "System\Cbwe\Runner16.ocf", "System\Code\Runner.ocf"
-    Copy "System\Sbwe\Runner16.osf", "System\Sym\Runner.osf"
-    Copy "System\Mfwe\Kernel16.odc", "System\Mfwe\Kernel.odc"
-    Copy "System\Cfwe\Kernel16.ocf", "System\Cfwe\Kernel.ocf"
-    Copy "System\Sfwe\Kernel16.osf", "System\Sfwe\Kernel.osf"
-    Copy "System\Mfwe\Runner16.odc", "System\Mfwe\Runner.odc"
-    Copy "System\Cfwe\Runner16.ocf", "System\Cfwe\Runner.ocf"
-    Copy "System\Sfwe\Runner16.osf", "System\Sfwe\Runner.osf"
-    Copy "System\Mlwe\Kernel16.odc", "System\Mlwe\Kernel.odc"
-    Copy "System\Mlwe\Runner16.odc", "System\Mlwe\Runner.odc"
-    Copy "System\Mlwe\Files16.odc", "System\Mlwe\Files.odc"
-    Copy "System\Mlwr\Kernel16.odc", "System\Mlwr\Kernel.odc"
-    Copy "System\Mlwr\Runner16.odc", "System\Mlwr\Runner.odc"
-    Copy "System\Mlwr\Files16.odc", "System\Mlwr\Files.odc"
-    Copy "Host\Mlwe\Files16.odc", "Host\Mlwe\Files.odc"
-    Copy "Host\Mlwr\Files16.odc", "Host\Mlwr\Files.odc"
+    Exec "all16_toinstall.bat"
 Else
-    Copy "System\Mbwe\Kernel17.odc", "System\Mbwe\Kernel.odc"
-    Copy "System\Cbwe\Kernel17.ocf", "System\Cbwe\Kernel.ocf"
-    Copy "System\Sbwe\Kernel17.osf", "System\Sbwe\Kernel.osf"
-    Copy "System\Mbwe\Runner17.odc", "System\Mbwe\Runner.odc"
-    Copy "System\Cbwe\Runner17.ocf", "System\Cbwe\Runner.ocf"
-    Copy "System\Sbwe\Runner17.osf", "System\Sbwe\Runner.osf"
-    Copy "System\Mbwe\Runner17.odc", "System\Mod\Runner.odc"
-    Copy "System\Cbwe\Runner17.ocf", "System\Code\Runner.ocf"
-    Copy "System\Sbwe\Runner17.osf", "System\Sym\Runner.osf"
-    Copy "System\Mfwe\Kernel17.odc", "System\Mfwe\Kernel.odc"
-    Copy "System\Cfwe\Kernel17.ocf", "System\Cfwe\Kernel.ocf"
-    Copy "System\Sfwe\Kernel17.osf", "System\Sfwe\Kernel.osf"
-    Copy "System\Mfwe\Runner17.odc", "System\Mfwe\Runner.odc"
-    Copy "System\Cfwe\Runner17.ocf", "System\Cfwe\Runner.ocf"
-    Copy "System\Sfwe\Runner17.osf", "System\Sfwe\Runner.osf"
-    Copy "System\Mlwe\Kernel17.odc", "System\Mlwe\Kernel.odc"
-    Copy "System\Mlwe\Runner17.odc", "System\Mlwe\Runner.odc"
-    Copy "System\Mlwe\Files17.odc", "System\Mlwe\Files.odc"
-    Copy "System\Mlwr\Kernel17.odc", "System\Mlwr\Kernel.odc"
-    Copy "System\Mlwr\Runner17.odc", "System\Mlwr\Runner.odc"
-    Copy "System\Mlwr\Files17.odc", "System\Mlwr\Files.odc"
-    Copy "Host\Mlwe\Files17.odc", "Host\Mlwe\Files.odc"
-    Copy "Host\Mlwr\Files17.odc", "Host\Mlwr\Files.odc"
+    Exec "all17_toinstall.bat"
 End If
-Copy "System\Mbwe\Api.odc", "System\Mod"
-Copy "System\Mbwe\OLog.odc", "System\Mod"
-Copy "System\Mbwe\OStrings.odc", "System\Mod"
-Copy "System\Mbwe\Times.odc", "System\Mod"
-Copy "Host\Mbwe\Api.odc", "Host\Mod"
-Copy "Host\Mbwe\ConLog.odc", "Host\Mod"
-Copy "Host\Mbwe\Times.odc", "Host\Mod"
 Copy "Blwe\LLVMT.dll", blackBoxPath

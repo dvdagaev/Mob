@@ -1,0 +1,2 @@
+Bbwe\ombsh co -wsd -odc SystemOStringsTest
+Bbwe\ombsh co -odc OmtestOmcSimpleTest OmtestOmcStringsTest OmtestOmcSystemTest OmtestOmcImportsTest OmtestOmcExtensionsTest OmtestOmcBoundTest OmtestOmcAdvancedTest

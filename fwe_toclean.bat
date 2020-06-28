@@ -1,9 +1,1 @@
-cd System/Cfwe
-call toclean
-cd ../..
-cd Host/Cfwe
-call toclean
-cd ../..
-cd Omtest/Cfwe
-call toclean
-cd ../..
+Bfwe\omfsh clear -n -r OmtestHelloWorld OmtestFormats OmtestDateTime OmtestMkTraps OmtestHeap

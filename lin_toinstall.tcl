@@ -1,44 +1,36 @@
 #!/usr/bin/tclsh
 set version 17
-set blackBoxPath /home/dsb/mobdev/mob
-catch {set version [lindex $argv 0]}
-catch {set blackBoxPath [lindex $argv 1]}
+set blackBoxPath /home/ddag/mobdev/bb
+set v {}
+set p {}
+catch {set v [lindex $argv 0]}
+catch {set p [lindex $argv 1]}
+if {$v != ""} {
+    set version $v
+}
+if {$p != ""} {
+    set blackBoxPath $p
+}
+proc all17_toinstall {} {
+    exec rm -fr System/Mod
+    exec cp -r System/Mub17 System/Mod
+    exec rm -fr System/Sym
+    exec rm -fr System/Code
+    exec mkdir System/Sym
+    exec mkdir System/Code
+    exec rm -fr Host/Mod
+    exec cp -r Host/Mub Host/Mod
+    exec rm -fr Host/Sym
+    exec rm -fr Host/Code
+    exec mkdir Host/Sym
+    exec mkdir Host/Code
+}
+
 if {$version == "16"} {
-    puts "installing bb1.6 for linux"
-    file copy -force System/Mbue/Kernel16.odc System/Mbue/Kernel.odc
-    file copy -force System/Cbue/Kernel16.ocf System/Cbue/Kernel.ocf
-    file copy -force System/Sbue/Kernel16.osf System/Sbue/Kernel.osf
-    file copy -force System/Mbue/Runner16.odc System/Mbue/Runner.odc
-    file copy -force System/Cbue/Runner16.ocf System/Cbue/Runner.ocf
-    file copy -force System/Sbue/Runner16.osf System/Sbue/Runner.osf
-    file copy -force System/Mbue/Runner16.odc System/Mod/Runner.odc
-    file copy -force System/Cbue/Runner16.ocf System/Code/Runner.ocf
-    file copy -force System/Sbue/Runner16.osf System/Sym/Runner.osf
-    file copy -force System/Mlue/Kernel16.odc System/Mlue/Kernel.odc
-    file copy -force System/Mlur/Kernel16.odc System/Mlur/Kernel.odc
-    file copy -force System/Mlue/Runner16.odc System/Mbue/Runner.odc
-    file copy -force System/Mlur/Runner16.odc System/Mbur/Runner.odc
+    error "unsupported bb1.6 for linux"
 } else {
     puts "installing bb1.7 for linux"
-    file copy -force System/Mbue/Kernel17.odc System/Mbue/Kernel.odc
-    file copy -force System/Cbue/Kernel17.ocf System/Cbue/Kernel.ocf
-    file copy -force System/Sbue/Kernel17.osf System/Sbue/Kernel.osf
-    file copy -force System/Mbue/Runner17.odc System/Mbue/Runner.odc
-    file copy -force System/Cbue/Runner17.ocf System/Cbue/Runner.ocf
-    file copy -force System/Sbue/Runner17.osf System/Sbue/Runner.osf
-    file copy -force System/Mbue/Runner17.odc System/Mod/Runner.odc
-    file copy -force System/Cbue/Runner17.ocf System/Code/Runner.ocf
-    file copy -force System/Sbue/Runner17.osf System/Sym/Runner.osf
-    file copy -force System/Mlue/Kernel17.odc System/Mlue/Kernel.odc
-    file copy -force System/Mlur/Kernel17.odc System/Mlur/Kernel.odc
-    file copy -force System/Mlue/Runner17.odc System/Mlue/Runner.odc
-    file copy -force System/Mlur/Runner17.odc System/Mlur/Runner.odc
-}
-foreach fn {Api OLog OStrings Times} {
-    file copy -force System/Mbue/$fn.odc System/Mod
-}
-foreach fn {Api ConLog Times} {
-    file copy -force Host/Mbue/$fn.odc Host/Mod
+    all17_toinstall
 }
 
 proc exec_cmd {args} {
@@ -68,20 +60,45 @@ proc delete_except {d files} {
         }
     }
 }
-delete_except Host/Sym {Api ConLog Times}
-delete_except Host/Code {Api ConLog Times}
+delete_except Host/Sym {Api ConLog Times Testing}
+delete_except Host/Code {Api ConLog Times Testing}
 
-proc write_cfg {fn} {
+proc write_cfg {fn {opts ""}} {
     global blackBoxPath
     set fd [open $fn w]
     puts $fd "#path=[pwd]"
     puts $fd spath=$blackBoxPath
+    foreach a $opts {
+        puts $fd $a
+    }
     close $fd
 }
 write_cfg Bbue/Omb.cfg
-write_cfg Bfue/Omf.cfg
-write_cfg Blue/Oml.cfg
-write_cfg Blur/Oml.cfg
+write_cfg Bfue/Omf.cfg {
+gcc_opt=-O2\ -fshort-wchar
+gcc_lnkopt=-O2\ -lm\ -ldl
+cc=gcc
+clang_opt=-O2
+clang_lnkopt=-O2\ -ldl
+}
+write_cfg Blue/Oml.cfg {
+llc=/home/ddag/mobdev/mob/Blue/llc
+llc_opt=-O0
+gcc_opt=-O0
+{gcc_lnkopt=-O0 -lm -ldl}
+lnk=gcc
+clang_opt=-O0
+{clang_lnkopt=-O0 -lm -ldl}
+}
+write_cfg Blur/Oml.cfg {
+llc=/home/ddag/mobdev/mob/Blur/llc
+llc_opt=-O0
+gcc_opt=-O0
+{gcc_lnkopt=-O0 -lm -ldl}
+lnk=gcc
+clang_opt=-O0
+{clang_lnkopt=-O0 -lm -ldl}
+}
 
 proc conv_txt {fn} {
     set fi [open $fn r]
@@ -103,3 +120,18 @@ foreach shf [glob *.sh */*/*.sh] {
 foreach exe {Bbue/ombsh Bfue/omfsh Blue/omlsh Blur/omlsh} {
     exec chmod +x $exe
 }
+exec Bbue/ombsh co -h -odc -wsd Api OStrings OLog Runner Times Testing HostApi HostConLog HostTimes Testing
+exec Bfue/omfsh co -h -odc Api Math OStrings OLog Kernel17 Runner17 Times Testing "#HostApi" HostConLog HostTimes Testing
+exec Bfue/omfsh co -h -odc Kernel17 Runner17 Times Testing "#HostApi" HostConLog HostTimes Testing
+exec Bfue/omfsh co -64 -h -odc Api Math OStrings OLog Kernel17 Runner17 Times Testing "#HostApi" HostConLog HostTimes Testing
+exec Bfue/omfsh co -64 -h -odc Kernel17 Runner17 Times Testing "#HostApi" HostConLog HostTimes Testing
+exec Blue/omlsh co -h Api HostApi
+exec Blue/omlsh co -h -odc Math OStrings OLog Kernel17 Runner17 Times Testing Files HostConLog HostTimes Testing HostFiles
+exec cp $blackBoxPath/System/Clue/Kernel.ll System/Clue/
+exec cp $blackBoxPath/System/Clue/Files.ll System/Clue/
+#exec Blue/omlsh co -h -odc Math OStrings OLog Kernel17 Runner17 Times Testing Files17 HostApi HostConLog HostTimes Testing HostFiles17
+exec Blue/omlsh co -64 -h Api HostApi
+exec Blue/omlsh co -64 -h -odc Math OStrings OLog Kernel17 Runner17 Times Testing Files HostConLog HostTimes Testing HostFiles
+exec cp $blackBoxPath/System/Clur/Kernel.ll System/Clur/
+exec cp $blackBoxPath/System/Clur/Files.ll System/Clur/
+#exec Blue/omlsh co -64 -h -odc Math OStrings OLog Kernel17 Runner17 Times Testing Files17 HostApi HostConLog HostTimes Testing HostFiles17

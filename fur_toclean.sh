@@ -1,9 +1,1 @@
-cd System/Cfur
-toclean.sh
-cd ../..
-cd Host/Cfur
-toclean.sh
-cd ../..
-cd Omtest/Cfur
-toclean.sh
-cd ../..
+Bfue/omfsh clear -64 -n -r OmtestHelloWorld OmtestFormats OmtestDateTime OmtestMkTraps OmtestHeap
