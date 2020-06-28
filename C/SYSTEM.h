@@ -315,7 +315,7 @@ extern void Kernel_Main();
 #define __DUP(x, l)	x=(void*)memcpy(alloca(l*sizeof(*x)),x,l*sizeof(*x))
 #define __DUPARR(v)	v=(void*)memcpy(v##__copy,v,sizeof(v##__copy))
 #define __DEL(x)	/* DUP with alloca frees storage automatically */
-#define __IS(tag, typ, level)	((tag->base[level])==(INTEGER)typ)
+#define __IS(tag, typ, level)	((tag->base[level])==(ADDRESS)typ)
 #define __TYPEOF(p)	(*(((SYSTEM_TYPEDESC**)(p))-1))
 #define __ISP(p, typ, level)	__IS(__TYPEOF(p),typ,level)
 
