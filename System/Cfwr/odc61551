@@ -1,0 +1,232 @@
+/*  Omf-1.0 k -directories directories /all_sys_val /21 */
+#include "SYSTEM.h"
+#include "OStrings.h"
+
+typedef
+	struct Times_Hook__rec *Times_Hook;
+
+typedef
+	struct Times_Hook__rec {
+		char _prvt0[1];
+	} Times_Hook__rec;
+
+typedef
+	INTEGER Times_Mcs;
+
+typedef
+	struct Times_SystemTime {
+		INTEGER year, month, day, wday, hour, minute, second;
+		Times_Mcs mcs;
+	} Times_SystemTime;
+
+typedef
+	LONGINT Times_Time;
+
+export void Times_Hook_FromLocalTime (Times_Hook h, Times_SystemTime *lt, SYSTEM_TYPEDESC *lt__typ, Times_Time \
+*t, INTEGER *res);
+export void Times_Hook_FromSystemTime (Times_Hook h, Times_SystemTime *st, SYSTEM_TYPEDESC *st__typ, Times_Time \
+*t, INTEGER *res);
+export Times_Time Times_Hook_GetTime (Times_Hook h);
+export void Times_Hook_GetUTCBias (Times_Hook h, INTEGER *bias);
+export void Times_Hook_Sleep (Times_Hook h, Times_Time tp);
+export void Times_Hook_ToLocalTime (Times_Hook h, Times_Time t, Times_SystemTime *lt, SYSTEM_TYPEDESC \
+*lt__typ, INTEGER *res);
+export void Times_Hook_ToSystemTime (Times_Hook h, Times_Time t, Times_SystemTime *st, SYSTEM_TYPEDESC \
+*st__typ, INTEGER *res);
+#define __Times_Hook_FromLocalTime(h, lt, lt__typ, t, res) __SEND(__TYPEOF(h), 1, void(*)(Times_Hook, \
+Times_SystemTime*, SYSTEM_TYPEDESC *, Times_Time*, INTEGER*), (h, lt, lt__typ, t, res))
+#define __Times_Hook_FromSystemTime(h, st, st__typ, t, res) __SEND(__TYPEOF(h), 2, void(*)(Times_Hook, \
+Times_SystemTime*, SYSTEM_TYPEDESC *, Times_Time*, INTEGER*), (h, st, st__typ, t, res))
+#define __Times_Hook_GetTime(h) __SEND(__TYPEOF(h), 3, Times_Time(*)(Times_Hook), (h))
+#define __Times_Hook_GetUTCBias(h, bias) __SEND(__TYPEOF(h), 4, void(*)(Times_Hook, INTEGER*), (h, bias))
+#define __Times_Hook_Sleep(h, tp) __SEND(__TYPEOF(h), 5, void(*)(Times_Hook, Times_Time), (h, tp))
+#define __Times_Hook_ToLocalTime(h, t, lt, lt__typ, res) __SEND(__TYPEOF(h), 6, void(*)(Times_Hook, Times_Time, \
+Times_SystemTime*, SYSTEM_TYPEDESC *, INTEGER*), (h, t, lt, lt__typ, res))
+#define __Times_Hook_ToSystemTime(h, t, st, st__typ, res) __SEND(__TYPEOF(h), 7, void(*)(Times_Hook, Times_Time, \
+Times_SystemTime*, SYSTEM_TYPEDESC *, INTEGER*), (h, t, st, st__typ, res))
+
+typedef
+	_CHAR Times_MonName[32];
+
+typedef
+	Times_MonName Times_MonNames[12];
+
+typedef
+	LONGINT Times_Sec;
+
+
+static Times_Hook Times_pHook;
+static _CHAR Times_delimDate[2], Times_delimTime[2], Times_delimDaT[2], Times_delimMcs[2];
+export Times_MonNames Times_monNames;
+export Times_SystemTime Times_zeroSysTime;
+
+export ADDRESS Times_SystemTime__desc[];
+export SYSTEM_TYPEDESC *Times_SystemTime__typ = (SYSTEM_TYPEDESC*)(Times_SystemTime__desc + 2);
+export ADDRESS Times_Hook__rec__desc[];
+export SYSTEM_TYPEDESC *Times_Hook__rec__typ = (SYSTEM_TYPEDESC*)(Times_Hook__rec__desc + 9);
+export ADDRESS Times_Hook__desc[];
+export SYSTEM_TYPEDESC *Times_Hook__typ = (SYSTEM_TYPEDESC*)Times_Hook__desc;
+export ADDRESS Times_MonName__desc[];
+export SYSTEM_TYPEDESC *Times_MonName__typ = (SYSTEM_TYPEDESC*)Times_MonName__desc;
+export ADDRESS Times_MonNames__desc[];
+export SYSTEM_TYPEDESC *Times_MonNames__typ = (SYSTEM_TYPEDESC*)Times_MonNames__desc;
+
+export void Times_FromLocalTime (Times_SystemTime *lt, SYSTEM_TYPEDESC *lt__typ, Times_Time *t, INTEGER \
+*res);
+export Times_Time Times_FromSecMcs (Times_Sec sec, Times_Mcs mcs, _BOOLEAN from1970);
+export void Times_FromSystemTime (Times_SystemTime *st, SYSTEM_TYPEDESC *st__typ, Times_Time *t, INTEGER \
+*res);
+export Times_Time Times_GetTime (void);
+export void Times_GetUTCBias (INTEGER *bias);
+static void Times_Init (void);
+export void Times_SetDelimeters (_CHAR d_date, _CHAR d_time, _CHAR d_dat, _CHAR d_mcs);
+export void Times_SetHook (Times_Hook h);
+export void Times_SetMonNames (Times_MonNames mn);
+export void Times_Sleep (Times_Time tp);
+export void Times_SystemTimeToString (Times_SystemTime *st, SYSTEM_TYPEDESC *st__typ, SET tfmt, _CHAR \
+*s, INTEGER s__len);
+export void Times_ToLocalTime (Times_Time t, Times_SystemTime *lt, SYSTEM_TYPEDESC *lt__typ, INTEGER *res);
+export Times_Mcs Times_ToMcs (Times_Time t);
+export Times_Sec Times_ToSec (Times_Time t);
+export void Times_ToString (Times_Time t, SET tfmt, _CHAR *s, INTEGER s__len);
+export void Times_ToSystemTime (Times_Time t, Times_SystemTime *st, SYSTEM_TYPEDESC *st__typ, INTEGER \
+*res);
+
+export void Times__reg();
+export void Times__body();
+export struct SYSTEM_MODDESC Times__desc;
+
+
+Times_Time Times_GetTime (void)
+{
+	__ENTER("Times.GetTime");
+	__ASSERT(Times_pHook != NIL, 100);
+	__EXIT;
+	return __Times_Hook_GetTime(Times_pHook);
+}
+
+void Times_ToSystemTime (Times_Time t, Times_SystemTime *st, SYSTEM_TYPEDESC *st__typ, INTEGER *res)
+{
+	__ENTER("Times.ToSystemTime");
+	__ASSERT(Times_pHook != NIL, 100);
+	__Times_Hook_ToSystemTime(Times_pHook, t, st, st__typ, res);
+	__EXIT;
+}
+
+void Times_ToLocalTime (Times_Time t, Times_SystemTime *lt, SYSTEM_TYPEDESC *lt__typ, INTEGER *res)
+{
+	__ENTER("Times.ToLocalTime");
+	__ASSERT(Times_pHook != NIL, 100);
+	__Times_Hook_ToLocalTime(Times_pHook, t, lt, lt__typ, res);
+	__EXIT;
+}
+
+void Times_FromSystemTime (Times_SystemTime *st, SYSTEM_TYPEDESC *st__typ, Times_Time *t, INTEGER *res)
+{
+	__ENTER("Times.FromSystemTime");
+	__ASSERT(Times_pHook != NIL, 100);
+	__Times_Hook_FromSystemTime(Times_pHook, st, st__typ, t, res);
+	__EXIT;
+}
+
+void Times_FromLocalTime (Times_SystemTime *lt, SYSTEM_TYPEDESC *lt__typ, Times_Time *t, INTEGER *res)
+{
+	__ENTER("Times.FromLocalTime");
+	__ASSERT(Times_pHook != NIL, 100);
+	__Times_Hook_FromLocalTime(Times_pHook, lt, lt__typ, t, res);
+	__EXIT;
+}
+
+void Times_GetUTCBias (INTEGER *bias)
+{
+	__ENTER("Times.GetUTCBias");
+	__ASSERT(Times_pHook != NIL, 100);
+	__Times_Hook_GetUTCBias(Times_pHook, bias);
+	__EXIT;
+}
+
+void Times_Sleep (Times_Time tp)
+{
+	__ENTER("Times.Sleep");
+	__ASSERT(Times_pHook != NIL, 100);
+	__Times_Hook_Sleep(Times_pHook, tp);
+	__EXIT;
+}
+
+Times_Sec Times_ToSec (Times_Time t)
+{
+	LONGINT li;
+	__ENTER("Times.ToSec");
+	li = __DIV(t, 10000000);
+	if (li >= 0x00000002b6109100) {
+		__EXIT;
+		return li - 0x00000002b6109100;
+	}
+	__EXIT;
+	return li;
+}
+
+Times_Mcs Times_ToMcs (Times_Time t)
+{
+	LONGINT li;
+	__ENTER("Times.ToMcs");
+	li = __DIV(__MOD(t, 10000000), 10);
+	__EXIT;
+	return (INTEGER)li;
+}
+
+Times_Time Times_FromSecMcs (Times_Sec sec, Times_Mcs mcs, _BOOLEAN from1970)
+{
+	Times_Time t;
+	__ENTER("Times.FromSecMcs");
+	t = sec;
+	if (from1970) {
+		t = (t + 0x00000002b6109100) * 10000000 + (LONGINT)(mcs * 10);
+	} else {
+		t = t * 10000000 + (LONGINT)(mcs * 10);
+	}
+	__EXIT;
+	return t;
+}
+
+void Times_SystemTimeToString (Times_SystemTime *st, SYSTEM_TYPEDESC *st__typ, SET tfmt, _CHAR *s, INTEGER \
+s__len)
+{
+	_CHAR s0[256], si[256];
+	__ENTER("Times.SystemTimeToString");
+	s0[0] = 0;
+	if (__IN(4, tfmt)) {
+		(*OStrings_IntToStringForm)((*st).day, 10, 2, (_CHAR)L'0', 0, (void*)s0, 256);
+	}
+	if (__IN(2, tfmt)) {
+		(*OStrings_IntToStringForm)((*st).month, 10, 2, (_CHAR)L'0', 0, (void*)si, 256);
+		__STRCOPYLL(s0, s0, 256);
+		__STRAPNDLL(Times_delimDate, s0, 256);
+		__STRAPNDLL(si, s0, 256);
+	} else if (__IN(3, tfmt)) {
+		__STRCOPYLL(s0, s0, 256);
+		__STRAPNDLL(Times_delimDate, s0, 256);
+		__STRAPNDLL(Times_monNames[__X((*st).month - 1, 12)], s0, 256);
+	}
+	if (__IN(0, tfmt)) {
+		(*OStrings_IntToStringForm)(__MOD((*st).year, 100), 10, 2, (_CHAR)L'0', 0, (void*)si, 256);
+		__STRCOPYLL(s0, s0, 256);
+		__STRAPNDLL(Times_delimDate, s0, 256);
+		__STRAPNDLL(si, s0, 256);
+	} else if (__IN(1, tfmt)) {
+		(*OStrings_IntToStringForm)((*st).year, 10, 4, (_CHAR)L'0', 0, (void*)si, 256);
+		__STRCOPYLL(s0, s0, 256);
+		__STRAPNDLL(Times_delimDate, s0, 256);
+		__STRAPNDLL(si, s0, 256);
+	}
+	if (__IN(6, tfmt)) {
+		(*OStrings_IntToStringForm)((*st).hour, 10, 2, (_CHAR)L'0', 0, (void*)si, 256);
+		__STRCOPYLL(s0, s0, 256);
+		__STRAPNDLL(Times_delimDaT, s0, 256);
+		__STRAPNDLL(si, s0, 256);
+	}
+	if (__IN(7, tfmt)) {
+		(*OStrings_IntToStringForm)((*st).minute, 10, 2, (_CHAR)L'0', 0, (void*)si, 256);
+		__STRCOPYLL(s0, s0, 256);
+		__STRAPNDLL(Times_delimTime, s0, 256);
+		__STRAPNDLL(s
