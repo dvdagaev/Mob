@@ -1,1 +1,0 @@
-..\..\Bfwe\OmfCompiler +HostConLog OmtestHelloWorld: OmtestFormats: OmtestDateTime: OmtestMkTraps: OmtestHeap:

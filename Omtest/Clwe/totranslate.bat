@@ -1,1 +1,0 @@
-..\..\Blwe\OmlCompiler +HostConLog OmtestHelloWorld: OmtestFormats: OmtestDateTime: OmtestMkTraps: OmtestHeap:
