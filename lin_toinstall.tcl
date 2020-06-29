@@ -81,24 +81,24 @@ cc=gcc
 clang_opt=-O2
 clang_lnkopt=-O2\ -ldl
 }
-write_cfg Blue/Oml.cfg {
-llc=/home/ddag/mobdev/mob/Blue/llc
+write_cfg Blue/Oml.cfg "
+llc=[pwd]/Blue/llc
 llc_opt=-O0
 gcc_opt=-O0
 {gcc_lnkopt=-O0 -lm -ldl}
 lnk=gcc
 clang_opt=-O0
 {clang_lnkopt=-O0 -lm -ldl}
-}
-write_cfg Blur/Oml.cfg {
-llc=/home/ddag/mobdev/mob/Blur/llc
+"
+write_cfg Blur/Oml.cfg "
+llc=[pwd]/Blur/llc
 llc_opt=-O0
 gcc_opt=-O0
 {gcc_lnkopt=-O0 -lm -ldl}
 lnk=gcc
 clang_opt=-O0
 {clang_lnkopt=-O0 -lm -ldl}
-}
+"
 
 proc conv_txt {fn} {
     set fi [open $fn r]
