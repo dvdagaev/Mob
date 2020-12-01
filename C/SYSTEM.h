@@ -13,6 +13,7 @@ bh 20.12.1999
 #pragma warning(disable:4101)	// disable "unreferenced variable" warning
 
 #ifdef _WIN32
+#define WINBASEAPI
 #include <windows.h>
 #else
 #include <alloca.h>
@@ -45,13 +46,16 @@ typedef int INTEGER;
   typedef long long LONGINT; // ILP32 or LLP64
 #endif
 #if __SIZEOF_POINTER__ == 8
-  typedef LONGINT ADDRESS;
+  typedef LONGINT ADRINT;
 #else
-  typedef INTEGER ADDRESS;
+  typedef INTEGER ADRINT;
 #endif
 typedef float SHORTREAL;
 typedef double REAL;
 typedef unsigned int SET;
+typedef _CHAR LONGCHAR;
+typedef LONGINT LARGEINT;
+typedef REAL LONGREAL;
 typedef void ANYREC;
 typedef void *ANYPTR;
 typedef void *SYSTEM_PTR;
@@ -68,47 +72,49 @@ INTEGER SYSTEM_INFS;
 
 #define __CALLBACK	WINAPI
 
+/* setting alignment of structs */
+#define __AL(n) __attribute__((aligned(n)))
 
 /* simple open array types */
 
 typedef struct BOOLEAN_ARRAY {
-	ADDRESS gc[3], len[1];
+	ADRINT gc[3], len[1];
 	_BOOLEAN data[1];
 } BOOLEAN_ARRAY;
 typedef struct CHAR_ARRAY {
-	ADDRESS gc[3], len[1];
+	ADRINT gc[3], len[1];
 	_CHAR data[1];
 } CHAR_ARRAY;
 typedef struct SHORTCHAR_ARRAY {
-	ADDRESS gc[3], len[1];
+	ADRINT gc[3], len[1];
 	SHORTCHAR data[1];
 } SHORTCHAR_ARRAY;
 typedef struct BYTE_ARRAY {
-	ADDRESS gc[3], len[1];
+	ADRINT gc[3], len[1];
 	_BYTE data[1];
 } BYTE_ARRAY;
 typedef struct SHORTINT_ARRAY {
-	ADDRESS gc[3], len[1];
+	ADRINT gc[3], len[1];
 	SHORTINT data[1];
 } SHORTINT_ARRAY;
 typedef struct INTEGER_ARRAY {
-	ADDRESS gc[3], len[1];
+	ADRINT gc[3], len[1];
 	INTEGER data[1];
 } INTEGER_ARRAY;
 typedef struct LONGINT_ARRAY {
-	ADDRESS gc[3], len[1];
+	ADRINT gc[3], len[1];
 	LONGINT data[1];
 } LONGINT_ARRAY;
 typedef struct REAL_ARRAY {
-	ADDRESS gc[3], len[1];
+	ADRINT gc[3], len[1];
 	REAL data[1];
 } REAL_ARRAY;
 typedef struct SHORTREAL_ARRAY {
-	ADDRESS gc[3], len[1];
+	ADRINT gc[3], len[1];
 	SHORTREAL data[1];
 } SHORTREAL_ARRAY;
 typedef struct SET_ARRAY {
-	ADDRESS gc[3], len[1];
+	ADRINT gc[3], len[1];
 	SET data[1];
 } SET_ARRAY;
 
@@ -129,21 +135,21 @@ typedef struct SYSTEM_MODDESC {
 	void (*body) ();
 	void (*term) ();
 	INTEGER nofimps, nofptrs;
-	ADDRESS size, dsize, rsize;
-	ADDRESS code, data, refs, procBase, varBase;
+	ADRINT size, dsize, rsize;
+	ADRINT code, data, refs, procBase, varBase;
 	char *names;
-	ADDRESS *ptrs;
+	ADRINT *ptrs;
 	struct SYSTEM_MODDESC **imports;
 	struct SYSTEM_DIRECTORY *exp;
 	char name[256];
 } SYSTEM_MODDESC;
 typedef struct SYSTEM_TYPEDESC {
-	ADDRESS size;
+	ADRINT size;
 	struct SYSTEM_MODDESC *mod;
-	ADDRESS id;
-	ADDRESS base[16];
+	ADRINT id;
+	ADRINT base[16];
 	struct SYSTEM_DIRECTORY *fields;
-	ADDRESS ptroffs[1];
+	ADRINT ptroffs[1];
 } SYSTEM_TYPEDESC;
 
 /* dynamic link */
@@ -165,13 +171,12 @@ extern INTEGER SYSTEM_ENTIER(REAL x);
 extern INTEGER SYSTEM_ASH(INTEGER x, INTEGER n);
 extern INTEGER SYSTEM_ABS(INTEGER x);
 extern INTEGER SYSTEM_XCHK(INTEGER i, INTEGER ub);
-extern void *SYSTEM_NEWARR(ADDRESS type, ADDRESS n);
-extern void *SYSTEM_NEWARR1(ADDRESS type, ADDRESS n0, ADDRESS n);
-extern void *SYSTEM_NEWARR2(ADDRESS type, ADDRESS n1, ADDRESS n0, ADDRESS n);
-extern void *SYSTEM_NEWARR3(ADDRESS type, ADDRESS n2, ADDRESS n1, ADDRESS n0, ADDRESS n);
-extern void *SYSTEM_NEWARR4(ADDRESS type, ADDRESS n3, ADDRESS n2, ADDRESS n1, ADDRESS n0, ADDRESS n);
-extern void SYSTEM_REGMOD(struct SYSTEM_MODDESC *mod);
-extern void SYSTEM_TRAP(INTEGER x);
+// extern void *SYSTEM_NEWARR(ADRINT type, ADRINT n);
+// extern void *SYSTEM_NEWARR1(ADRINT type, ADRINT n0, ADRINT n);
+// extern void *SYSTEM_NEWARR2(ADRINT type, ADRINT n1, ADRINT n0, ADRINT n);
+// extern void *SYSTEM_NEWARR3(ADRINT type, ADRINT n2, ADRINT n1, ADRINT n0, ADRINT n);
+// extern void *SYSTEM_NEWARR4(ADRINT type, ADRINT n3, ADRINT n2, ADRINT n1, ADRINT n0, ADRINT n);
+extern void SYSTEM_TRAP(INTEGER x, ADRINT trapnext);
 extern INTEGER SYSTEM_STRLEN(_CHAR x[]);	/* LEN(lx$) */
 extern INTEGER SYSTEM_STRLENS(SHORTCHAR x[]);	/* LEN(sx$) */
 extern INTEGER SYSTEM_STRCMPSS(SHORTCHAR x[], SHORTCHAR y[]);	/* sx = sy */
@@ -208,17 +213,27 @@ extern REAL SYSTEM_ABSD(REAL x);
 extern REAL SYSTEM_MIND(REAL x, REAL y);
 extern REAL SYSTEM_MAXD(REAL x, REAL y);
 
-extern ADDRESS Kernel_NewRec();
-extern ADDRESS Kernel_NewArr();
-extern ADDRESS Kernel_SetModList(ADDRESS ml);
+extern ADRINT Kernel_NewRec();
+extern ADRINT Kernel_NewArr();
+extern ADRINT Kernel_SetModList(ADRINT ml);
 extern void Kernel_Main();
+typedef ADRINT (NewArrType)(ADRINT, INTEGER, INTEGER);
+typedef struct SYSTEM_NEWARR_DIMS {
+	INTEGER nofdim;
+	INTEGER dims[4];
+} SYSTEM_NEWARR_DIMS;
+extern void *SYSTEM_NEWARR_N(NewArrType fun, ADRINT type, SYSTEM_NEWARR_DIMS sd);
+typedef ADRINT (SetModListType)(ADRINT);
+extern void SYSTEM_REGMOD(SetModListType sfun, struct SYSTEM_MODDESC *mod);
+// extern void SYSTEM_REGMOD(struct SYSTEM_MODDESC *mod);
 
 #define _T(x) printf("%s\n", #x);fflush(stdout)
 
-#define __BEGMAIN(argc,argv)	Kernel_Main(0, argc,(ADDRESS*)argv,argc+1,(ADDRESS)&argc)
+#define __BEGMAIN(argc,argv)	Kernel_Main(0, argc,(ADRINT*)argv,argc+1,(ADRINT)&argc)
 #define __BEGREG(mod)	if (mod.opts & 0x40000) return; mod.opts |= 0x40000;
 #define __ENDREG	
-#define __REGMOD(mod)	SYSTEM_REGMOD(&mod);
+// #define __REGMOD(mod)	SYSTEM_REGMOD(&mod);
+#define __REGMOD(mod)	SYSTEM_REGMOD(Kernel_SetModList, &mod);
 #define __BEGBODY(mod)	if (mod.opts & 0x10000) return; mod.opts |= 0x10000;
 #define __ENDBODY	
 #define __BEGCLOSE	
@@ -264,14 +279,19 @@ extern void Kernel_Main();
 #define __MAXFL(x, y)	SYSTEM_MAXL(x,y)
 #define __MAXFF(x, y)	SYSTEM_MAXF(x,y)
 #define __MAXFD(x, y)	SYSTEM_MAXD(x,y)
-#define __NEW(t)	(void*)Kernel_NewRec((ADDRESS)t)
-#define __NEWARR(t, n)	(void*)SYSTEM_NEWARR(t, n)
+#define __NEW(t)	(void*)Kernel_NewRec((ADRINT)t)
+//#define __NEWARR(t, n)	(void*)SYSTEM_NEWARR(t, n)
 #define __NEWARR0(t, n)	(void*)Kernel_NewArr(t, n, 0)
-#define __NEWARR1(t, n0, n)	(void*)SYSTEM_NEWARR1(t, n0, n)
-#define __NEWARR2(t, n1, n0, n)	(void*)SYSTEM_NEWARR2(t, n1, n0, n)
-#define __NEWARR3(t, n2, n1, n0, n)	(void*)SYSTEM_NEWARR3(t, n2, n1, n0, n)
-#define __NEWARR4(t, n3, n2, n1, n0, n)	(void*)SYSTEM_NEWARR4(t, n3, n2, n1, n0, n)
-#define __HALT(x)	SYSTEM_TRAP(x),assert(0)
+// #define __NEWARR1(t, n0, n)	(void*)SYSTEM_NEWARR1(t, n0, n)
+// #define __NEWARR2(t, n1, n0, n)	(void*)SYSTEM_NEWARR2(t, n1, n0, n)
+// #define __NEWARR3(t, n2, n1, n0, n)	(void*)SYSTEM_NEWARR3(t, n2, n1, n0, n)
+// #define __NEWARR4(t, n3, n2, n1, n0, n)	(void*)SYSTEM_NEWARR4(t, n3, n2, n1, n0, n)
+#define __NEWARR(t,n)	SYSTEM_NEWARR_N(Kernel_NewArr, t, (SYSTEM_NEWARR_DIMS){1, {1, n}})
+#define __NEWARR1(t,n0,n)	SYSTEM_NEWARR_N(Kernel_NewArr, t, (SYSTEM_NEWARR_DIMS){1, {n, n0}})
+#define __NEWARR2(t,n1,n0,n)	SYSTEM_NEWARR_N(Kernel_NewArr, t, (SYSTEM_NEWARR_DIMS){2, {n, n1, n0}})
+#define __NEWARR3(t,n2,n1,n0,n)	SYSTEM_NEWARR_N(Kernel_NewArr, t, (SYSTEM_NEWARR_DIMS){3, {n, n2, n1, n0}})
+#define __NEWARR4(t,n3,n2,n1,n0,n)	SYSTEM_NEWARR_N(Kernel_NewArr, t, (SYSTEM_NEWARR_DIMS){4, {n, n3, n2, n1, n0}})
+#define __HALT(x)	SYSTEM_TRAP(x,0),assert(0)
 #define __ASSERT(cond, x)	if (!(cond)) __HALT(x)
 #define __ENTIER(x)	SYSTEM_ENTIER(x)
 #define __ENTIERL(x)	SYSTEM_ENTIERL(x)
@@ -315,7 +335,7 @@ extern void Kernel_Main();
 #define __DUP(x, l)	x=(void*)memcpy(alloca(l*sizeof(*x)),x,l*sizeof(*x))
 #define __DUPARR(v)	v=(void*)memcpy(v##__copy,v,sizeof(v##__copy))
 #define __DEL(x)	/* DUP with alloca frees storage automatically */
-#define __IS(tag, typ, level)	((tag->base[level])==(ADDRESS)typ)
+#define __IS(tag, typ, level)	((tag->base[level])==(ADRINT)typ)
 #define __TYPEOF(p)	(*(((SYSTEM_TYPEDESC**)(p))-1))
 #define __ISP(p, typ, level)	__IS(__TYPEOF(p),typ,level)
 
@@ -331,7 +351,7 @@ extern void Kernel_Main();
 #define __WITHCHK	__HALT(-1)
 
 /* Oberon-2 type bound procedures support */
-#define __SEND(typ, num, funtyp, parlist)	((funtyp)(*((ADDRESS*)typ-(num+1))))parlist
+#define __SEND(typ, num, funtyp, parlist)	((funtyp)(*((ADRINT*)typ-(num+1))))parlist
 
 /* runtime system variables */
 extern SYSTEM_MODDESC *SYSTEM_modlist;

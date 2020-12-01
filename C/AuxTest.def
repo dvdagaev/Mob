@@ -1,0 +1,5 @@
+LIBRARY         "AuxTest.dll"
+
+EXPORTS
+	AuxTestGetString	@1
+	AuxTestGetAdr	@2

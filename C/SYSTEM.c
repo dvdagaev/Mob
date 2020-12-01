@@ -9,16 +9,17 @@ INTEGER SYSTEM_INFS = 0x7F800000;
 _CHAR SYSTEM_strBuf[32][256];
 INTEGER SYSTEM_actual;
 
-void SYSTEM_REGMOD(SYSTEM_MODDESC *mod)
+/*void SYSTEM_REGMOD(SYSTEM_MODDESC *mod)
 {
-	/*int i;
-	mod->next = SYSTEM_modlist;
-	SYSTEM_modlist = mod;
-	for (i = 0; i < mod->nofimps; i++) mod->imports[i]->refcnt++;*/
-	SYSTEM_modlist = (SYSTEM_MODDESC*)Kernel_SetModList((ADDRESS)mod);
+	SYSTEM_modlist = (SYSTEM_MODDESC*)Kernel_SetModList((ADRINT)mod);
+}*/
+
+void SYSTEM_REGMOD(SetModListType sfun, SYSTEM_MODDESC *mod)
+{
+	SYSTEM_modlist = (SYSTEM_MODDESC*)(*sfun)((ADRINT)mod);
 }
 
-void SYSTEM_TRAP(INTEGER x)
+void SYSTEM_TRAP(INTEGER x, ADRINT trapnext)
 {
 	SYSTEM_DLINK *dl = SYSTEM_dlink;
 	printf("*** trap # %d in ", x);
@@ -33,48 +34,71 @@ void SYSTEM_TRAP(INTEGER x)
 }
 
 typedef struct {
-	ADDRESS gc[3];
-	ADDRESS len[1];
+	ADRINT gc[3];
+	ADRINT len[1];
 } Array;
 
-void *SYSTEM_NEWARR(ADDRESS type, ADDRESS n)
+/*void *SYSTEM_NEWARR(ADRINT type, ADRINT n)
 {
-	ADDRESS ptr = Kernel_NewArr(type, n, 1);
+	ADRINT ptr = Kernel_NewArr(type, n, 1);
 	((Array*)ptr)->len[0] = n;
 	return (void*)ptr;
 }
 
-void *SYSTEM_NEWARR1(ADDRESS type, ADDRESS n0, ADDRESS n)
+void *SYSTEM_NEWARR1(ADRINT type, ADRINT n0, ADRINT n)
 {
-	ADDRESS ptr = Kernel_NewArr(type, n * n0, 1);
+	ADRINT ptr = Kernel_NewArr(type, n * n0, 1);
 	((Array*)ptr)->len[0] = n0;
 	return (void*)ptr;
 }
 
-void *SYSTEM_NEWARR2(ADDRESS type, ADDRESS n1, ADDRESS n0, ADDRESS n)
+void *SYSTEM_NEWARR2(ADRINT type, ADRINT n1, ADRINT n0, ADRINT n)
 {
-	ADDRESS ptr = Kernel_NewArr(type, n * n0 * n1, 2);
+	ADRINT ptr = Kernel_NewArr(type, n * n0 * n1, 2);
 	((Array*)ptr)->len[0] = n1;
 	((Array*)ptr)->len[1] = n0;
 	return (void*)ptr;
 }
 
-void *SYSTEM_NEWARR3(ADDRESS type, ADDRESS n2, ADDRESS n1, ADDRESS n0, ADDRESS n)
+void *SYSTEM_NEWARR3(ADRINT type, ADRINT n2, ADRINT n1, ADRINT n0, ADRINT n)
 {
-	ADDRESS ptr = Kernel_NewArr(type, n * n0 * n1 * n2, 3);
+	ADRINT ptr = Kernel_NewArr(type, n * n0 * n1 * n2, 3);
 	((Array*)ptr)->len[0] = n2;
 	((Array*)ptr)->len[1] = n1;
 	((Array*)ptr)->len[2] = n0;
 	return (void*)ptr;
 }
 
-void *SYSTEM_NEWARR4(ADDRESS type, ADDRESS n3, ADDRESS n2, ADDRESS n1, ADDRESS n0, ADDRESS n)
+void *SYSTEM_NEWARR4(ADRINT type, ADRINT n3, ADRINT n2, ADRINT n1, ADRINT n0, ADRINT n)
 {
-	ADDRESS ptr = Kernel_NewArr(type, n * n0 * n1 * n2 * n3, 4);
+	ADRINT ptr = Kernel_NewArr(type, n * n0 * n1 * n2 * n3, 4);
 	((Array*)ptr)->len[0] = n3;
 	((Array*)ptr)->len[1] = n2;
 	((Array*)ptr)->len[2] = n1;
 	((Array*)ptr)->len[3] = n0;
+	return (void*)ptr;
+}
+
+void *SYSTEM_NEWARR_N(ADRINT type, INTEGER nofdim, INTEGER n3, INTEGER n2, INTEGER n1, INTEGER n0, INTEGER n)
+{
+	ADRINT ptr = Kernel_NewArr(type, n * n0 * n1 * n2 * n3, nofdim);
+	if (nofdim>3) ((Array*)ptr)->len[nofdim-4] = n3;
+	if (nofdim>2) ((Array*)ptr)->len[nofdim-3] = n2;
+	if (nofdim>1) ((Array*)ptr)->len[nofdim-2] = n1;
+	if (nofdim>0) ((Array*)ptr)->len[nofdim-1] = n0;
+	return (void*)ptr;
+}*/
+
+void *SYSTEM_NEWARR_N(NewArrType fun, ADRINT type, SYSTEM_NEWARR_DIMS sd)
+{
+	INTEGER j, n = 1, nofdim;
+	nofdim = sd.nofdim;
+	for (j = 0; j <= nofdim; j++) {
+		n = n * sd.dims[j];
+	}
+	ADRINT ptr = (*fun)(type, n, nofdim);
+	for (j = 0; j < nofdim; j++)
+		((Array*)ptr)->len[j] = sd.dims[j+1];
 	return (void*)ptr;
 }
 
@@ -175,6 +199,11 @@ LONGINT SYSTEM_DIVL(LONGINT x, LONGINT y)
 	}
 }
 
+LONGINT SYSTEM_DIVLX(LONGINT x, LONGINT y)
+{
+        return x / y;
+}
+
 INTEGER SYSTEM_MOD(INTEGER x, INTEGER y)
 {
 	if (y > 0) {
@@ -199,6 +228,11 @@ LONGINT SYSTEM_MODL(LONGINT x, LONGINT y)
 	} else {
 		__HALT(-5);
 	}
+}
+
+LONGINT SYSTEM_MODLX(LONGINT x, LONGINT y)
+{
+        return x % y;
 }
 
 INTEGER SYSTEM_MIN(INTEGER x, INTEGER y)
