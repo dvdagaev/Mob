@@ -1,15 +1,2 @@
-cd System/Clwe
-call toclean
-cd ../..
-cd Host/Clwe
-call toclean
-cd ../..
-cd Llvm/Clwe
-call toclean
-cd ../..
-cd Omc/Clwe
-call toclean
-cd ../..
-cd Oml/Clwe
-call toclean
-cd ../..
+Binwe\omlc clear -n -r OmlSh
+

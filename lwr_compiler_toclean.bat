@@ -1,15 +1,1 @@
-cd System/Clwr
-call toclean
-cd ../..
-cd Host/Clwr
-call toclean
-cd ../..
-cd Llvm/Clwr
-call toclean
-cd ../..
-cd Omc/Clwr
-call toclean
-cd ../..
-cd Oml/Clwr
-call toclean
-cd ../..
+Binwr\omlc clear -64 -n -r OmlCoSh

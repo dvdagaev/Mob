@@ -1,1 +1,1 @@
-Bbwe\ombsh clear OmtestHelloWorld OmtestFormats OmtestDateTime OmtestMkTraps OmtestHeap
+Binwe\ombc clear OmtestHelloWorld OmtestFormats OmtestDateTime OmtestMkTraps OmtestHeap

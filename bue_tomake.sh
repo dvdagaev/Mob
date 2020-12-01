@@ -1,6 +1,7 @@
-Bbue/ombsh co :OmtestHelloWorld :OmtestFormats :OmtestDateTime :OmtestMkTraps :OmtestHeap
-Bbue/ombsh link -r OmtestHelloWorld
-Bbue/ombsh link -r OmtestFormats
-Bbue/ombsh link -r OmtestDateTime
-Bbue/ombsh link -r OmtestMkTraps
-Bbue/ombsh link -r OmtestHeap
+Binue/ombc co -odc :OmtestHelloWorld :OmtestFormats :OmtestDateTime :OmtestMkTraps :OmtestHeap
+mkdir -p Omtest/Cbue
+Binue/ombc link -r OmtestHelloWorld
+Binue/ombc link -r OmtestFormats
+Binue/ombc link -r OmtestDateTime
+Binue/ombc link -r OmtestMkTraps
+Binue/ombc link -r OmtestHeap

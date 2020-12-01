@@ -1,1 +1,1 @@
-Blur/omlsh clear -n -r OmlSh
+Blur/omlsh clear -n -r OmlShell

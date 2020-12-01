@@ -1,15 +1,16 @@
 ' MultiOberon by Dmitry V. Dagaev installation
 'version = "16"
 'blackBoxPath = "c:\BlackBox Component Builder 1.6"
+'blackBoxPath = "c:\BBPrj171"
 version = "17"
-blackBoxPath = "c:\BBPrj171"
+blackBoxPath = "C:\Program Files (x86)\BlackBox Component Builder 1.7.2"
 ' get BlackBox path
 Set ArgObj = WScript.Arguments
 If (Wscript.Arguments.Count > 0) Then
-    version = ArgObj(0)
+    blackBoxPath = ArgObj(0)
 End if
 If (Wscript.Arguments.Count > 1) Then
-    blackBoxPath = ArgObj(1)
+    version = ArgObj(1)
 End if
 filePath = blackBoxPath + "\BlackBox.exe"
 Set theFso = CreateObject("Scripting.FileSystemObject")
@@ -31,8 +32,8 @@ Sub RmDir(ByVal dname)
     Set fso = Nothing
     Wscript.Sleep(1000)
 End Sub
-RmDir "Blwe"
-RmDir "Blwr"
+RmDir "Binwe"
+RmDir "Binwr"
 
 Const DQuote = """"
 DQuote3 = DQuote + DQuote + DQuote
@@ -78,8 +79,8 @@ Sub Extract(ByVal aname)
     objTarget.CopyHere objSource, intOptions
     Set fso = Nothing
 End Sub
-Extract "Blwe"
-Extract "Blwr"
+Extract "Binwe"
+Extract "Binwr"
 
 ' Create Omb.cfg, Omf.cfg, Oml.cfg files
 Set objFileToWrite = Nothing
@@ -99,9 +100,9 @@ Sub CloseCfg()
     Set fsoCrt = Nothing
 End Sub
 spath = "spath=" + blackBoxPath
-MkCfg "Bbwe\Omb.cfg", "#path=c:\MultiOberon", spath
+MkCfg "Binwe\Omb.cfg", "#path=c:\MultiOberon", spath
 CloseCfg
-MkCfg "Bfwe\Omf.cfg", "#options=xatp", spath
+MkCfg "Binwe\Omf.cfg", "#options=xatp", spath
 WriteCfg "#cc=gcc"
 WriteCfg "#lnk=gcc"
 WriteCfg "gcc_opt=-O2"
@@ -111,7 +112,7 @@ WriteCfg "#lnk=clang"
 WriteCfg "clang_opt=-O2"
 WriteCfg "clang_lnkopt=-O2 -luser32"
 CloseCfg
-MkCfg "Blwe\Oml.cfg", "#options=lb", spath
+MkCfg "Binwe\Oml.cfg", "#options=lb", spath
 WriteCfg "llc_opt=-O2"
 WriteCfg "gcc_opt=-O2"
 WriteCfg "gcc_lnkopt=-O2"
@@ -119,7 +120,7 @@ WriteCfg "lnk=clang"
 WriteCfg "clang_opt=-O2"
 WriteCfg "clang_lnkopt=-O2 -luser32"
 CloseCfg
-MkCfg "Blwr\Oml.cfg", "#options=lb", spath
+MkCfg "Binwr\Oml.cfg", "#options=lb", spath
 WriteCfg "llc_opt=-O2"
 WriteCfg "gcc_opt=-O2"
 WriteCfg "gcc_lnkopt=-O2"
@@ -149,4 +150,4 @@ IF version = "16" Then
 Else
     Exec "all17_toinstall.bat"
 End If
-Copy "Blwe\LLVMT.dll", blackBoxPath
+Copy "Binwe\LLVMT.dll", blackBoxPath

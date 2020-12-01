@@ -1,2 +1,5 @@
-Bbwe\ombsh co -odc OmcCfgfile OmcTarget OmcCRuntime OmcHooks OmcDialog OmcOPM OmcOPT OmcOPU OmcOPB OmcOPS OmcOPP OmcDump OmcParams OmcCommandParams OmcOdcSource OmcTxtSource OmcRuntimeStd OmcDialogStd OmcDialogConsole OmcCompiler OmcTimesDialog OmcConsole OmcShell OmfOPG OmfOPC OmfOPV OmfParams OmfBackEnd OmfCompiler OmfLinker OmfSh
-Bbwe\ombsh link -o "Bfwe/omfsh" $+Kernel Files Log Math Strings OStrings OLog Dates Times HostTimes HostFiles Dialog Stores Sequencers Models Services Fonts Meta Converters Ports Views Controllers Properties Mechanisms Containers Printers Printing OmcCfgfile OmcTimesDialog Documents TextModels TextRulers TextSetters TextViews HostConLog Runner OmcTarget OmcCRuntime OmcHooks OmcDialog OmcOPM OmcOPT OmcOPB OmcOPU OmcOPS OmcOPP OmcDump OmcParams OmcOdcSource OmcRuntimeStd OmcDialogConsole OmcConsole OmcShell OmfOPG OmfOPC OmfOPV OmfBackEnd OmfSh
+Binwe\omfc co -odc OmcLoaderRoutines OmcObjLoader_Coff OmcShell :OmfShell
+Binwe\omfc co -odc OmcTester RestrictAdrint
+Binwe\omfc build OmcTester
+Binwe\omfc build -r OmfShell
+Binwe\omfc link -r -o "Binwe/omfsh.exe" OmfShell

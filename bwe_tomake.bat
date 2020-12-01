@@ -1,7 +1,7 @@
-Bbwe\ombsh co -odc OmtestHelloWorld OmtestFormats OmtestDateTime OmtestMkTraps OmtestHeap
-Bbwe\ombsh link -r OmtestHelloWorld
-Bbwe\ombsh link -r OmtestFormats
-Bbwe\ombsh link -r OmtestDateTime
-Bbwe\ombsh link -r OmtestMkTraps
-Bbwe\ombsh link -r OmtestHeap
+Binwe\ombc co -odc OmtestHelloWorld OmtestFormats OmtestDateTime OmtestMkTraps OmtestHeap
+Binwe\ombc link -r OmtestHelloWorld
+Binwe\ombc link -r OmtestFormats
+Binwe\ombc link -r OmtestDateTime
+Binwe\ombc link -r OmtestMkTraps
+Binwe\ombc link -r OmtestHeap
 

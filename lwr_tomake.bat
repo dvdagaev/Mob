@@ -1,12 +1,12 @@
-Blwr\omlsh co -odc :OmtestHelloWorld :OmtestFormats :OmtestDateTime :OmtestMkTraps :OmtestHeap
-Blwr\omlsh build -r OmtestDateTime
-Blwr\omlsh build OmtestHelloWorld
-Blwr\omlsh build OmtestFormats
-Blwr\omlsh build OmtestMkTraps
-Blwr\omlsh build OmtestHeap
-Blwr\omlsh link -r OmtestDateTime
-Blwr\omlsh link -r OmtestHelloWorld
-Blwr\omlsh link -r OmtestFormats
-Blwr\omlsh link -r OmtestMkTraps
-Blwr\omlsh link -r OmtestHeap
+Binwr\omlc co -odc :OmtestHelloWorld :OmtestFormats :OmtestDateTime :OmtestMkTraps :OmtestHeap
+Binwr\omlc build -r OmtestDateTime
+Binwr\omlc build OmtestHelloWorld
+Binwr\omlc build OmtestFormats
+Binwr\omlc build OmtestMkTraps
+Binwr\omlc build OmtestHeap
+Binwr\omlc link -r OmtestDateTime
+Binwr\omlc link -r OmtestHelloWorld
+Binwr\omlc link -r OmtestFormats
+Binwr\omlc link -r OmtestMkTraps
+Binwr\omlc link -r OmtestHeap
 

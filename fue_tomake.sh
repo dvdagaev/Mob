@@ -1,11 +1,11 @@
-Bfue/omfsh co :OmtestHelloWorld :OmtestFormats :OmtestDateTime :OmtestMkTraps :OmtestHeap
-Bfue/omfsh build -r OmtestDateTime
-Bfue/omfsh build OmtestHelloWorld
-Bfue/omfsh build OmtestFormats
-Bfue/omfsh build OmtestMkTraps
-Bfue/omfsh build OmtestHeap
-Bfue/omfsh link -r OmtestDateTime
-Bfue/omfsh link -r OmtestHelloWorld
-Bfue/omfsh link -r OmtestFormats
-Bfue/omfsh link -r OmtestMkTraps
-Bfue/omfsh link -r OmtestHeap
+Binue/omfc co -odc :OmtestHelloWorld :OmtestFormats :OmtestDateTime :OmtestMkTraps :OmtestHeap
+Binue/omfc build -r OmtestDateTime
+Binue/omfc build OmtestHelloWorld
+Binue/omfc build OmtestFormats
+Binue/omfc build OmtestMkTraps
+Binue/omfc build OmtestHeap
+Binue/omfc link -r OmtestDateTime
+Binue/omfc link -r OmtestHelloWorld
+Binue/omfc link -r OmtestFormats
+Binue/omfc link -r OmtestMkTraps
+Binue/omfc link -r OmtestHeap
