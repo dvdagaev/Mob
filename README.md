@@ -1,7 +1,7 @@
 # MultiOberon Compiler
 
 MultiOberon is an Oberon Compiler with 3 different backends:
-* BlackBox Native x86 code Generator (both 1.6 and 1.7)
+* BlackBox Native x86 code Generator (1.7, version 1.6 with partial support)
 * Ofront Generated C-Language Code Translator;
 * LLVM representation Generator.
 
@@ -15,17 +15,15 @@ MultiOberon is restriction-based scaling Oberon environment with an initial cond
 MultiOberon can be called from BlackBox environment and from command line.
 
 
-### Guides:
-* [The Quick-Start Guide for BlackBox environment.](https://github.com/dvdagaev/Mob/blob/master/Omb/Docu/QuickStartOmb.pdf)
-* [The Quick-Start Guide for Ofront environment.](https://github.com/dvdagaev/Mob/blob/master/Omf/Docu/QuickStartOmf.pdf)
-* [The Quick-Start Guide for LLVM environment.](https://github.com/dvdagaev/Mob/blob/master/Oml/Docu/QuickStartOml.pdf)
+### Guide:
+* [The Quick-Start and Users Guide.](https://github.com/dvdagaev/Mob/blob/master/MultiOberonCompilerUserGuide.pdf)
 
 ---
 
 # Компилятор МультиОберон
 
 МультиОберон это компилятор языка Оберон с 3 различными бэкендами:
-* Генератором нативного кода x86 для системы BlackBox (1.6 и 1.7);
+* Генератором нативного кода x86 для системы BlackBox (1.7 с частичной поддержкой 1.6);
 * Транслятором Ofront в язык C;
 * Генератором кода LLVM.
 
@@ -38,8 +36,5 @@ MultiOberon can be called from BlackBox environment and from command line.
 МультиОберон это масштабируемая технология на основе систем ограничений с начальной точкой в виде синтаксиса Компонентного Паскаля.
 МультиОберон предназначен для работы из среды BlackBox и из командной строки.
 
-### Руководства:
-* [Быстрый старт для BlackBox.](https://github.com/dvdagaev/Mob/blob/master/Omb/Docu/QuickStartOmb_ru.pdf)
-* [Быстрый старт для Ofront.](https://github.com/dvdagaev/Mob/blob/master/Omf/Docu/QuickStartOmf_ru.pdf)
-* [Быстрый старт для LLVM.](https://github.com/dvdagaev/Mob/blob/master/Oml/Docu/QuickStartOml_ru.pdf)
-
+### Руководство:
+* [Быстрый старт и Руководство пользователя.](https://github.com/dvdagaev/Mob/blob/master/MultiOberonCompilerUserGuide_ru.pdf)
