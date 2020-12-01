@@ -16,7 +16,7 @@ llc -march=x86-64 -filetype=obj OmcOPP.ll -o OmcOPP.o
 llc -march=x86-64 -filetype=obj OmcParams.ll -o OmcParams.o
 llc -march=x86-64 -filetype=obj OmcConsole.ll -o OmcConsole.o
 llc -march=x86-64 -filetype=obj OmcDump.ll -o OmcDump.o
-llc -march=x86-64 -filetype=obj OmcShell.ll -o OmcShell.o
+llc -march=x86-64 -filetype=obj OmcDiscomp.ll -o OmcDiscomp.o
 llc -march=x86-64 -filetype=obj OmcLoader.ll -o OmcLoader.o
 llc -march=x86-64 -filetype=obj OmcLoaderRoutines.ll -o OmcLoaderRoutines.o
 llc -march=x86-64 -filetype=obj OmcObjLoader.ll -o OmcObjLoader.o
