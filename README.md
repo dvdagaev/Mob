@@ -38,4 +38,3 @@ MultiOberon can be called from BlackBox environment and from command line.
 
 ### Руководство:
 * [Быстрый старт и Руководство пользователя.](https://github.com/dvdagaev/Mob/blob/master/MultiOberonCompilerUserGuide_ru.pdf)
-
