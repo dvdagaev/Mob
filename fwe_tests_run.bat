@@ -1,2 +1,0 @@
-rem Omtest\Cfwe\OmtestOmcCompiler -pl 2
-Binwe\omfc test -pl 2 OmtestOmcSimpleTest OmtestOmcStringsTest OmtestOmcSystemTest OmtestOmcImportsTest OmtestOmcExtensionsTest OmtestOmcBoundTest OmtestOmcAdvancedTest

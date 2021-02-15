@@ -1,0 +1,108 @@
+#!/usr/bin/env bash
+
+# ----- Defining main directories -----
+BASEDIR=$(dirname "$0")
+if [ $BASEDIR = '.' ] ; then
+  BASEDIR=`pwd`
+fi
+PACKDIR=${BASEDIR}/Packs
+INSTDIR=`pwd`
+WITH_OMB=0
+MNAME=`uname -m`
+case "$0" in
+  *omce_install*) SFX='e'; WITH_OMB=1 ;;
+  *omcr_install*) SFX='r' ;;
+  *omc4_install*) SFX='4' ;;
+  *omc8_install*) SFX='8' ;;
+  *) echo "*" unsupported Architecture; exit 2 ;;
+esac
+
+BASEBINDIR=${BASEDIR}/Binu$SFX
+BINDIR=${INSTDIR}/Binu$SFX
+BIN_LOCAL=0
+if [ $BINDIR = $BASEBINDIR ] ; then
+  BIN_LOCAL=1
+fi
+WITH_BB=0
+BBDIR=""
+if [ "$1" != "" ] ; then
+  WITH_BB=1
+  BBDIR="$1"
+  if [ $WITH_OMB -eq 0 ] ; then
+    echo "*" unsupported BlackBox
+    exit 2
+  fi
+fi
+echo BASEDIR=$BASEDIR INSTDIR=$INSTDIR BINDIR=$BINDIR ARCH=$MNAME LOCAL=$BIN_LOCAL OMB=$WITH_OMB BLACKBOX=$WITH_BB
+
+# ----- Copying dirs to local places -----
+if [ $BIN_LOCAL -eq 0 ] ; then
+  unzip -u -o ${PACKDIR}/System.zip
+  unzip -u -o ${PACKDIR}/Host.zip
+  unzip -u -o ${PACKDIR}/C.zip
+  unzip -u -o ${PACKDIR}/Llvm.zip
+  unzip -u -o ${PACKDIR}/Omb.zip
+  unzip -u -o ${PACKDIR}/Omc.zip
+  unzip -u -o ${PACKDIR}/Omf.zip
+  unzip -u -o ${PACKDIR}/Oml.zip
+  unzip -u -o ${PACKDIR}/Omtest.zip
+  unzip -u -o ${PACKDIR}/Restrict.zip
+  mkdir -p $BINDIR
+  cp ${BASEBINDIR}/Omf.cfg ${BINDIR}/Omf.cfg
+  cp ${BASEBINDIR}/Oml0.cfg ${BINDIR}/Oml.cfg
+  rm -fr Oml/Clu${SFX}/LLVMT.so
+  mkdir -p Oml/Clu${SFX}
+  ln -s ${BASEBINDIR}/LLVMT.so Oml/Clu${SFX}/LLVMT.so
+  if [ $WITH_BB -eq 1 ] ; then
+    cp ${BASEBINDIR}/Omb.cfg $BINDIR
+  fi
+  cp -r ${BASEDIR}/B ${INSTDIR}
+else
+  unzip -u -o Binu${SFX}.zip
+  unzip -u -o Binu${SFX}_llc.zip
+  rm -fr Oml/Clu${SFX}/LLVMT.so
+  mkdir -p Oml/Clu${SFX}
+  ln -s ${BINDIR}/LLVMT.so Oml/Clu${SFX}/LLVMT.so
+  chmod +x B/*.sh
+  chmod +x ${BINDIR}/om* ${BINDIR}/llc
+  if [ $SFX = 'r' ] ; then
+    unzip -u -o Binue.zip
+    unzip -u -o Binue_llc.zip
+    rm -fr Oml/Clue/LLVMT.so
+    ln -s Binue/LLVMT.so Oml/Clue/LLVMT.so
+    chmod +x Binue/om*
+  fi
+  cp ${BASEBINDIR}/Oml0.cfg ${BINDIR}/Oml.cfg
+fi
+echo "llc=${BASEBINDIR}/llc" >> ${BINDIR}/Oml.cfg
+if [ $WITH_BB = 1 ] ; then
+  echo "spath=${BBDIR}" > ${BINDIR}/Omb.cfg
+fi
+
+# ----- Creating main directories -----
+rm -fr System/Sym
+rm -fr System/Code
+rm -fr Host/Sym
+rm -fr Host/Code
+mkdir System/Sym
+mkdir System/Code
+mkdir Host/Sym
+mkdir Host/Code
+rm -fr System/Cfu$SFX
+rm -fr Host/Cfu$SFX
+mkdir System/Cfu$SFX
+mkdir Host/Cfu$SFX
+cp System/Mod/Api_fu.h0 System/Cfu$SFX/Api.h0
+cp Host/Mod/HostLinLibc_fu.h0 Host/Cfu$SFX/HostLinLibc.h0
+echo "${INSTDIR}" > ${INSTDIR}/omc_installation.dat
+echo "${BASEBINDIR}" > ${INSTDIR}/${SFX}_path.dat
+if [ $WITH_BB = '1' ] ; then
+  cp Omf/Rsrc/Strings_u.odc Omf/Rsrc/Strings.odc
+  cp Oml/Rsrc/Strings_u.odc Oml/Rsrc/Strings.odc
+  B/bu${SFX}_install.sh
+  rm -fr ./LLVMT.dll
+  ln -s ${BASEBINDIR}/LLVMT.so ./LLVMT.dll
+fi
+B/fu${SFX}_install.sh
+B/lu${SFX}_install.sh
+

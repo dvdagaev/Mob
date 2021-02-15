@@ -1,1 +1,0 @@
-Binwe\ombc clear OmtestHelloWorld OmtestFormats OmtestDateTime OmtestMkTraps OmtestHeap

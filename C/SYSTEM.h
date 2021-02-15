@@ -26,8 +26,11 @@ bh 20.12.1999
 
 // extern char *memcpy();
 
+//#define SHORT_AS_WCHAR
+#ifndef SHORT_AS_WCHAR
 #if __SIZEOF_WCHAR_T__ != 2
 #error wchar_t size != 2, use -fshort-wchar or similar
+#endif
 #endif
 
 #define export
@@ -36,7 +39,11 @@ bh 20.12.1999
 /* basic types */
 typedef char _BOOLEAN;
 typedef unsigned char SHORTCHAR;
+#ifndef SHORT_AS_WCHAR
 typedef wchar_t _CHAR;
+#else
+typedef short int _CHAR;
+#endif
 typedef signed char _BYTE;
 typedef short int SHORTINT;
 typedef int INTEGER;
@@ -60,8 +67,8 @@ typedef void ANYREC;
 typedef void *ANYPTR;
 typedef void *SYSTEM_PTR;
 
-LONGINT SYSTEM_INF;
-INTEGER SYSTEM_INFS;
+extern LONGINT SYSTEM_INF;
+extern INTEGER SYSTEM_INFS;
 
 /* constants */
 #define __MAXEXT	15
@@ -158,7 +165,7 @@ typedef struct SYSTEM_DLINK {
 	struct SYSTEM_DLINK *next;
 	char *name;
 } SYSTEM_DLINK;
-SYSTEM_DLINK *SYSTEM_dlink;
+extern SYSTEM_DLINK *SYSTEM_dlink;
 
 
 /* runtime system routines */
@@ -367,4 +374,7 @@ extern LONGINT SYSTEM_lock;
 extern SHORTINT SYSTEM_gclock;
 extern _BOOLEAN SYSTEM_interrupted;
 
+extern void Tx (const char *s);
+extern void Te (const char *s);
+extern void Tm (const char *s);
 #endif

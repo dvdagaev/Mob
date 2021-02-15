@@ -8,12 +8,12 @@ MODULE OmtestHelloWorld;
 
 	IMPORT Runner, OLog;
 	
-	PROCEDURE Run*;
+	PROCEDURE MAIN*;
 	BEGIN
 		OLog.String("Hellow, World"); OLog.Ln;
-	END Run;
+	END MAIN;
 	
 BEGIN
-	Runner.SetRun(Run)
+	Runner.SetRun(MAIN)
 END OmtestHelloWorld.
 

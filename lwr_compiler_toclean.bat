@@ -1,1 +1,0 @@
-Binwr\omlc clear -64 -n -r OmlCoSh
