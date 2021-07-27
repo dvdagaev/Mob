@@ -1,33 +1,53 @@
 #include "SYSTEM.h"
 
-SYSTEM_MODDESC *SYSTEM_modlist;
-SYSTEM_DLINK *SYSTEM_dlink;
+SYSTEM__MODDESC *SYSTEM__modlist;
+SYSTEM__DLINK *SYSTEM__dlink;
 
-LONGINT SYSTEM_INF = 0x7FF0000000000000L;
-INTEGER SYSTEM_INFS = 0x7F800000;
-
-_CHAR SYSTEM_strBuf[32][256];
-INTEGER SYSTEM_actual;
-
-/*void SYSTEM_REGMOD(SYSTEM_MODDESC *mod)
+#ifdef _WIN32
+LONGINT SYSTEM__INF = 0x7FF0000000000000L;
+INTEGER SYSTEM__INFS = 0x7F800000;
+#else
+REAL SYSTEM__INF()
 {
-	SYSTEM_modlist = (SYSTEM_MODDESC*)Kernel_SetModList((ADRINT)mod);
+	LONGINT l = 0x7FF0000000000000L;
+	return *(REAL *)&l;
+}
+SHORTREAL SYSTEM__INFS()
+{
+	INTEGER i = 0x7F800000;
+	return *(SHORTREAL *)&i;
+}
+#endif
+
+_CHAR SYSTEM__strBuf[32][256];
+INTEGER SYSTEM__actual;
+
+/*void SYSTEM__REGMOD(SYSTEM__MODDESC *mod)
+{
+	SYSTEM__modlist = (SYSTEM__MODDESC*)Kernel_SetModList((ADRINT)mod);
 }*/
 
-void SYSTEM_REGMOD(SetModListType sfun, SYSTEM_MODDESC *mod)
+void SYSTEM__REGMOD(SetModListType sfun, SYSTEM__MODDESC *mod)
 {
-	SYSTEM_modlist = (SYSTEM_MODDESC*)(*sfun)((ADRINT)mod);
+	SYSTEM__modlist = (SYSTEM__MODDESC*)(*sfun)((ADRINT)mod);
 }
 
-void SYSTEM_TRAP(INTEGER x, ADRINT trapnext)
+void SYSTEM__TRAP(INTEGER x, ADRINT adl)
 {
-	SYSTEM_DLINK *dl = SYSTEM_dlink;
+	SYSTEM__DLINK *dl;
+	if (adl == 0)
+		dl = NULL;
+	else
+		dl = *(SYSTEM__DLINK **)adl;
 	printf("*** trap # %d in ", x);
 	while (dl) {
-		printf("%s", dl->name);
+		x = x-1;
+		if (x < 120) {
+			printf("%s", dl->name);
+			if (dl->next)
+				printf("<");
+		}
 		dl = dl->next;
-		if (dl)
-			printf("<");
 	}
 	printf(". ");
 	fflush(stdout);
@@ -38,21 +58,21 @@ typedef struct {
 	ADRINT len[1];
 } Array;
 
-/*void *SYSTEM_NEWARR(ADRINT type, ADRINT n)
+/*void *SYSTEM__NEWARR(ADRINT type, ADRINT n)
 {
 	ADRINT ptr = Kernel_NewArr(type, n, 1);
 	((Array*)ptr)->len[0] = n;
 	return (void*)ptr;
 }
 
-void *SYSTEM_NEWARR1(ADRINT type, ADRINT n0, ADRINT n)
+void *SYSTEM__NEWARR1(ADRINT type, ADRINT n0, ADRINT n)
 {
 	ADRINT ptr = Kernel_NewArr(type, n * n0, 1);
 	((Array*)ptr)->len[0] = n0;
 	return (void*)ptr;
 }
 
-void *SYSTEM_NEWARR2(ADRINT type, ADRINT n1, ADRINT n0, ADRINT n)
+void *SYSTEM__NEWARR2(ADRINT type, ADRINT n1, ADRINT n0, ADRINT n)
 {
 	ADRINT ptr = Kernel_NewArr(type, n * n0 * n1, 2);
 	((Array*)ptr)->len[0] = n1;
@@ -60,7 +80,7 @@ void *SYSTEM_NEWARR2(ADRINT type, ADRINT n1, ADRINT n0, ADRINT n)
 	return (void*)ptr;
 }
 
-void *SYSTEM_NEWARR3(ADRINT type, ADRINT n2, ADRINT n1, ADRINT n0, ADRINT n)
+void *SYSTEM__NEWARR3(ADRINT type, ADRINT n2, ADRINT n1, ADRINT n0, ADRINT n)
 {
 	ADRINT ptr = Kernel_NewArr(type, n * n0 * n1 * n2, 3);
 	((Array*)ptr)->len[0] = n2;
@@ -69,7 +89,7 @@ void *SYSTEM_NEWARR3(ADRINT type, ADRINT n2, ADRINT n1, ADRINT n0, ADRINT n)
 	return (void*)ptr;
 }
 
-void *SYSTEM_NEWARR4(ADRINT type, ADRINT n3, ADRINT n2, ADRINT n1, ADRINT n0, ADRINT n)
+void *SYSTEM__NEWARR4(ADRINT type, ADRINT n3, ADRINT n2, ADRINT n1, ADRINT n0, ADRINT n)
 {
 	ADRINT ptr = Kernel_NewArr(type, n * n0 * n1 * n2 * n3, 4);
 	((Array*)ptr)->len[0] = n3;
@@ -79,7 +99,7 @@ void *SYSTEM_NEWARR4(ADRINT type, ADRINT n3, ADRINT n2, ADRINT n1, ADRINT n0, AD
 	return (void*)ptr;
 }
 
-void *SYSTEM_NEWARR_N(ADRINT type, INTEGER nofdim, INTEGER n3, INTEGER n2, INTEGER n1, INTEGER n0, INTEGER n)
+void *SYSTEM__NEWARR_N(ADRINT type, INTEGER nofdim, INTEGER n3, INTEGER n2, INTEGER n1, INTEGER n0, INTEGER n)
 {
 	ADRINT ptr = Kernel_NewArr(type, n * n0 * n1 * n2 * n3, nofdim);
 	if (nofdim>3) ((Array*)ptr)->len[nofdim-4] = n3;
@@ -89,7 +109,7 @@ void *SYSTEM_NEWARR_N(ADRINT type, INTEGER nofdim, INTEGER n3, INTEGER n2, INTEG
 	return (void*)ptr;
 }*/
 
-void *SYSTEM_NEWARR_N(NewArrType fun, ADRINT type, SYSTEM_NEWARR_DIMS sd)
+void *SYSTEM__NEWARR_N(NewArrType fun, ADRINT type, SYSTEM__NEWARR_DIMS sd)
 {
 	INTEGER j, n = 1, nofdim;
 	nofdim = sd.nofdim;
@@ -102,18 +122,18 @@ void *SYSTEM_NEWARR_N(NewArrType fun, ADRINT type, SYSTEM_NEWARR_DIMS sd)
 	return (void*)ptr;
 }
 
-INTEGER SYSTEM_XCHK(INTEGER i, INTEGER ub)
+INTEGER SYSTEM__XCHK(INTEGER i, INTEGER ub)
 {
 	if ((unsigned)(i)>=(unsigned)(ub)) __HALT(-7);
 	return i;
 }
 
 
-_CHAR* SYSTEM_LSTR(char *x)
+_CHAR* SYSTEM__LSTR(char *x)
 {
-	_CHAR *str = SYSTEM_strBuf[SYSTEM_actual];
+	_CHAR *str = SYSTEM__strBuf[SYSTEM__actual];
 	int i = 0;
-	SYSTEM_actual = (SYSTEM_actual + 1) & 0x1F;
+	SYSTEM__actual = (SYSTEM__actual + 1) & 0x1F;
 	do {
 		if (i == 256) __HALT(-8);
 		str[i] = x[i];
@@ -121,43 +141,43 @@ _CHAR* SYSTEM_LSTR(char *x)
 	return str;
 }
 
-INTEGER SYSTEM_ASH(INTEGER x, INTEGER n)
+INTEGER SYSTEM__ASH(INTEGER x, INTEGER n)
 {
 	if (n >= 0) return x << n;
 	else return x >> (-n);
 }
 
-LONGINT SYSTEM_ASHL(LONGINT x, INTEGER n)
+LONGINT SYSTEM__ASHL(LONGINT x, INTEGER n)
 {
 	if (n >= 0) return x << n;
 	else return x >> (-n);
 }
 
-INTEGER SYSTEM_ABS(INTEGER x)
+INTEGER SYSTEM__ABS(INTEGER x)
 {
 	if (x<0) x=-x;
 	return x;
 }
 
-LONGINT SYSTEM_ABSL(LONGINT x)
+LONGINT SYSTEM__ABSL(LONGINT x)
 {
 	if (x<0) x=-x;
 	return x;
 }
 
-SHORTREAL SYSTEM_ABSF(SHORTREAL x)
+SHORTREAL SYSTEM__ABSF(SHORTREAL x)
 {
 	if (x<0) x=-x;
 	return x;
 }
 
-REAL SYSTEM_ABSD(REAL x)
+REAL SYSTEM__ABSD(REAL x)
 {
 	if (x<0) x=-x;
 	return x;
 }
 
-INTEGER SYSTEM_ENTIER(REAL x)
+INTEGER SYSTEM__ENTIER(REAL x)
 {
 	INTEGER i;
 	i = (INTEGER)x;
@@ -165,7 +185,7 @@ INTEGER SYSTEM_ENTIER(REAL x)
 	return i;
 }
 
-LONGINT SYSTEM_ENTIERL(REAL x)
+LONGINT SYSTEM__ENTIERL(REAL x)
 {
 	LONGINT i;
 	i = (LONGINT)x;
@@ -173,7 +193,7 @@ LONGINT SYSTEM_ENTIERL(REAL x)
 	return i;
 }
 
-INTEGER SYSTEM_DIV(INTEGER x, INTEGER y)
+INTEGER SYSTEM__DIV(INTEGER x, INTEGER y)
 {
 	if (y > 0) {
 		if (x < 0) return -1 - (-1 - x) / y;
@@ -186,9 +206,18 @@ INTEGER SYSTEM_DIV(INTEGER x, INTEGER y)
 	__HALT(-5);
 }
 
-LONGINT SYSTEM_DIVL(LONGINT x, LONGINT y)
+LONGINT SYSTEM__DIVL(LONGINT x, LONGINT y)
 {
 	if (y > 0) {
+		if (x < 0) return -1L - (-1L - x) / y;
+		else       return x / y;
+	}
+	if (y < 0) {
+		if (x > 0) return -1L + (x - 1L) / y;
+		else       return x / y;
+	}
+	__HALT(-5);
+	/*if (y > 0) {
 		if (x < 0) return ~(~x / y);
 		else return x / y;
 	} else if (y < 0) {
@@ -196,15 +225,15 @@ LONGINT SYSTEM_DIVL(LONGINT x, LONGINT y)
 		else return -x / -y;
 	} else {
 		__HALT(-5);
-	}
+	}*/
 }
 
-LONGINT SYSTEM_DIVLX(LONGINT x, LONGINT y)
+LONGINT SYSTEM__DIVLX(LONGINT x, LONGINT y)
 {
         return x / y;
 }
 
-INTEGER SYSTEM_MOD(INTEGER x, INTEGER y)
+INTEGER SYSTEM__MOD(INTEGER x, INTEGER y)
 {
 	if (y > 0) {
 		if (x < 0) return y + ~(~x % y);
@@ -217,7 +246,7 @@ INTEGER SYSTEM_MOD(INTEGER x, INTEGER y)
 	}
 }
 
-LONGINT SYSTEM_MODL(LONGINT x, LONGINT y)
+LONGINT SYSTEM__MODL(LONGINT x, LONGINT y)
 {
 	if (y > 0) {
 		if (x < 0) return y + ~(~x % y);
@@ -230,76 +259,76 @@ LONGINT SYSTEM_MODL(LONGINT x, LONGINT y)
 	}
 }
 
-LONGINT SYSTEM_MODLX(LONGINT x, LONGINT y)
+LONGINT SYSTEM__MODLX(LONGINT x, LONGINT y)
 {
         return x % y;
 }
 
-INTEGER SYSTEM_MIN(INTEGER x, INTEGER y)
+INTEGER SYSTEM__MIN(INTEGER x, INTEGER y)
 {
 	if (x > y) x = y;
 	return x;
 }
 
-LONGINT SYSTEM_MINL(LONGINT x, LONGINT y)
+LONGINT SYSTEM__MINL(LONGINT x, LONGINT y)
 {
 	if (x > y) x = y;
 	return x;
 }
 
-SHORTREAL SYSTEM_MINF(SHORTREAL x, SHORTREAL y)
+SHORTREAL SYSTEM__MINF(SHORTREAL x, SHORTREAL y)
 {
 	if (x > y) x = y;
 	return x;
 }
 
-REAL SYSTEM_MIND(REAL x, REAL y)
+REAL SYSTEM__MIND(REAL x, REAL y)
 {
 	if (x > y) x = y;
 	return x;
 }
 
-INTEGER SYSTEM_MAX(INTEGER x, INTEGER y)
+INTEGER SYSTEM__MAX(INTEGER x, INTEGER y)
 {
 	if (x < y) x = y;
 	return x;
 }
 
-LONGINT SYSTEM_MAXL(LONGINT x, LONGINT y)
+LONGINT SYSTEM__MAXL(LONGINT x, LONGINT y)
 {
 	if (x < y) x = y;
 	return x;
 }
 
-SHORTREAL SYSTEM_MAXF(SHORTREAL x, SHORTREAL y)
+SHORTREAL SYSTEM__MAXF(SHORTREAL x, SHORTREAL y)
 {
 	if (x < y) x = y;
 	return x;
 }
 
-REAL SYSTEM_MAXD(REAL x, REAL y)
+REAL SYSTEM__MAXD(REAL x, REAL y)
 {
 	if (x < y) x = y;
 	return x;
 }
 
 
-SHORTREAL SYSTEM_INT2SR(INTEGER x)
+SHORTREAL SYSTEM__INT2SR(INTEGER x)
 {
 	return *(SHORTREAL*)&x;
 }
 
-REAL SYSTEM_LONG2R(LONGINT x)
+REAL SYSTEM__LONG2R(LONGINT x)
 {
 	return *(REAL*)&x;
 }
 
-INTEGER SYSTEM_SR2INT(SHORTREAL x)
+INTEGER SYSTEM__SR2INT(SHORTREAL x)
 {
 	return *(INTEGER*)&x;
 }
 
-LONGINT SYSTEM_R2LONG(REAL x)
+LONGINT SYSTEM__R2LONG(REAL x)
 {
 	return *(LONGINT*)&x;
 }
@@ -307,63 +336,63 @@ LONGINT SYSTEM_R2LONG(REAL x)
 
 
 
-INTEGER SYSTEM_STRLEN(_CHAR x[])	/* LEN(lx$) */
+INTEGER SYSTEM__STRLEN(_CHAR x[])	/* LEN(lx$) */
 {
 	int i = 0;
 	while (x[i] != 0) i++;
 	return i;
 }
 
-INTEGER SYSTEM_STRLENS(SHORTCHAR x[])	/* LEN(sx$) */
+INTEGER SYSTEM__STRLENS(SHORTCHAR x[])	/* LEN(sx$) */
 {
 	int i = 0;
 	while (x[i] != 0) i++;
 	return i;
 }
 
-INTEGER SYSTEM_STRCMPSS(SHORTCHAR x[], SHORTCHAR y[])	/* sx = sy */
+INTEGER SYSTEM__STRCMPSS(SHORTCHAR x[], SHORTCHAR y[])	/* sx = sy */
 {
 	int i = 0;
 	while (x[i] == y[i] && y[i] != 0) i++;
 	return x[i] - y[i];
 }
 
-INTEGER SYSTEM_STRCMPTS(_CHAR x[], SHORTCHAR y[])	/* SHORT(lx) = sy */
+INTEGER SYSTEM__STRCMPTS(_CHAR x[], SHORTCHAR y[])	/* SHORT(lx) = sy */
 {
 	int i = 0;
 	while ((x[i] & 0xff) == y[i] && y[i] != 0) i++;
 	return (x[i] & 0xff) - y[i];
 }
 
-INTEGER SYSTEM_STRCMPTT(_CHAR x[], _CHAR y[])	/* SHORT(lx) = SHORT(ly) */
+INTEGER SYSTEM__STRCMPTT(_CHAR x[], _CHAR y[])	/* SHORT(lx) = SHORT(ly) */
 {
 	int i = 0;
 	while ((x[i] & 0xff) == (y[i] & 0xff) && (y[i] & 0xff) != 0) i++;
 	return (x[i] & 0xff) - (y[i] & 0xff);
 }
 
-INTEGER SYSTEM_STRCMPLL(_CHAR x[], _CHAR y[])	/* lx = ly */
+INTEGER SYSTEM__STRCMPLL(_CHAR x[], _CHAR y[])	/* lx = ly */
 {
 	int i = 0;
 	while (x[i] == y[i] && y[i] != 0) i++;
 	return x[i] - y[i];
 }
 
-INTEGER SYSTEM_STRCMPSL(SHORTCHAR x[], _CHAR y[])	/* LONG(sx) = ly */
+INTEGER SYSTEM__STRCMPSL(SHORTCHAR x[], _CHAR y[])	/* LONG(sx) = ly */
 {
 	int i = 0;
 	while (x[i] == y[i] && y[i] != 0) i++;
 	return x[i] - y[i];
 }
 
-INTEGER SYSTEM_STRCMPTL(_CHAR x[], _CHAR y[])	/* LONG(SHORT(lx)) = ly */
+INTEGER SYSTEM__STRCMPTL(_CHAR x[], _CHAR y[])	/* LONG(SHORT(lx)) = ly */
 {
 	int i = 0;
 	while ((x[i] & 0xff) == y[i] && y[i] != 0) i++;
 	return (x[i] & 0xff) - y[i];
 }
 
-void SYSTEM_STRCOPYSS(SHORTCHAR x[], SHORTCHAR y[], INTEGER n)	/* sy := sx */
+void SYSTEM__STRCOPYSS(SHORTCHAR x[], SHORTCHAR y[], INTEGER n)	/* sy := sx */
 {
 	int i = 0;
 	do {
@@ -372,7 +401,7 @@ void SYSTEM_STRCOPYSS(SHORTCHAR x[], SHORTCHAR y[], INTEGER n)	/* sy := sx */
 	} while (x[i++] != 0);
 }
 
-void SYSTEM_STRCOPYTS(_CHAR x[], SHORTCHAR y[], INTEGER n)	/* sy := SHORT(lx) */
+void SYSTEM__STRCOPYTS(_CHAR x[], SHORTCHAR y[], INTEGER n)	/* sy := SHORT(lx) */
 {
 	int i = 0;
 	do {
@@ -381,7 +410,7 @@ void SYSTEM_STRCOPYTS(_CHAR x[], SHORTCHAR y[], INTEGER n)	/* sy := SHORT(lx) */
 	} while ((x[i++] & 0xff) != 0);
 }
 
-void SYSTEM_STRCOPYLL(_CHAR x[], _CHAR y[], INTEGER n)	/* ly := lx */
+void SYSTEM__STRCOPYLL(_CHAR x[], _CHAR y[], INTEGER n)	/* ly := lx */
 {
 	int i = 0;
 	do {
@@ -390,7 +419,7 @@ void SYSTEM_STRCOPYLL(_CHAR x[], _CHAR y[], INTEGER n)	/* ly := lx */
 	} while (x[i++] != 0);
 }
 
-void SYSTEM_STRCOPYSL(SHORTCHAR x[], _CHAR y[], INTEGER n)	/* ly := LONG(sx) */
+void SYSTEM__STRCOPYSL(SHORTCHAR x[], _CHAR y[], INTEGER n)	/* ly := LONG(sx) */
 {
 	int i = 0;
 	do {
@@ -399,7 +428,7 @@ void SYSTEM_STRCOPYSL(SHORTCHAR x[], _CHAR y[], INTEGER n)	/* ly := LONG(sx) */
 	} while (x[i++] != 0);
 }
 
-void SYSTEM_STRCOPYTL(_CHAR x[], _CHAR y[], INTEGER n)	/* ly := LONG(SHORT(lx)) */
+void SYSTEM__STRCOPYTL(_CHAR x[], _CHAR y[], INTEGER n)	/* ly := LONG(SHORT(lx)) */
 {
 	int i = 0;
 	do {
@@ -408,7 +437,7 @@ void SYSTEM_STRCOPYTL(_CHAR x[], _CHAR y[], INTEGER n)	/* ly := LONG(SHORT(lx)) 
 	} while ((x[i++] & 0xff) != 0);
 }
 
-void SYSTEM_STRAPNDSS(SHORTCHAR x[], SHORTCHAR y[], INTEGER n)	/* sy := sy + sx */
+void SYSTEM__STRAPNDSS(SHORTCHAR x[], SHORTCHAR y[], INTEGER n)	/* sy := sy + sx */
 {
 	int i = 0, j = 0;
 	while (y[j] != 0) j++;
@@ -418,7 +447,7 @@ void SYSTEM_STRAPNDSS(SHORTCHAR x[], SHORTCHAR y[], INTEGER n)	/* sy := sy + sx 
 	} while (x[i++] != 0);
 }
 
-void SYSTEM_STRAPNDTS(_CHAR x[], SHORTCHAR y[], INTEGER n)	/* sy := sy + SHORT(lx) */
+void SYSTEM__STRAPNDTS(_CHAR x[], SHORTCHAR y[], INTEGER n)	/* sy := sy + SHORT(lx) */
 {
 	int i = 0, j = 0;
 	while (y[j] != 0) j++;
@@ -428,7 +457,7 @@ void SYSTEM_STRAPNDTS(_CHAR x[], SHORTCHAR y[], INTEGER n)	/* sy := sy + SHORT(l
 	} while ((x[i++] & 0xff) != 0);
 }
 
-void SYSTEM_STRAPNDLL(_CHAR x[], _CHAR y[], INTEGER n)	/* ly := ly + lx */
+void SYSTEM__STRAPNDLL(_CHAR x[], _CHAR y[], INTEGER n)	/* ly := ly + lx */
 {
 	int i = 0, j = 0;
 	while (y[j] != 0) j++;
@@ -438,7 +467,7 @@ void SYSTEM_STRAPNDLL(_CHAR x[], _CHAR y[], INTEGER n)	/* ly := ly + lx */
 	} while (x[i++] != 0);
 }
 
-void SYSTEM_STRAPNDSL(SHORTCHAR x[], _CHAR y[], INTEGER n)	/* ly := ly + LONG(sx) */
+void SYSTEM__STRAPNDSL(SHORTCHAR x[], _CHAR y[], INTEGER n)	/* ly := ly + LONG(sx) */
 {
 	int i = 0, j = 0;
 	while (y[j] != 0) j++;
@@ -448,7 +477,7 @@ void SYSTEM_STRAPNDSL(SHORTCHAR x[], _CHAR y[], INTEGER n)	/* ly := ly + LONG(sx
 	} while (x[i++] != 0);
 }
 
-void SYSTEM_STRAPNDTL(_CHAR x[], _CHAR y[], INTEGER n)	/* ly := ly + LONG(SHORT(lx)) */
+void SYSTEM__STRAPNDTL(_CHAR x[], _CHAR y[], INTEGER n)	/* ly := ly + LONG(SHORT(lx)) */
 {
 	int i = 0, j = 0;
 	while (y[j] != 0) j++;
@@ -458,3 +487,69 @@ void SYSTEM_STRAPNDTL(_CHAR x[], _CHAR y[], INTEGER n)	/* ly := ly + LONG(SHORT(
 	} while ((x[i++] & 0xff) != 0);
 }
 
+SYSTEM__SYMBOLS SYSTEM__symlist[] = {
+	{&SYSTEM__modlist, "modlist"},
+	{&SYSTEM__dlink, "dlink"},
+#ifdef _WIN32
+	{&SYSTEM__INF, "INF"},
+	{&SYSTEM__INFS, "INFS"},
+#else
+	{SYSTEM__INF, "INF"},
+	{SYSTEM__INFS, "INFS"},
+#endif
+	{SYSTEM__REGMOD, "REGMOD"},
+	{SYSTEM__TRAP, "TRAP"},
+	{SYSTEM__NEWARR_N, "NEWARR_N"},
+	{SYSTEM__XCHK, "XCHK"},
+	{SYSTEM__LSTR, "LSTR"},
+	{SYSTEM__ASH, "ASH"},
+	{SYSTEM__ASHL, "ASHL"},
+	{SYSTEM__ABS, "ABS"},
+	{SYSTEM__ABSL, "ABSL"},
+	{SYSTEM__ABSF, "ABSF"},
+	{SYSTEM__ABSD, "ABSD"},
+	{SYSTEM__ENTIER, "ENTIER"},
+	{SYSTEM__ENTIERL, "ENTIERL"},
+	{SYSTEM__DIV, "DIV"},
+	{SYSTEM__DIVL, "DIVL"},
+	{SYSTEM__DIVLX, "DIVLX"},
+	{SYSTEM__MOD, "MOD"},
+	{SYSTEM__MODL, "MODL"},
+	{SYSTEM__MODLX, "MODLX"},
+	{SYSTEM__MIN, "MIN"},
+	{SYSTEM__MINL, "MINL"},
+	{SYSTEM__MINF, "MINF"},
+	{SYSTEM__MIND, "MIND"},
+	{SYSTEM__MAX, "MAX"},
+	{SYSTEM__MAXL, "MAXL"},
+	{SYSTEM__MAXF, "MAXF"},
+	{SYSTEM__MAXD, "MAXD"},
+	{SYSTEM__INT2SR, "INT2SR"},
+	{SYSTEM__LONG2R, "LONG2R"},
+	{SYSTEM__SR2INT, "SR2INT"},
+	{SYSTEM__R2LONG, "R2LONG"},
+	{SYSTEM__STRLEN, "STRLEN"},
+	{SYSTEM__STRLENS, "STRLENS"},
+	{SYSTEM__STRCMPSS, "STRCMPSS"},
+	{SYSTEM__STRCMPTS, "STRCMPTS"},
+	{SYSTEM__STRCMPTT, "STRCMPTT"},
+	{SYSTEM__STRCMPLL, "STRCMPLL"},
+	{SYSTEM__STRCMPSL, "STRCMPSL"},
+	{SYSTEM__STRCMPTL, "STRCMPTL"},
+	{SYSTEM__STRCOPYSS, "STRCOPYSS"},
+	{SYSTEM__STRCOPYTS, "STRCOPYTS"},
+	{SYSTEM__STRCOPYLL, "STRCOPYLL"},
+	{SYSTEM__STRCOPYSL, "STRCOPYSL"},
+	{SYSTEM__STRCOPYTL, "STRCOPYTL"},
+	{SYSTEM__STRAPNDSS, "STRAPNDSS"},
+	{SYSTEM__STRAPNDTS, "STRAPNDTS"},
+	{SYSTEM__STRAPNDLL, "STRAPNDLL"},
+	{SYSTEM__STRAPNDSL, "STRAPNDSL"},
+	{SYSTEM__STRAPNDTL, "STRAPNDTL"},
+	{NULL, NULL}
+};
+
+SYSTEM__SYMBOLS *SYSTEM__SYMLIST()
+{
+	return SYSTEM__symlist;
+}
