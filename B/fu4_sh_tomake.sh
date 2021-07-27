@@ -1,5 +1,5 @@
-PATH=${PATH}:/usr/local/bin/multioberon/Binu4
-omfc co -odc OmcLoaderRoutines OmcObjLoader_Elf OmcShell :OmfShell
+PATH=${PATH}:`cat 4_path.dat`
+omfc co -odc OmcLoaderRoutines OmcObjLoader__Elf OmcShell :OmfShell
 omfc co -odc OmcTester RestrictAdrint
 omfc build OmcTester RestrictAdrint
 omfc build -r -done_only 1 OmfShell

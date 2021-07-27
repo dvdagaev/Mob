@@ -1,3 +1,3 @@
 PATH=${PATH}:`cat 8_path.dat`
-omfc co -odc -h -options xatpi Api_fur Math_fu OStrings_fu OLog_fu Kernel_fur17 Runner_fu8 Files_17 Times Testing Baseloader_17 HostApi_fu8 HostConLog_fu HostTimes_fur HostLinLibc_fu HostLinIconv_fu HostFiles_fur17
+omfc co -odc -h -options xatpi Api__fur Math__fu OStrings__fu OLog__fu Kernel__fur17 Runner__fu8 Files__17 Times Testing Baseloader__17 HostApi__fu8 HostConLog__fu HostTimes__fur HostLinLibc__fu HostLinIconv__fu HostFiles__fur17
 omfc co -odc OmcTester RestrictAdrint

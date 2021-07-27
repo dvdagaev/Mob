@@ -1,5 +1,6 @@
 PATH=${PATH}:`cat r_path.dat`
-omlc co -odc OmcLoaderRoutines OmcObjLoader_Elf OmlBcLoader OmcShell :OmlShell
+omlc compile -64 -odc -tl 2 LlvmC LlvmForAArch64 LlvmForAMDGPU LlvmForARM LlvmForBPF LlvmForHexagon LlvmForLanai LlvmForMips LlvmForMSP430 LlvmForNVPTX LlvmForPowerPC LlvmForSparc LlvmForSystemZ LlvmForX86 LlvmForXCore LlvmNative
+omlc co -odc OmcLoaderRoutines OmcObjLoader__Elf OmlBcLoader OmcShell :OmlShell
 omlc co -odc RestrictAdrint
 omlc build RestrictAdrint
 omlc build -pl 2 -r -done_only 1 OmlShell

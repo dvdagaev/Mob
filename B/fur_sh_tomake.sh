@@ -1,5 +1,5 @@
 PATH=${PATH}:`cat r_path.dat`
-omfc co -64 -odc OmcLoaderRoutines OmcObjLoader_Elf OmcShell :OmfShell
+omfc co -64 -odc OmcLoaderRoutines OmcObjLoader__Elf OmcShell :OmfShell
 omfc co -64 -odc OmcTester RestrictAdrint
 omfc build -64 OmcTester RestrictAdrint
 omfc build -64 -r -done_only 1 OmfShell

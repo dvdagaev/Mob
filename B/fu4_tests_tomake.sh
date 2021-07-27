@@ -1,4 +1,4 @@
-PATH=${PATH}:/usr/local/bin/multioberon/Binu4
+PATH=${PATH}:`cat 4_path.dat`
 omfc co -odc -dl OmtestBenchRoutines OmtestBenchRoutinesTest OmtestBenchSet
 omfc build -r -opt "-O3 -fshort-wchar" OmtestBenchSet
 omfc link -r OmtestBenchSet

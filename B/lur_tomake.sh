@@ -1,5 +1,5 @@
 PATH=${PATH}:`cat r_path.dat`
-omlc co :OmtestHelloWorld :OmtestFormats :OmtestDateTime :OmtestMkTraps :OmtestHeap
+omlc co -odc :OmtestHelloWorld :OmtestFormats :OmtestDateTime :OmtestMkTraps :OmtestHeap
 omlc build -r OmtestDateTime
 omlc build OmtestHelloWorld
 omlc build OmtestFormats

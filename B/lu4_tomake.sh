@@ -1,4 +1,4 @@
-PATH=${PATH}:/usr/local/bin/multioberon/Binu4
+PATH=${PATH}:`cat 4_path.dat`
 omlc co -odc :OmtestHelloWorld :OmtestFormats :OmtestDateTime :OmtestMkTraps :OmtestHeap
 omlc build -r OmtestDateTime
 omlc build OmtestHelloWorld
