@@ -45,14 +45,14 @@ echo Arg=%1 X86=%WITH_X86% X64=%WITH_X64% OMB=%WITH_OMB% CLANG=%WITH_CLANG% INST
 "%SCRIPTDIR%omc_inst.vbs" %BINSUB% %1 %2
 if "%WITH_X86%" == "1" (
 	if "%WITH_OMB%" == "1" (
-		"%BASEBINDIR%\ombc" co -h -odc -wsd -ne Api_bwe OStrings_bw OLog_bw Runner_bwe17 Times Testing Baseloader_17 HostApi_bwe HostConLog_bw HostTimes_bwe OmcTester RestrictAdrint
+		"%BASEBINDIR%\ombc" co -h -odc -wsd -ne Api__bwe OStrings__bw OLog__bw Runner__bwe17 Times Testing Baseloader__17 HostApi__bwe HostConLog__bw HostTimes__bwe OmcTester RestrictAdrint
 	)
-	echo "%BASEBINDIR%\omfc" co -h -odc Api_fwe Math_fw OStrings_fw OLog_fw Kernel_fwe17 Runner_fwe17 Files_17 Times Testing Baseloader_17 HostApi_fwe HostConLog_fw HostTimes_fwe HostFiles_fwe17 OmcTester RestrictAdrint
-	"%BASEBINDIR%\omfc" co -h -odc Api_fwe Math_fw OStrings_fw OLog_fw Kernel_fwe17 Runner_fwe17 Files_17 Times Testing Baseloader_17 HostApi_fwe HostConLog_fw HostTimes_fwe HostFiles_fwe17 OmcTester RestrictAdrint
-	echo "%BASEBINDIR%\omlc" co -h -odc Api_lwe Math_lw OStrings_lw OLog_lw Kernel_lwe17 Runner_lwe17 Files_17 Times Testing Baseloader_17 HostApi_lwe HostConLog_lw HostTimes_lwe HostFiles_lwe17 OmcTester RestrictAdrint
-	"%BASEBINDIR%\omlc" co -h -odc Api_lwe Math_lw OStrings_lw OLog_lw Kernel_lwe17 Runner_lwe17 Files_17 Times Testing Baseloader_17 HostApi_lwe HostConLog_lw HostTimes_lwe HostFiles_lwe17 OmcTester RestrictAdrint
+	echo "%BASEBINDIR%\omfc" co -h -odc Api__fwe Math__fw OStrings__fw OLog__fw Kernel__fwe17 Runner__fwe17 Files__17 Times Testing Baseloader__17 HostApi__fwe HostConLog__fw HostTimes__fwe HostFiles__fwe17 OmcTester RestrictAdrint
+	"%BASEBINDIR%\omfc" co -h -odc Api__fwe Math__fw OStrings__fw OLog__fw Kernel__fwe17 Runner__fwe17 Files__17 Times Testing Baseloader__17 HostApi__fwe HostConLog__fw HostTimes__fwe HostFiles__fwe17 OmcTester RestrictAdrint
+	echo "%BASEBINDIR%\omlc" co -h -odc Api__lwe Math__lw OStrings__lw OLog__lw Kernel__lwe17 Runner__lwe17 Files__17 Times Testing Baseloader__17 HostApi__lwe HostConLog__lw HostTimes__lwe HostFiles__lwe17 OmcTester RestrictAdrint
+	"%BASEBINDIR%\omlc" co -h -odc Api__lwe Math__lw OStrings__lw OLog__lw Kernel__lwe17 Runner__lwe17 Files__17 Times Testing Baseloader__17 HostApi__lwe HostConLog__lw HostTimes__lwe HostFiles__lwe17 OmcTester RestrictAdrint
 )
 if "%WITH_X64%" == "1" (
-	"%BASEBINDIR%\omfc" co -h -odc Api_fwr Math_fw OStrings_fw OLog_fw Kernel_fwr17 Runner_fwr17 Files_17 Times Testing Baseloader_17 HostApi_fwr HostConLog_fw HostTimes_fwr HostFiles_fwr17 OmcTester RestrictAdrint
-	"%BASEBINDIR%\omlc" co -h -odc Api_lwr Math_lw OStrings_lw OLog_lw Kernel_lwr17 Runner_lwr17 Files_17 Times Testing Baseloader_17 HostApi_lwr HostConLog_lw HostTimes_lwr HostFiles_lwr17 OmcTester RestrictAdrint
+	"%BASEBINDIR%\omfc" co -h -odc Api__fwr Math__fw OStrings__fw OLog__fw Kernel__fwr17 Runner__fwr17 Files__17 Times Testing Baseloader__17 HostApi__fwr HostConLog__fw HostTimes__fwr HostFiles__fwr17 OmcTester RestrictAdrint
+	"%BASEBINDIR%\omlc" co -h -odc Api__lwr Math__lw OStrings__lw OLog__lw Kernel__lwr17 Runner__lwr17 Files__17 Times Testing Baseloader__17 HostApi__lwr HostConLog__lw HostTimes__lwr HostFiles__lwr17 OmcTester RestrictAdrint
 )
