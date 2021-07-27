@@ -20,14 +20,6 @@ MultiOberon can be called from BlackBox environment and from command line.
 ### Guide:
 * [The Quick-Start and Users Guide.](https://github.com/dvdagaev/Mob/blob/master/doc/MultiOberonCompilerUserGuide.pdf)
 
-### Release Mirror:
-* [MultiOberon_1_1_0_x86.msi](https://cloud.mail.ru/public/HX8c/cdqgVwJEe)
-* [MultiOberon_1_1_0_x64.msi](https://cloud.mail.ru/public/nedW/D1a6uFMe6)
-* [multioberon_amd64_1_1_0.deb](https://cloud.mail.ru/public/3wUD/NY8NmJmoD)
-* [multioberon_i386_1_1_0.deb](https://cloud.mail.ru/public/UU1F/HgxxLtebZ)
-* [multioberon_arm64_1_1_0.deb](https://cloud.mail.ru/public/PkrE/6bEvDKMRD)
-* [multioberon_armhf_1_1_0.deb](https://cloud.mail.ru/public/kPwK/x861n5MWx)
-
 ---
 
 # Компилятор МультиОберон
@@ -51,10 +43,3 @@ MultiOberon can be called from BlackBox environment and from command line.
 ### Руководство:
 * [Быстрый старт и Руководство пользователя.](https://github.com/dvdagaev/Mob/blob/master/doc/MultiOberonCompilerUserGuide_ru.pdf)
 
-### Зеркало Release:
-* [MultiOberon_1_1_0_x86.msi](https://cloud.mail.ru/public/HX8c/cdqgVwJEe)
-* [MultiOberon_1_1_0_x64.msi](https://cloud.mail.ru/public/nedW/D1a6uFMe6)
-* [multioberon_amd64_1_1_0.deb](https://cloud.mail.ru/public/3wUD/NY8NmJmoD)
-* [multioberon_i386_1_1_0.deb](https://cloud.mail.ru/public/UU1F/HgxxLtebZ)
-* [multioberon_arm64_1_1_0.deb](https://cloud.mail.ru/public/PkrE/6bEvDKMRD)
-* [multioberon_armhf_1_1_0.deb](https://cloud.mail.ru/public/kPwK/x861n5MWx)
