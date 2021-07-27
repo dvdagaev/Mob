@@ -92,13 +92,13 @@ rm -fr System/Cfu$SFX
 rm -fr Host/Cfu$SFX
 mkdir System/Cfu$SFX
 mkdir Host/Cfu$SFX
-cp System/Mod/Api_fu.h0 System/Cfu$SFX/Api.h0
-cp Host/Mod/HostLinLibc_fu.h0 Host/Cfu$SFX/HostLinLibc.h0
+cp System/Mod/Api__fu.h0 System/Cfu$SFX/Api.h0
+cp Host/Mod/HostLinLibc__fu.h0 Host/Cfu$SFX/HostLinLibc.h0
 echo "${INSTDIR}" > ${INSTDIR}/omc_installation.dat
 echo "${BASEBINDIR}" > ${INSTDIR}/${SFX}_path.dat
 if [ $WITH_BB = '1' ] ; then
-  cp Omf/Rsrc/Strings_u.odc Omf/Rsrc/Strings.odc
-  cp Oml/Rsrc/Strings_u.odc Oml/Rsrc/Strings.odc
+  cp Omf/Rsrc/Strings__u.odc Omf/Rsrc/Strings.odc
+  cp Oml/Rsrc/Strings__u.odc Oml/Rsrc/Strings.odc
   B/bu${SFX}_install.sh
   rm -fr ./LLVMT.dll
   ln -s ${BASEBINDIR}/LLVMT.so ./LLVMT.dll
